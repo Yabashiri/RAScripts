@@ -66,6 +66,16 @@ hard_stages = [
     0xdf5f7, 0xdf603, 0xdf60f, 0xdf61b, 0xdf627, 0xdf633, 0xdf63f, 0xdf64b // WORLD 7
 ]
 
+danger_stages = [
+    0xdf3e8, 0xdf3f4, 0xdf400, 0xdf40c, 0xdf418, // WORLD 1
+    0xdf424, 0xdf430, 0xdf43c, 0xdf448, 0xdf454, 0xdf460, 0xdf46c, // WORLD 2
+    0xdf478, 0xdf484, 0xdf490, 0xdf49c, 0xdf4a8, 0xdf4b4, 0xdf4c0, // WORLD 3
+    0xdf4cc, 0xdf4d8, 0xdf4e4, 0xdf4f0, 0xdf4fc, // WORLD 4
+    0xdf508, 0xdf514, 0xdf520, 0xdf52c, 0xdf538, 0xdf544, // WORLD 5
+    0xdf550, 0xdf55c, 0xdf568, 0xdf574, 0xdf580, 0xdf58c, 0xdf598, // WORLD 6
+    0xdf5f8, 0xdf604, 0xdf610, 0xdf61c, 0xdf628, 0xdf634, 0xdf640, 0xdf64c // WORLD 7
+]
+
 // FUNCTIONS
 
 function IsGameState(state) => game_state == state
@@ -156,6 +166,14 @@ function HardStagesCompletedCount()
 {
     count = 0
     for address in hard_stages
+        count = count + byte(address)
+    return count
+}
+
+function DangerStagesCompletedCount()
+{
+    count = 0
+    for address in danger_stages
         count = count + byte(address)
     return count
 }
@@ -287,6 +305,15 @@ achievement(
         IsStageState(not_in_stage) &&
         prev(HardStagesCompletedCount()) == StagesCount - 1 &&
         measured(HardStagesCompletedCount() == StagesCount)
+)
+
+achievement(
+    title = "From Start to Finish...", points = 25,
+    description = "Complete all stages on Danger difficulty at least once",
+    trigger = 
+        IsStageState(not_in_stage) &&
+        prev(DangerStagesCompletedCount()) == StagesCount - 1 &&
+        measured(DangerStagesCompletedCount() == StagesCount)
 )
 
 //CHALLENGE
