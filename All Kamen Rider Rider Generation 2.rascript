@@ -76,6 +76,16 @@ danger_stages = [
     0xdf5f8, 0xdf604, 0xdf610, 0xdf61c, 0xdf628, 0xdf634, 0xdf640, 0xdf64c // WORLD 7
 ]
 
+climax_stages = [
+    0xdf3e9, 0xdf3f5, 0xdf401, 0xdf40d, 0xdf419, // WORLD 1
+    0xdf425, 0xdf431, 0xdf43d, 0xdf449, 0xdf455, 0xdf461, 0xdf46d, // WORLD 2
+    0xdf479, 0xdf485, 0xdf491, 0xdf49d, 0xdf4a9, 0xdf4b5, 0xdf4c1, // WORLD 3
+    0xdf4cd, 0xdf4d9, 0xdf4e5, 0xdf4f1, 0xdf4fd, // WORLD 4
+    0xdf509, 0xdf515, 0xdf521, 0xdf52d, 0xdf539, 0xdf545, // WORLD 5
+    0xdf551, 0xdf55d, 0xdf569, 0xdf575, 0xdf581, 0xdf58d, 0xdf599, // WORLD 6
+    0xdf5f9, 0xdf605, 0xdf611, 0xdf61d, 0xdf629, 0xdf635, 0xdf641, 0xdf64d // WORLD 7
+]
+
 // FUNCTIONS
 
 function IsGameState(state) => game_state == state
@@ -174,6 +184,14 @@ function DangerStagesCompletedCount()
 {
     count = 0
     for address in danger_stages
+        count = count + byte(address)
+    return count
+}
+
+function ClimaxStagesCompletedCount()
+{
+    count = 0
+    for address in climax_stages
         count = count + byte(address)
     return count
 }
@@ -314,6 +332,15 @@ achievement(
         IsStageState(not_in_stage) &&
         prev(DangerStagesCompletedCount()) == StagesCount - 1 &&
         measured(DangerStagesCompletedCount() == StagesCount)
+)
+
+achievement(
+    title = "...I'm Always at a Climax!", points = 50,
+    description = "Complete all stages on Climax difficulty at least once",
+    trigger = 
+        IsStageState(not_in_stage) &&
+        prev(ClimaxStagesCompletedCount()) == StagesCount - 1 &&
+        measured(ClimaxStagesCompletedCount() == StagesCount)
 )
 
 //CHALLENGE
