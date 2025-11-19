@@ -5,12 +5,13 @@ True = 1
 False = 0
 CharactersTotal = 57
 StagesCount = 45
+RiderItemsTotal = 62
 
 // Game states
 game_state = byte(0x000ffd2c)
 starting = 0x00
 in_stage = 0x01
-title_screen = 0x05
+title_screen = 0x05 // also shop
 character_selection = 0x06
 stage_selection = 0x24
 
@@ -84,6 +85,68 @@ climax_stages = [
     0xdf509, 0xdf515, 0xdf521, 0xdf52d, 0xdf539, 0xdf545, // WORLD 5
     0xdf551, 0xdf55d, 0xdf569, 0xdf575, 0xdf581, 0xdf58d, 0xdf599, // WORLD 6
     0xdf5f9, 0xdf605, 0xdf611, 0xdf61d, 0xdf629, 0xdf635, 0xdf641, 0xdf64d // WORLD 7
+]
+
+// Items
+
+decade_item_bitfield = 0x0DF10C
+diend_item_bitfield = 0x0DF300
+
+rider_items = [
+    0x0DEF2C, // Ichigo
+    0x0DEF40, // Nigo
+    0x0DEF54, // V3
+    0x0DEF68, // Riderman
+    0x0DEF7C, // X
+    0x0DEF90, // Amazon
+    0x0DEFA4, // Stronger
+    0x0DEFB8, // Skyrider
+    0x0DEFCC, // Super-1
+    0x0DEFE0, // ZX
+    0x0DEFF4, // Black
+    0x0DF008, // Black RX
+    0x0DF01C, // Shin
+    0x0DF030, // ZO
+    0x0DF044, // J
+    0x0DF058, // Kuuga
+    0x0DF06C, // Agito
+    0x0DF080, // Ryuki
+    0x0DF094, // Faiz
+    0x0DF0A8, // Blade
+    0x0DF0BC, // Hibiki
+    0x0DF0D0, // Kabuto
+    0x0DF0E4, // Den-O
+    0x0DF0F8, // Kiva
+    // 0x0DF10C — Decade bitfield (не item)
+    0x0DF120, // W
+    0x0DF134, // OOO
+    0x0DF148, // Birth
+    0x0DF15C, // Fourze
+    0x0DF184, // G3-X
+    0x0DF198, // Gills
+    0x0DF1AC, // Knight
+    0x0DF1C0, // Zolda
+    0x0DF1D4, // Ouja
+    0x0DF1E8, // Odin
+    0x0DF1FC, // Kaixa
+    0x0DF210, // Garren
+    0x0DF224, // Chalice
+    0x0DF24C, // Ibuki
+    0x0DF260, // Todoroki
+    0x0DF274, // Zanki
+    0x0DF288, // Gatack
+    0x0DF29C, // Kick Hopper
+    0x0DF2B0, // Punch Hopper
+    0x0DF2C4, // Zeronos
+    0x0DF2D8, // New Den-O
+    0x0DF2EC, // Ixa
+    // 0x0DF300 — Diend bitfield
+    0x0DF314, // Kivala
+    0x0DF328, // Accel
+    0x0DF33C, // Skull
+    0x0DF350, // Eternal
+    0x0DF364, // Birth Prototype
+    0x0DF378  // Meteor
 ]
 
 // FUNCTIONS
@@ -196,6 +259,14 @@ function ClimaxStagesCompletedCount()
     return count
 }
 
+function RiderItemsBought() 
+{
+    count = bitcount(decade_item_bitfield) + bitcount(diend_item_bitfield)
+    for address in rider_items
+        count = count + byte(address)
+    return count
+}
+
 //LOOKUPS
 
 Characters = {
@@ -291,11 +362,23 @@ achievement(
 //MEASURED
 
 achievement(
+    title = "World's Greatest Treasures", 
+    description = "Buy all rider items from the shop (including all of Decade's and Diend's)",
+    points = 10,
+    trigger = 
+        prev(IsGameState(title_screen)) && 
+        IsGameState(title_screen) &&
+        prev(RiderItemsBought()) == RiderItemsTotal - 1 &&
+        measured(RiderItemsBought() == RiderItemsTotal)
+)
+
+achievement(
     title = "40 Years of Rider!", 
     description = "Unlock all characters, including password and hidden",
     points = 10,
-    trigger = prev(UnlockedCharacters()) == CharactersTotal - 1 &&
-    measured(UnlockedCharacters() == CharactersTotal)
+    trigger = 
+        prev(UnlockedCharacters()) == CharactersTotal - 1 &&
+        measured(UnlockedCharacters() == CharactersTotal)
 )
 
 achievement(
