@@ -5,6 +5,7 @@ True = 1
 False = 0
 CharactersTotal = 57
 StagesCount = 45
+MissionsCount = 90
 RiderItemsTotal = 62
 
 // Game states
@@ -36,6 +37,16 @@ stage_state = 0x2cef48
 playing = 0x00
 clear = 0x04
 not_in_stage = 0x05
+
+missions = [
+    0xdf3e2, 0xdf3e3, 0xdf3ee, 0xdf3ef, 0xdf3fa, 0xdf3fb, 0xdf406, 0xdf407, 0xdf412, 0xdf413, // WORLD 1
+    0xdf41e, 0xdf41f, 0xdf42a, 0xdf42b, 0xdf436, 0xdf437, 0xdf442, 0xdf443, 0xdf44e, 0xdf44f, 0xdf45a, 0xdf45b, 0xdf466, 0xdf467, // WORLD 2
+    0xdf472, 0xdf473, 0xdf47e, 0xdf47f, 0xdf48a, 0xdf48b, 0xdf496, 0xdf497, 0xdf4a2, 0xdf4a3, 0xdf4ae, 0xdf4af, 0xdf4ba, 0xdf4bb, // WORLD 3
+    0xdf4c6, 0xdf4c7, 0xdf4d2, 0xdf4d3, 0xdf4de, 0xdf4df, 0xdf4ea, 0xdf4eb, 0xdf4f6, 0xdf4f7, // WORLD 4
+    0xdf502, 0xdf503, 0xdf50e, 0xdf50f, 0xdf51a, 0xdf51b, 0xdf526, 0xdf527, 0xdf532, 0xdf533, 0xdf53e, 0xdf53f, // WORLD 5
+    0xdf54a, 0xdf54b, 0xdf556, 0xdf557, 0xdf562, 0xdf563, 0xdf56e, 0xdf56f, 0xdf57a, 0xdf57b, 0xdf586, 0xdf587, 0xdf592, 0xdf593, // WORLD 6
+    0xdf5f2, 0xdf5f3, 0xdf5fe, 0xdf5ff, 0xdf60a, 0xdf60b, 0xdf616, 0xdf617, 0xdf622, 0xdf623, 0xdf62e, 0xdf62f, 0xdf63a, 0xdf63b, 0xdf646, 0xdf647 // WORLD 7
+]
 
 easy_stages = [
     0xdf3e5, 0xdf3f1, 0xdf3fd, 0xdf409, 0xdf415, // WORLD 1
@@ -219,6 +230,14 @@ function World7Completed()
            StageBeatenOnce(World7_8)
 }
 
+function MissionsCompletedCount()
+{
+    count = 0
+    for address in missions
+        count = count + byte(address)
+    return count
+}
+
 function EasyStagesCompletedCount()
 {
     count = 0
@@ -379,6 +398,16 @@ achievement(
     trigger = 
         prev(UnlockedCharacters()) == CharactersTotal - 1 &&
         measured(UnlockedCharacters() == CharactersTotal)
+)
+
+achievement(
+    title = "I'm On It", 
+    description = "Complete all star missions",
+    points = 50,
+    trigger = 
+        IsStageState(not_in_stage) &&
+        prev(MissionsCompletedCount()) == MissionsCount - 1 &&
+        measured(MissionsCompletedCount() == MissionsCount)
 )
 
 achievement(
