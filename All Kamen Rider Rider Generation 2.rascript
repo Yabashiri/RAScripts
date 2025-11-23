@@ -319,7 +319,7 @@ function training_exceeds(points, value)
     return any_of(points, p => word(p) >= value)
 }
 
-//LOOKUPS
+// LOOKUPS
 
 Characters = {
     0x00: "Ichigo",
@@ -371,6 +371,66 @@ Characters = {
     0x35: "Eternal",
     0x37: "Meteor",
     0x38: "Wizard"
+}
+
+UltimateUsers = {
+    "Ichigo":             0x656c,
+    "Nigo":               0x65d8,
+    "V3":                 0x6638,
+    "Riderman":           0x6698,
+    "X":                  0x6709,
+    "Amazon":             0x67a0,
+    "Stronger":           0x6850,
+    "Skyrider":           0x68b8,
+    "Super-1":            0x6998,
+    "ZX":                 0x693c,
+    "Black":              0x6ae0,
+    "Black RX":           0x6a40,
+    "Shin":               0x6b14,
+    "ZO":                 0x6b68,
+    "J":                  0x6bec,
+    "Kuuga":              0x6c34,
+    "Agito":              0x6cac,
+    "Ryuki":              0x6d84,
+    "Faiz":               0x6ee4,
+    "Blade":              0x6fd8,
+    "Hibiki":             0x70a4,
+    "Kabuto":             0x71bc,
+    "Den-O":              0x72a8,
+    "Kiva":               0x73cc,
+    "Decade":             0x7500,
+    "W":                  0x7668,
+    "OOO":                0x7864,
+    "Birth":              0x798c,
+    "Fourze":             0x7b50,
+    "Shadowmoon":         0x7b94,
+    "G3-X":               0x7c30,
+    "Gills":              0x7c74,
+    "Knight":             0x7d20,
+    "Zolda":              0x7db0,
+    "Ouja":               0x7e08,
+    "Odin":               0x7e68,
+    "Kaixa":              0x7efc,
+    "Garen":              0x7f7c,
+    "Chalice":            0x8010,
+    "Leangle":            0x80c4,
+    "Ibuki":              0x81e0,
+    "Zanki":              0x825c,
+    "Todoroki":           0x82a8,
+    "Gatack":             0x832c,
+    "Kick Hopper":        0x83bc,
+    "Punch Hopper":       0x843c,
+    "Zeronos":            0x84ac,
+    "New Den-O":          0x8518,
+    "Ixa":                0x8650,
+    "Diend":              0x86dc,
+    "Kivala":             0x8714,
+    "Accel":              0x87e4,
+    "Skull":              0x878c,
+    "Eternal":            0x883c,
+    "Birth Prototype":    0x89ec,
+    "Meteor":             0x8b30,
+    "Not in Ultimate":    0x9054
 }
 
 //PROGRESSION
