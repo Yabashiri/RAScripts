@@ -319,7 +319,110 @@ function training_exceeds(points, value)
     return any_of(points, p => word(p) >= value)
 }
 
+function dict_in(dict, key)
+{
+    for k in dict
+    {
+        if k == key
+        {
+            return true
+        }
+    }
+    return false
+}
+
+function dict_get(dict, key, default=0)
+{
+    if dict_in(dict, key)
+    {
+        return dict[key]
+    }
+    return default
+}
+
+function UltimateGaugeAtMax()
+{
+    return byte(0x2c9969) >= 0x1c
+}
+
+function GetCharacterData(character_name, data) 
+{
+    character_data = dict_get(CharacterData, character_name)
+    return dict_get(character_data, data)
+}
+
+function IsPlayingAs(player, character_name)
+{
+    character_mem = GetCharacterData(character_name, "Mem")
+    if(player == "Player1") {
+        character = Player1Character()
+    } else {
+        character = Player2Character()
+    }
+    return character == character_mem
+}
+
+function UsingDoubleUltimateAs(character1, character2) 
+{
+    start = once(
+        IsGameState(in_stage) &&
+        prev(!UltimateGaugeAtMax()) &&
+        UltimateGaugeAtMax() &&
+        (
+            IsPlayingAs("Player1", "Ichigo") && IsPlayingAs("Player2", "Nigo") ||
+            IsPlayingAs("Player1", "Nigo") && IsPlayingAs("Player2", "Ichigo")
+        ) // && goes from not in ultimate to double ultimate
+    )
+
+    cancel = never(
+        !IsGameState(in_stage) ||
+        !(
+            IsPlayingAs("Player1", "Ichigo") && IsPlayingAs("Player2", "Nigo") ||
+            IsPlayingAs("Player1", "Nigo") && IsPlayingAs("Player2", "Ichigo")
+        )   
+    )
+    return true
+}
+
 // LOOKUPS
+
+CharacterData = {
+    "Ichigo":             { "Ultimate": 0x656c, "Mem": 0x00 },
+    "Nigo":               { "Ultimate": 0x65d8, "Mem": 0x01 },
+    "V3":                 { "Ultimate": 0x6638, "Mem": 0x02 },
+    "Riderman":           { "Ultimate": 0x6698, "Mem": 0x03 },
+    "X":                  { "Ultimate": 0x6709, "Mem": 0x04 },
+    "Amazon":             { "Ultimate": 0x67a0, "Mem": 0x05 },
+    "Stronger":           { "Ultimate": 0x6850, "Mem": 0x06 },
+    "Skyrider":           { "Ultimate": 0x68b8, "Mem": 0x07 },
+    "Super-1":            { "Ultimate": 0x6998, "Mem": 0x08 },
+    "ZX":                 { "Ultimate": 0x693c, "Mem": 0x09 },
+    "Black":              { "Ultimate": 0x6ae0, "Mem": 0x0A },
+    "Black RX":           { "Ultimate": 0x6a40, "Mem": 0x0B },
+    "Shin":               { "Ultimate": 0x6b14, "Mem": 0x0C },
+    "ZO":                 { "Ultimate": 0x6b68, "Mem": 0x0D },
+    "J":                  { "Ultimate": 0x6bec, "Mem": 0x0E },
+    "Kuuga":              { "Ultimate": 0x6c34, "Mem": 0x0F },
+    "Agito":              { "Ultimate": 0x6cac, "Mem": 0x10 },
+    "Ryuki":              { "Ultimate": 0x6d84, "Mem": 0x11 },
+    "Faiz":               { "Ultimate": 0x6ee4, "Mem": 0x12 },
+    "Blade":              { "Ultimate": 0x6fd8, "Mem": 0x13 },
+    "Hibiki":             { "Ultimate": 0x70a4, "Mem": 0x14 },
+    "Kabuto":             { "Ultimate": 0x71bc, "Mem": 0x15 },
+    "Den-O":              { "Ultimate": 0x72a8, "Mem": 0x16 },
+    "Kiva":               { "Ultimate": 0x73cc, "Mem": 0x17 },
+    "Decade":             { "Ultimate": 0x7500, "Mem": 0x18 },
+    "W":                  { "Ultimate": 0x7668, "Mem": 0x19 },  // (CycloneJoker), HeatMetal, LunaTrigger: 0x1D, 0x1E
+    "OOO":                { "Ultimate": 0x7864, "Mem": 0x1A },  // (Tatoba Combo), Gatakiriba, Latorartar, Sagohzo, Shauta, Tajador: 0x1F, 0x20, 0x21, 0x22, 0x23
+    "Birth":              { "Ultimate": 0x798c, "Mem": 0x1B },
+    "Fourze":             { "Ultimate": 0x7b50, "Mem": 0x1C },
+    "Todoroki":           { "Ultimate": 0x82a8, "Mem": 0x2A },
+    "Zanki":              { "Ultimate": 0x825c, "Mem": 0x2B },
+    "Kivala":             { "Ultimate": 0x8714, "Mem": 0x32 },
+    "Eternal":            { "Ultimate": 0x883c, "Mem": 0x35 },
+    "Meteor":             { "Ultimate": 0x8b30, "Mem": 0x37 },
+    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x38 }   // нет адреса в списке Ultimate
+}
 
 Characters = {
     0x00: "Ichigo",
@@ -371,66 +474,6 @@ Characters = {
     0x35: "Eternal",
     0x37: "Meteor",
     0x38: "Wizard"
-}
-
-UltimateUsers = {
-    "Ichigo":             0x656c,
-    "Nigo":               0x65d8,
-    "V3":                 0x6638,
-    "Riderman":           0x6698,
-    "X":                  0x6709,
-    "Amazon":             0x67a0,
-    "Stronger":           0x6850,
-    "Skyrider":           0x68b8,
-    "Super-1":            0x6998,
-    "ZX":                 0x693c,
-    "Black":              0x6ae0,
-    "Black RX":           0x6a40,
-    "Shin":               0x6b14,
-    "ZO":                 0x6b68,
-    "J":                  0x6bec,
-    "Kuuga":              0x6c34,
-    "Agito":              0x6cac,
-    "Ryuki":              0x6d84,
-    "Faiz":               0x6ee4,
-    "Blade":              0x6fd8,
-    "Hibiki":             0x70a4,
-    "Kabuto":             0x71bc,
-    "Den-O":              0x72a8,
-    "Kiva":               0x73cc,
-    "Decade":             0x7500,
-    "W":                  0x7668,
-    "OOO":                0x7864,
-    "Birth":              0x798c,
-    "Fourze":             0x7b50,
-    "Shadowmoon":         0x7b94,
-    "G3-X":               0x7c30,
-    "Gills":              0x7c74,
-    "Knight":             0x7d20,
-    "Zolda":              0x7db0,
-    "Ouja":               0x7e08,
-    "Odin":               0x7e68,
-    "Kaixa":              0x7efc,
-    "Garen":              0x7f7c,
-    "Chalice":            0x8010,
-    "Leangle":            0x80c4,
-    "Ibuki":              0x81e0,
-    "Zanki":              0x825c,
-    "Todoroki":           0x82a8,
-    "Gatack":             0x832c,
-    "Kick Hopper":        0x83bc,
-    "Punch Hopper":       0x843c,
-    "Zeronos":            0x84ac,
-    "New Den-O":          0x8518,
-    "Ixa":                0x8650,
-    "Diend":              0x86dc,
-    "Kivala":             0x8714,
-    "Accel":              0x87e4,
-    "Skull":              0x878c,
-    "Eternal":            0x883c,
-    "Birth Prototype":    0x89ec,
-    "Meteor":             0x8b30,
-    "Not in Ultimate":    0x9054
 }
 
 //PROGRESSION
@@ -579,7 +622,7 @@ achievement(
 achievement(
     title = "Let's Go! Rider Kick", points = 2,
     description = "Use Double Ultimate as Ichigo and Nigo",
-    trigger = IsGameState(in_stage)
+    trigger = UsingDoubleUltimateAs("Ichigo", "Nigo")
 )
 
 // RICH PRESENCE
