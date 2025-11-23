@@ -38,6 +38,21 @@ playing = 0x00
 clear = 0x04
 not_in_stage = 0x05
 
+// Character stats
+player1_endurance_stage_selection = 0x23111c
+
+player2_endurance_stage_selection = 0x231150
+
+player1_endurance_shop = 0x231368
+player1_attack_shop = 0x23136c
+player1_defence_shop = 0x231370
+player1_skill_shop = 0x231374
+
+player2_endurance_shop = 0x23139c
+player2_attack_shop = 0x2313a0
+player2_defence_shop = 0x2313a4
+player2_skill_shop = 0x2313a8
+
 missions = [
     0xdf3e2, 0xdf3e3, 0xdf3ee, 0xdf3ef, 0xdf3fa, 0xdf3fb, 0xdf406, 0xdf407, 0xdf412, 0xdf413, // WORLD 1
     0xdf41e, 0xdf41f, 0xdf42a, 0xdf42b, 0xdf436, 0xdf437, 0xdf442, 0xdf443, 0xdf44e, 0xdf44f, 0xdf45a, 0xdf45b, 0xdf466, 0xdf467, // WORLD 2
@@ -158,6 +173,14 @@ rider_items = [
     0x0DF350, // Eternal
     0x0DF364, // Birth Prototype
     0x0DF378  // Meteor
+]
+
+endurance_training = [
+    0xdef38, 0xdef4c, 0xdef60, 0xdef74, 0xdef88, 0xdef9c, 0xdefb0, 0xdefc4, 0xdefd8, 0xdefec, 0xdf000, 
+    0xdf014, 0xdf028, 0xdf03c, 0xdf050, 0xdf064, 0xdf078, 0xdf08c, 0xdf0a0, 0xdf0b4, 0xdf0c8, 0xdf0dc, 
+    0xdf0f0, 0xdf104, 0xdf118, 0xdf12c, 0xdf140, 0xdf154, 0xdf168, 0xdf17c, 0xdf190, 0xdf1a4, 0xdf1b8, 
+    0xdf1cc, 0xdf1e0, 0xdf1f4, 0xdf208, 0xdf21c, 0xdf230, 0xdf244, 0xdf258, 0xdf26c, 0xdf280, 0xdf294, 
+    0xdf2a8, 0xdf2bc, 0xdf2d0, 0xdf2e4, 0xdf2f8, 0xdf30c, 0xdf320, 0xdf334, 0xdf348, 0xdf35c, 0xdf370, 0xdf384
 ]
 
 // FUNCTIONS
@@ -284,6 +307,16 @@ function RiderItemsBought()
     for address in rider_items
         count = count + byte(address)
     return count
+}
+
+function training_less_than(points, value)
+{
+    return any_of(points, p => word(p) > value)
+}
+
+function training_exceeds(points, value)
+{
+    return any_of(points, p => word(p) >= value)
 }
 
 //LOOKUPS
@@ -458,6 +491,12 @@ achievement(
 //CHALLENGE
 
 achievement(
+    title = "Temple Run", points = 5,
+    description = "Complete stage 2-2 on any difficulty without taking damage",
+    trigger = (Player1Health() < prev(Player1Health()))
+)
+
+achievement(
     title = "Another Rider", points = 10,
     description = "Complete every stage in Another World once on any difficulty",
     trigger =
@@ -467,12 +506,23 @@ achievement(
 )
 
 achievement(
-    title = "Temple Run", points = 5,
-    description = "Complete stage 2-2 on any difficulty without taking damage",
-    trigger = (Player1Health() < prev(Player1Health()))
+    title = "My Strength Has Made You Cry", points = 10,
+    description = "Have Player character's Endurance at 300 at stage selection",
+    trigger = 
+        IsGameState(stage_selection) &&
+        prev(word(player1_endurance_stage_selection)) < 300 &&
+        word(player1_endurance_stage_selection) >= 300
 )
 
-//RICH PRESENCE
+// ULTIMATES
+
+achievement(
+    title = "Let's Go! Rider Kick", points = 2,
+    description = "Use Double Ultimate as Ichigo and Nigo",
+    trigger = IsGameState(in_stage)
+)
+
+// RICH PRESENCE
 
 rich_presence_conditional_display(IsGameState(starting), "Starting the game")
 rich_presence_conditional_display(IsGameState(title_screen), "Title Screen")
