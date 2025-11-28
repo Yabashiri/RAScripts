@@ -53,6 +53,10 @@ player2_attack_shop = 0x2313a0
 player2_defence_shop = 0x2313a4
 player2_skill_shop = 0x2313a8
 
+ultimate = 0xded18
+ultimate_gauge_max = 0x1b
+not_in_ultimate = 0x9054
+
 missions = [
     0xdf3e2, 0xdf3e3, 0xdf3ee, 0xdf3ef, 0xdf3fa, 0xdf3fb, 0xdf406, 0xdf407, 0xdf412, 0xdf413, // WORLD 1
     0xdf41e, 0xdf41f, 0xdf42a, 0xdf42b, 0xdf436, 0xdf437, 0xdf442, 0xdf443, 0xdf44e, 0xdf44f, 0xdf45a, 0xdf45b, 0xdf466, 0xdf467, // WORLD 2
@@ -340,9 +344,9 @@ function dict_get(dict, key, default=0)
     return default
 }
 
-function UltimateGaugeAtMax()
+function UltimateGauge()
 {
-    return byte(0x2c9969) >= 0x1c
+    return byte(0x2c9969)
 }
 
 function GetCharacterData(character_name, data) 
@@ -362,26 +366,30 @@ function IsPlayingAs(player, character_name)
     return character == character_mem
 }
 
-function UsingDoubleUltimateAs(character1, character2) 
+function IsUsingUltimateAs(player, character_name)
 {
+    ultimate_used = GetCharacterData(character_name, "Ultimate")
+    return IsPlayingAs(player, character_name) && word(ultimate) == ultimate_used
+}
+
+function UsingDoubleUltimateAs(player_character, assist_character) 
+{    
     start = once(
         IsGameState(in_stage) &&
-        prev(!UltimateGaugeAtMax()) &&
-        UltimateGaugeAtMax() &&
-        (
-            IsPlayingAs("Player1", "Ichigo") && IsPlayingAs("Player2", "Nigo") ||
-            IsPlayingAs("Player1", "Nigo") && IsPlayingAs("Player2", "Ichigo")
-        ) // && goes from not in ultimate to double ultimate
+        UltimateGauge() >= ultimate_gauge_max
     )
 
     cancel = never(
         !IsGameState(in_stage) ||
-        !(
-            IsPlayingAs("Player1", "Ichigo") && IsPlayingAs("Player2", "Nigo") ||
-            IsPlayingAs("Player1", "Nigo") && IsPlayingAs("Player2", "Ichigo")
-        )   
+        !IsPlayingAs("Player1", player_character) ||
+        !IsPlayingAs("Player2", assist_character) ||
+        UltimateGauge() < ultimate_gauge_max
     )
-    return true
+    
+    goal = prev(!IsUsingUltimateAs("Player2", assist_character)) && 
+    IsUsingUltimateAs("Player2", assist_character)
+    
+    return start && cancel && goal
 }
 
 // LOOKUPS
