@@ -323,27 +323,6 @@ function training_exceeds(points, value)
     return any_of(points, p => word(p) >= value)
 }
 
-function dict_in(dict, key)
-{
-    for k in dict
-    {
-        if k == key
-        {
-            return true
-        }
-    }
-    return false
-}
-
-function dict_get(dict, key, default=0)
-{
-    if dict_in(dict, key)
-    {
-        return dict[key]
-    }
-    return default
-}
-
 function UltimateGauge()
 {
     return byte(0x2c9969)
@@ -351,8 +330,8 @@ function UltimateGauge()
 
 function GetCharacterData(character_name, data) 
 {
-    character_data = dict_get(CharacterData, character_name)
-    return dict_get(character_data, data)
+    character_data = CharacterData[character_name]
+    return character_data[data]
 }
 
 function IsPlayingAs(player, character_name)
@@ -382,8 +361,7 @@ function UsingDoubleUltimateAs(player_character, assist_character)
     cancel = never(
         !IsGameState(in_stage) ||
         !IsPlayingAs("Player1", player_character) ||
-        !IsPlayingAs("Player2", assist_character) ||
-        UltimateGauge() < ultimate_gauge_max
+        !IsPlayingAs("Player2", assist_character)
     )
     
     goal = prev(!IsUsingUltimateAs("Player2", assist_character)) && 
@@ -399,14 +377,14 @@ CharacterData = {
     "Nigo":               { "Ultimate": 0x65d8, "Mem": 0x01 },
     "V3":                 { "Ultimate": 0x6638, "Mem": 0x02 },
     "Riderman":           { "Ultimate": 0x6698, "Mem": 0x03 },
-    "X":                  { "Ultimate": 0x6709, "Mem": 0x04 },
-    "Amazon":             { "Ultimate": 0x67a0, "Mem": 0x05 },
+    "X":                  { "Ultimate": 0x6730, "Mem": 0x04 },
+    "Amazon":             { "Ultimate": 0x67ac, "Mem": 0x05 },
     "Stronger":           { "Ultimate": 0x6850, "Mem": 0x06 },
     "Skyrider":           { "Ultimate": 0x68b8, "Mem": 0x07 },
-    "Super-1":            { "Ultimate": 0x6998, "Mem": 0x08 },
-    "ZX":                 { "Ultimate": 0x693c, "Mem": 0x09 },
-    "Black":              { "Ultimate": 0x6ae0, "Mem": 0x0A },
-    "Black RX":           { "Ultimate": 0x6a40, "Mem": 0x0B },
+    "Super-1":            { "Ultimate": 0x693c, "Mem": 0x08 },
+    "ZX":                 { "Ultimate": 0x6998, "Mem": 0x09 },
+    "Black":              { "Ultimate": 0x6a40, "Mem": 0x0A },
+    "Black RX":           { "Ultimate": 0x6ae0, "Mem": 0x0B },
     "Shin":               { "Ultimate": 0x6b14, "Mem": 0x0C },
     "ZO":                 { "Ultimate": 0x6b68, "Mem": 0x0D },
     "J":                  { "Ultimate": 0x6bec, "Mem": 0x0E },
@@ -424,8 +402,8 @@ CharacterData = {
     "OOO":                { "Ultimate": 0x7864, "Mem": 0x1A },  // (Tatoba Combo), Gatakiriba, Latorartar, Sagohzo, Shauta, Tajador: 0x1F, 0x20, 0x21, 0x22, 0x23
     "Birth":              { "Ultimate": 0x798c, "Mem": 0x1B },
     "Fourze":             { "Ultimate": 0x7b50, "Mem": 0x1C },
-    "Todoroki":           { "Ultimate": 0x82a8, "Mem": 0x2A },
-    "Zanki":              { "Ultimate": 0x825c, "Mem": 0x2B },
+    "Zanki":              { "Ultimate": 0x825c, "Mem": 0x2A },
+    "Todoroki":           { "Ultimate": 0x82a8, "Mem": 0x2B },
     "Kivala":             { "Ultimate": 0x8714, "Mem": 0x32 },
     "Eternal":            { "Ultimate": 0x883c, "Mem": 0x35 },
     "Meteor":             { "Ultimate": 0x8b30, "Mem": 0x37 },
@@ -627,11 +605,44 @@ achievement(
 
 // ULTIMATES
 
-achievement(
-    title = "Let's Go! Rider Kick", points = 2,
-    description = "Use Double Ultimate as Ichigo and Nigo",
-    trigger = UsingDoubleUltimateAs("Ichigo", "Nigo")
-)
+// FUN: batch Double Ultimate/Skill achievements
+ultimate_achievements = [
+    { "title": "Let's Go! Rider Kick",       "desc": "Use Double Ultimate as Ichigo with Nigo as your partner",        "p1": "Ichigo",    "p2": "Nigo" },
+    { "title": "Second Generation",          "desc": "Use Double Ultimate as V3 with Riderman as your partner",        "p1": "V3",        "p2": "Riderman" },
+    { "title": "Wild Force",                 "desc": "Use Double Ultimate as Amazon with X as your partner",           "p1": "Amazon",    "p2": "X" },
+    { "title": "Lightning to Heaven",        "desc": "Use Double Ultimate as Stronger with Skyrider as your partner",  "p1": "Stronger",  "p2": "Skyrider" },
+    { "title": "Dragon Road",                "desc": "Use Double Ultimate as Super-1 with ZX as your partner",         "p1": "Super-1",   "p2": "ZX" },
+    { "title": "Black Sun",                  "desc": "Use Double Ultimate as Black with Black RX as your partner",     "p1": "Black",     "p2": "Black RX" },
+    { "title": "Powerhouses of the Cell",               "desc": "Use Double Ultimate as ZO with J as your partner",               "p1": "ZO",        "p2": "J" },
+    { "title": "Unidentified Lifeforms",     "desc": "Use Double Ultimate as Kuuga with Agito as your partner",        "p1": "Kuuga",     "p2": "Agito" },
+    // { "title": "Awaken the Soul",         "desc": "Use Double Ultimate as Agito with Gills as your partner",        "p1": "Agito",     "p2": "Gills" }, // missing CharacterData (Gills)
+    // { "title": "Alive a Life",            "desc": "Use Double Ultimate as Ryuki with Knight as your partner",       "p1": "Ryuki",     "p2": "Knight" }, // missing CharacterData (Knight)
+    // { "title": "Trials and Tribulations", "desc": "Use Double Ultimate as Knight with Zolda as your partner",       "p1": "Knight",    "p2": "Zolda" }, // missing CharacterData (Knight, Zolda)
+    // { "title": "End Justifaiz the Means", "desc": "Use Double Ultimate as Faiz with Kaixa as your partner",         "p1": "Faiz",      "p2": "Kaixa" }, // missing CharacterData (Kaixa)
+    // { "title": "Blade Brave",             "desc": "Use Double Ultimate as Blade with Garren as your partner",       "p1": "Blade",     "p2": "Garren" }, // missing CharacterData (Garren)
+    // { "title": "Elements",                "desc": "Use Double Ultimate as Leangle with Garren as your partner",     "p1": "Leangle",   "p2": "Garren" }, // missing CharacterData (Leangle, Garren)
+    // { "title": "Radiance",                "desc": "Use Double Ultimate as Hibiki with Ibuki as your partner",       "p1": "Hibiki",    "p2": "Ibuki" }, // missing CharacterData (Ibuki)
+    // { "title": "Master and Student",         "desc": "Use Double Ultimate as Zanki with Todoroki as your partner",     "p1": "Zanki",     "p2": "Todoroki" },
+    // { "title": "Next Level",                 "desc": "Use Double Ultimate as Kabuto with Gatack as your partner",      "p1": "Kabuto",    "p2": "Gatack" },
+    // { "title": "Hell Brothers",           "desc": "Use Double Ultimate as PunchHopper with KickHopper as your partner", "p1": "Punch Hopper", "p2": "Kick Hopper" }, // missing CharacterData (Punch Hopper, Kick Hopper)
+    // { "title": "Climax Jump",             "desc": "Use Double Ultimate as Den-O with Zeronos as your partner",      "p1": "Den-O",     "p2": "Zeronos" }, // missing CharacterData (Zeronos)
+    // { "title": "Break the Chain",         "desc": "Use Double Ultimate as Kiva with Ixa as your partner",           "p1": "Kiva",      "p2": "Ixa" }, // missing CharacterData (Ixa)
+    // { "title": "Journey Through the Decade", "desc": "Use Double Ultimate as Decade with Diend as your partner",   "p1": "Decade",    "p2": "Diend" }, // missing CharacterData (Diend)
+    // { "title": "Fuuto Pi",                "desc": "Use Double Ultimate as W with Accel as your partner",            "p1": "W",         "p2": "Accel" }, // missing CharacterData (Accel)
+    { "title": "Count the Switches! 1-2-4!", "desc": "Use Double Ultimate as OOO with Fourze as your partner",         "p1": "OOO",       "p2": "Fourze" },
+    // { "title": "Happy Birthday!",         "desc": "Use Double Ultimate as Birth with Birth Prototype as your partner", "p1": "Birth",   "p2": "Birth Prototype" }, // missing CharacterData (Birth Prototype)
+    { "title": "Cosmic Energy",              "desc": "Use Double Ultimate as Fourze with Meteor as your partner",      "p1": "Fourze",    "p2": "Meteor" }
+]
+
+for ua in ultimate_achievements
+{
+    achievement(
+        title = ua["title"],
+        description = ua["desc"],
+        points = 2,
+        trigger = UsingDoubleUltimateAs(ua["p1"], ua["p2"])
+    )
+}
 
 // RICH PRESENCE
 
