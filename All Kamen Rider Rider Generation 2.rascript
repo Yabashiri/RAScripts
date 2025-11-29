@@ -404,32 +404,32 @@ CharacterData = {
     "OOO":                { "Ultimate": 0x7864, "Mem": 0x1A },
     "Birth":              { "Ultimate": 0x798c, "Mem": 0x1B },
     "Fourze":             { "Ultimate": 0x7b50, "Mem": 0x1C },
-    "Shadowmoon":         { "Ultimate": 0x7b94, "Mem": 0x00 },
+    "Shadowmoon":         { "Ultimate": 0x7b94, "Mem": 0x1D },
     "G3-X":               { "Ultimate": 0x7c30, "Mem": 0x1E },
     "Gills":              { "Ultimate": 0x7c74, "Mem": 0x1F },
-    "Knight":             { "Ultimate": 0x7d20, "Mem": 0x00 },
-    "Zolda":              { "Ultimate": 0x7db0, "Mem": 0x00 },
-    "Ouja":               { "Ultimate": 0x7e08, "Mem": 0x00 },
-    "Odin":               { "Ultimate": 0x7e68, "Mem": 0x00 },
-    "Kaixa":              { "Ultimate": 0x7efc, "Mem": 0x00 },
-    "Garen":              { "Ultimate": 0x7f7c, "Mem": 0x00 },
-    "Chalice":            { "Ultimate": 0x8010, "Mem": 0x00 },
-    "Leangle":            { "Ultimate": 0x80c0, "Mem": 0x00 },
-    "Ibuki":              { "Ultimate": 0x81e0, "Mem": 0x00 },
-    "Zanki":              { "Ultimate": 0x825c, "Mem": 0x2A },
-    "Todoroki":           { "Ultimate": 0x82a8, "Mem": 0x2B },
-    "Gatack":             { "Ultimate": 0x832c, "Mem": 0x00 },
-    "Kick Hopper":        { "Ultimate": 0x83bc, "Mem": 0x00 },
-    "Punch Hopper":       { "Ultimate": 0x843c, "Mem": 0x00 },
-    "Zeronos":            { "Ultimate": 0x84ac, "Mem": 0x00 },
-    "New Den-O":          { "Ultimate": 0x8518, "Mem": 0x00 },
-    "Ixa":                { "Ultimate": 0x8650, "Mem": 0x00 },
-    "Diend":              { "Ultimate": 0x86dc, "Mem": 0x00 },
+    "Knight":             { "Ultimate": 0x7d20, "Mem": 0x20 },
+    "Zolda":              { "Ultimate": 0x7db0, "Mem": 0x21 },
+    "Ouja":               { "Ultimate": 0x7e08, "Mem": 0x22 },
+    "Odin":               { "Ultimate": 0x7e68, "Mem": 0x23 },
+    "Kaixa":              { "Ultimate": 0x7efc, "Mem": 0x24 },
+    "Garen":              { "Ultimate": 0x7f7c, "Mem": 0x25 },
+    "Chalice":            { "Ultimate": 0x8010, "Mem": 0x26 },
+    "Leangle":            { "Ultimate": 0x80c0, "Mem": 0x27 },
+    "Ibuki":              { "Ultimate": 0x81e0, "Mem": 0x28 },
+    "Zanki":              { "Ultimate": 0x825c, "Mem": 0x29 },
+    "Todoroki":           { "Ultimate": 0x82a8, "Mem": 0x2A },
+    "Gatack":             { "Ultimate": 0x832c, "Mem": 0x2B },
+    "Kick Hopper":        { "Ultimate": 0x83bc, "Mem": 0x2C },
+    "Punch Hopper":       { "Ultimate": 0x843c, "Mem": 0x2D },
+    "Zeronos":            { "Ultimate": 0x84ac, "Mem": 0x2E },
+    "New Den-O":          { "Ultimate": 0x8518, "Mem": 0x2F },
+    "Ixa":                { "Ultimate": 0x8650, "Mem": 0x30 },
+    "Diend":              { "Ultimate": 0x86dc, "Mem": 0x31 },
     "Kivala":             { "Ultimate": 0x8714, "Mem": 0x32 },
-    "Accel":              { "Ultimate": 0x87e4, "Mem": 0x00 },
-    "Eternal":            { "Ultimate": 0x883c, "Mem": 0x35 },
-    "Skull":              { "Ultimate": 0x887c, "Mem": 0x00 },
-    "Birth Prototype":    { "Ultimate": 0x89ec, "Mem": 0x00 },
+    "Accel":              { "Ultimate": 0x87e4, "Mem": 0x33 },
+    "Eternal":            { "Ultimate": 0x883c, "Mem": 0x34 },
+    "Skull":              { "Ultimate": 0x887c, "Mem": 0x35 },
+    "Birth Prototype":    { "Ultimate": 0x89ec, "Mem": 0x36 },
     "Meteor":             { "Ultimate": 0x8b30, "Mem": 0x37 }
 }
 
@@ -638,22 +638,22 @@ ultimate_achievements = [
     { "title": "Black Sun",                  "desc": "Use Double Ultimate as Black with Black RX as your partner",     "p1": "Black",     "p2": "Black RX" },
     { "title": "Powerhouses of the Cell",               "desc": "Use Double Ultimate as ZO with J as your partner",               "p1": "ZO",        "p2": "J" },
     { "title": "Unidentified Lifeforms",     "desc": "Use Double Ultimate as Kuuga with Agito as your partner",        "p1": "Kuuga",     "p2": "Agito" },
-    // { "title": "Awaken the Soul",         "desc": "Use Double Ultimate as Agito with Gills as your partner",        "p1": "Agito",     "p2": "Gills" }, // missing CharacterData (Gills)
-    // { "title": "Alive a Life",            "desc": "Use Double Ultimate as Ryuki with Knight as your partner",       "p1": "Ryuki",     "p2": "Knight" }, // missing CharacterData (Knight)
-    // { "title": "Trials and Tribulations", "desc": "Use Double Ultimate as Knight with Zolda as your partner",       "p1": "Knight",    "p2": "Zolda" }, // missing CharacterData (Knight, Zolda)
-    // { "title": "End Justifaiz the Means", "desc": "Use Double Ultimate as Faiz with Kaixa as your partner",         "p1": "Faiz",      "p2": "Kaixa" }, // missing CharacterData (Kaixa)
-    // { "title": "Blade Brave",             "desc": "Use Double Ultimate as Blade with Garren as your partner",       "p1": "Blade",     "p2": "Garren" }, // missing CharacterData (Garren)
-    // { "title": "Elements",                "desc": "Use Double Ultimate as Leangle with Garren as your partner",     "p1": "Leangle",   "p2": "Garren" }, // missing CharacterData (Leangle, Garren)
-    // { "title": "Radiance",                "desc": "Use Double Ultimate as Hibiki with Ibuki as your partner",       "p1": "Hibiki",    "p2": "Ibuki" }, // missing CharacterData (Ibuki)
-    // { "title": "Master and Student",         "desc": "Use Double Ultimate as Zanki with Todoroki as your partner",     "p1": "Zanki",     "p2": "Todoroki" },
-    // { "title": "Next Level",                 "desc": "Use Double Ultimate as Kabuto with Gatack as your partner",      "p1": "Kabuto",    "p2": "Gatack" },
-    // { "title": "Hell Brothers",           "desc": "Use Double Ultimate as PunchHopper with KickHopper as your partner", "p1": "Punch Hopper", "p2": "Kick Hopper" }, // missing CharacterData (Punch Hopper, Kick Hopper)
-    // { "title": "Climax Jump",             "desc": "Use Double Ultimate as Den-O with Zeronos as your partner",      "p1": "Den-O",     "p2": "Zeronos" }, // missing CharacterData (Zeronos)
-    // { "title": "Break the Chain",         "desc": "Use Double Ultimate as Kiva with Ixa as your partner",           "p1": "Kiva",      "p2": "Ixa" }, // missing CharacterData (Ixa)
-    // { "title": "Journey Through the Decade", "desc": "Use Double Ultimate as Decade with Diend as your partner",   "p1": "Decade",    "p2": "Diend" }, // missing CharacterData (Diend)
-    // { "title": "Fuuto Pi",                "desc": "Use Double Ultimate as W with Accel as your partner",            "p1": "W",         "p2": "Accel" }, // missing CharacterData (Accel)
+    { "title": "Awaken the Soul",         "desc": "Use Double Ultimate as Agito with Gills as your partner",        "p1": "Agito",     "p2": "Gills" },
+    { "title": "Alive a Life",            "desc": "Use Double Ultimate as Ryuki with Knight as your partner",       "p1": "Ryuki",     "p2": "Knight" },
+    { "title": "Trials and Tribulations", "desc": "Use Double Ultimate as Knight with Zolda as your partner",       "p1": "Knight",    "p2": "Zolda" },
+    { "title": "End Justifaiz the Means", "desc": "Use Double Ultimate as Faiz with Kaixa as your partner",         "p1": "Faiz",      "p2": "Kaixa" },
+    { "title": "Blade Brave",             "desc": "Use Double Ultimate as Blade with Garren as your partner",       "p1": "Blade",     "p2": "Garren" },
+    { "title": "Elements",                "desc": "Use Double Ultimate as Leangle with Garren as your partner",     "p1": "Leangle",   "p2": "Garren" },
+    { "title": "Radiance",                "desc": "Use Double Ultimate as Hibiki with Ibuki as your partner",       "p1": "Hibiki",    "p2": "Ibuki" },
+    { "title": "Master and Student",         "desc": "Use Double Ultimate as Zanki with Todoroki as your partner",     "p1": "Zanki",     "p2": "Todoroki" },
+    { "title": "Next Level",                 "desc": "Use Double Ultimate as Kabuto with Gatack as your partner",      "p1": "Kabuto",    "p2": "Gatack" },
+    { "title": "Hell Brothers",           "desc": "Use Double Ultimate as PunchHopper with KickHopper as your partner", "p1": "Punch Hopper", "p2": "Kick Hopper" },
+    { "title": "Climax Jump",             "desc": "Use Double Ultimate as Den-O with Zeronos as your partner",      "p1": "Den-O",     "p2": "Zeronos" },
+    { "title": "Break the Chain",         "desc": "Use Double Ultimate as Kiva with Ixa as your partner",           "p1": "Kiva",      "p2": "Ixa" },
+    { "title": "Journey Through the Decade", "desc": "Use Double Ultimate as Decade with Diend as your partner",   "p1": "Decade",    "p2": "Diend" },
+    { "title": "Fuuto Pi",                "desc": "Use Double Ultimate as W with Accel as your partner",            "p1": "W",         "p2": "Accel" },
     { "title": "Count the Switches! 1-2-4!", "desc": "Use Double Ultimate as OOO with Fourze as your partner",         "p1": "OOO",       "p2": "Fourze" },
-    // { "title": "Happy Birthday!",         "desc": "Use Double Ultimate as Birth with Birth Prototype as your partner", "p1": "Birth",   "p2": "Birth Prototype" }, // missing CharacterData (Birth Prototype)
+    { "title": "Happy Birthday!",         "desc": "Use Double Ultimate as Birth with Birth Prototype as your partner", "p1": "Birth",   "p2": "Birth Prototype" },
     { "title": "Cosmic Energy",              "desc": "Use Double Ultimate as Fourze with Meteor as your partner",      "p1": "Fourze",    "p2": "Meteor" }
 ]
 
