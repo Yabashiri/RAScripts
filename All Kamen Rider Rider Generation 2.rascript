@@ -373,6 +373,8 @@ function UsingDoubleUltimateAs(player_character, assist_character)
 // LOOKUPS
 
 CharacterData = {
+    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x38 },
+
     "Ichigo":             { "Ultimate": 0x656c, "Mem": 0x00 },
     "Nigo":               { "Ultimate": 0x65d8, "Mem": 0x01 },
     "V3":                 { "Ultimate": 0x6638, "Mem": 0x02 },
@@ -398,16 +400,37 @@ CharacterData = {
     "Den-O":              { "Ultimate": 0x72a8, "Mem": 0x16 },
     "Kiva":               { "Ultimate": 0x73cc, "Mem": 0x17 },
     "Decade":             { "Ultimate": 0x7500, "Mem": 0x18 },
-    "W":                  { "Ultimate": 0x7668, "Mem": 0x19 },  // (CycloneJoker), HeatMetal, LunaTrigger: 0x1D, 0x1E
-    "OOO":                { "Ultimate": 0x7864, "Mem": 0x1A },  // (Tatoba Combo), Gatakiriba, Latorartar, Sagohzo, Shauta, Tajador: 0x1F, 0x20, 0x21, 0x22, 0x23
+    "W":                  { "Ultimate": 0x7668, "Mem": 0x19 },
+    "OOO":                { "Ultimate": 0x7864, "Mem": 0x1A },
     "Birth":              { "Ultimate": 0x798c, "Mem": 0x1B },
     "Fourze":             { "Ultimate": 0x7b50, "Mem": 0x1C },
+    "Shadowmoon":         { "Ultimate": 0x7b94, "Mem": 0x00 },
+    "G3-X":               { "Ultimate": 0x7c30, "Mem": 0x1E },
+    "Gills":              { "Ultimate": 0x7c74, "Mem": 0x1F },
+    "Knight":             { "Ultimate": 0x7d20, "Mem": 0x00 },
+    "Zolda":              { "Ultimate": 0x7db0, "Mem": 0x00 },
+    "Ouja":               { "Ultimate": 0x7e08, "Mem": 0x00 },
+    "Odin":               { "Ultimate": 0x7e68, "Mem": 0x00 },
+    "Kaixa":              { "Ultimate": 0x7efc, "Mem": 0x00 },
+    "Garen":              { "Ultimate": 0x7f7c, "Mem": 0x00 },
+    "Chalice":            { "Ultimate": 0x8010, "Mem": 0x00 },
+    "Leangle":            { "Ultimate": 0x80c0, "Mem": 0x00 },
+    "Ibuki":              { "Ultimate": 0x81e0, "Mem": 0x00 },
     "Zanki":              { "Ultimate": 0x825c, "Mem": 0x2A },
     "Todoroki":           { "Ultimate": 0x82a8, "Mem": 0x2B },
+    "Gatack":             { "Ultimate": 0x832c, "Mem": 0x00 },
+    "Kick Hopper":        { "Ultimate": 0x83bc, "Mem": 0x00 },
+    "Punch Hopper":       { "Ultimate": 0x843c, "Mem": 0x00 },
+    "Zeronos":            { "Ultimate": 0x84ac, "Mem": 0x00 },
+    "New Den-O":          { "Ultimate": 0x8518, "Mem": 0x00 },
+    "Ixa":                { "Ultimate": 0x8650, "Mem": 0x00 },
+    "Diend":              { "Ultimate": 0x86dc, "Mem": 0x00 },
     "Kivala":             { "Ultimate": 0x8714, "Mem": 0x32 },
+    "Accel":              { "Ultimate": 0x87e4, "Mem": 0x00 },
     "Eternal":            { "Ultimate": 0x883c, "Mem": 0x35 },
-    "Meteor":             { "Ultimate": 0x8b30, "Mem": 0x37 },
-    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x38 }   // нет адреса в списке Ultimate
+    "Skull":              { "Ultimate": 0x887c, "Mem": 0x00 },
+    "Birth Prototype":    { "Ultimate": 0x89ec, "Mem": 0x00 },
+    "Meteor":             { "Ultimate": 0x8b30, "Mem": 0x37 }
 }
 
 Characters = {
