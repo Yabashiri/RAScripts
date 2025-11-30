@@ -7,7 +7,7 @@ CharactersTotal = 57
 StagesCount = 45
 MissionsCount = 90
 RiderItemsTotal = 64
-GalleryUnlocksTotal = 148
+GalleryUnlocksTotal = 100
 
 // Game states
 game_state = byte(0x000ffd2c)
@@ -40,7 +40,7 @@ clear = 0x04
 not_in_stage = 0x05
 
 gallery_start_bitfield = 0x00DF7D4
-gallery_length = 36
+gallery_length = 25
 
 // Character stats
 player1_endurance_stage_selection = 0x23111c
@@ -521,7 +521,7 @@ achievement(
     description = "Unlock all galery items",
     points = 10,
     trigger = 
-        prev(UnlockedGalleryItems()) == GalleryUnlocksTotal - 1 &&
+        prev(UnlockedGalleryItems()) < GalleryUnlocksTotal &&
         measured(UnlockedGalleryItems() == GalleryUnlocksTotal)
 )
 
