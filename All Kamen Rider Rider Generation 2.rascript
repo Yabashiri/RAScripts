@@ -6,7 +6,8 @@ False = 0
 CharactersTotal = 57
 StagesCount = 45
 MissionsCount = 90
-RiderItemsTotal = 62
+RiderItemsTotal = 64
+GalleryUnlocksTotal = 148
 
 // Game states
 game_state = byte(0x000ffd2c)
@@ -37,6 +38,9 @@ stage_state = 0x2cef48
 playing = 0x00
 clear = 0x04
 not_in_stage = 0x05
+
+gallery_start_bitfield = 0x00DF7D4
+gallery_length = 36
 
 // Character stats
 player1_endurance_stage_selection = 0x23111c
@@ -305,11 +309,27 @@ function ClimaxStagesCompletedCount()
     return count
 }
 
-function RiderItemsBought() 
+function RiderItemsBought()
 {
-    count = bitcount(decade_item_bitfield) + bitcount(diend_item_bitfield)
-    for address in rider_items
-        count = count + byte(address)
+    count = bitcount(CharacterData["Decade"]["Item"]) + bitcount(CharacterData["Diend"]["Item"])
+    for character_name in CharacterData
+    {
+        item = CharacterData[character_name]["Item"]
+        count = count + byte(item)
+    }
+    return count
+}
+
+function UnlockedGalleryItems()
+{
+    count = 0
+    for offset in range(0, gallery_length)
+    {
+        address = gallery_start_bitfield + offset
+        // Each address stores unlock flags in odd bit positions: 1, 3, 5, 7
+        for bit_index in [1, 3, 5, 7]
+            count = count + bit(bit_index, address)
+    }
     return count
 }
 
@@ -383,7 +403,7 @@ function BuildCharactersLookup()
 // LOOKUPS
 
 CharacterData = {
-    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x38 },
+    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x00, "Item": 0x000000},
 
     "Ichigo":             { "Ultimate": 0x656c, "Mem": 0x00, "Item": 0x0DEF2C },
     "Nigo":               { "Ultimate": 0x65d8, "Mem": 0x01, "Item": 0x0DEF40 },
@@ -409,12 +429,12 @@ CharacterData = {
     "Kabuto":             { "Ultimate": 0x71bc, "Mem": 0x15, "Item": 0x0DF0D0 },
     "Den-O":              { "Ultimate": 0x72a8, "Mem": 0x16, "Item": 0x0DF0E4 },
     "Kiva":               { "Ultimate": 0x73cc, "Mem": 0x17, "Item": 0x0DF0F8 },
-    "Decade":             { "Ultimate": 0x7500, "Mem": 0x18 },
+    "Decade":             { "Ultimate": 0x7500, "Mem": 0x18, "Item": 0x0DF10C },
     "W":                  { "Ultimate": 0x7668, "Mem": 0x19, "Item": 0x0DF120 },
     "OOO":                { "Ultimate": 0x7864, "Mem": 0x1A, "Item": 0x0DF134 },
     "Birth":              { "Ultimate": 0x798c, "Mem": 0x1B, "Item": 0x0DF148 },
     "Fourze":             { "Ultimate": 0x7b50, "Mem": 0x1C, "Item": 0x0DF15C },
-    "Shadowmoon":         { "Ultimate": 0x7b94, "Mem": 0x1D },
+    "Shadowmoon":         { "Ultimate": 0x7b94, "Mem": 0x1D, "Item": 0x0DF170 },
     "G3-X":               { "Ultimate": 0x7c30, "Mem": 0x1E, "Item": 0x0DF184 },
     "Gills":              { "Ultimate": 0x7c74, "Mem": 0x1F, "Item": 0x0DF198 },
     "Knight":             { "Ultimate": 0x7d20, "Mem": 0x20, "Item": 0x0DF1AC },
@@ -424,7 +444,7 @@ CharacterData = {
     "Kaixa":              { "Ultimate": 0x7efc, "Mem": 0x24, "Item": 0x0DF1FC },
     "Garren":             { "Ultimate": 0x7f7c, "Mem": 0x25, "Item": 0x0DF210 },
     "Chalice":            { "Ultimate": 0x8010, "Mem": 0x26, "Item": 0x0DF224 },
-    "Leangle":            { "Ultimate": 0x80c0, "Mem": 0x27 },
+    "Leangle":            { "Ultimate": 0x80c0, "Mem": 0x27, "Item": 0x0DF238 },
     "Ibuki":              { "Ultimate": 0x81e0, "Mem": 0x28, "Item": 0x0DF24C },
     "Todoroki":           { "Ultimate": 0x825c, "Mem": 0x29, "Item": 0x0DF260 },
     "Zanki":              { "Ultimate": 0x82a8, "Mem": 0x2A, "Item": 0x0DF274 },
@@ -434,7 +454,7 @@ CharacterData = {
     "Zeronos":            { "Ultimate": 0x84ac, "Mem": 0x2E, "Item": 0x0DF2C4 },
     "New Den-O":          { "Ultimate": 0x8518, "Mem": 0x2F, "Item": 0x0DF2D8 },
     "Ixa":                { "Ultimate": 0x8650, "Mem": 0x30, "Item": 0x0DF2EC },
-    "Diend":              { "Ultimate": 0x86dc, "Mem": 0x31 },
+    "Diend":              { "Ultimate": 0x86dc, "Mem": 0x31, "Item": 0x0DF300 },
     "Kivala":             { "Ultimate": 0x8714, "Mem": 0x32, "Item": 0x0DF314 },
     "Accel":              { "Ultimate": 0x87e4, "Mem": 0x33, "Item": 0x0DF328 },
     "Eternal":            { "Ultimate": 0x883c, "Mem": 0x34, "Item": 0x0DF350 },
@@ -494,6 +514,15 @@ achievement(
         IsGameState(title_screen) &&
         prev(RiderItemsBought()) == RiderItemsTotal - 1 &&
         measured(RiderItemsBought() == RiderItemsTotal)
+)
+
+achievement(
+    title = "Memory of Heroez", 
+    description = "Unlock all galery items",
+    points = 10,
+    trigger = 
+        prev(UnlockedGalleryItems()) == GalleryUnlocksTotal - 1 &&
+        measured(UnlockedGalleryItems() == GalleryUnlocksTotal)
 )
 
 achievement(
