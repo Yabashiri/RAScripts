@@ -323,7 +323,7 @@ function RiderItemsBought()
 function UnlockedGalleryItems()
 {
     count = 0
-    for offset in range(0, gallery_length)
+    for offset in range(0, gallery_length - 1)
     {
         address = gallery_start_bitfield + offset
         // Each address stores unlock flags in odd bit positions: 1, 3, 5, 7
