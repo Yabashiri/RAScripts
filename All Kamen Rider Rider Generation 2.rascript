@@ -13,9 +13,12 @@ GALLERY_UNLOCKS_TOTAL = 100
 GAME_STATE = byte(0x000ffd2c)
 STARTING = 0x00
 IN_STAGE = 0x01
-TITLE_SCREEN = 0x05
+GALLERY = 0x04
+TITLE_SCREEN = 0x05 // Title screen, Shop
 CHARACTER_SELECTION = 0x06
+SELECTION_TO_STAGE_TRANSITION = 0x10
 STAGE_SELECTION = 0x24
+STAGE_TO_SELECTION_TRANSITION = 0xed
 
 // Stages
 WORLD1_5 = 0x0DF415
@@ -211,7 +214,9 @@ function IsStageCleared(addr)
 
 function HealthPointer() => tbyte(0x2CE870)
 
-function Player1Health() => byte(HealthPointer() + 0x000180)
+function Player1Health() => word(HealthPointer() + 0x000180)
+
+function IsStable(pointer) => pointer != 0 && pointer == prev(pointer)
 
 function PlayerLevelAddress(player) {
     isInStage = IsGameState(IN_STAGE)
@@ -639,19 +644,24 @@ achievement(
 
 function StageWithoutDamage(world, stage)
 {
-    start = once(
+    ptr = HealthPointer()
+    
+    level_ready = once(
+        prev(GAME_STATE) == SELECTION_TO_STAGE_TRANSITION &&
         IsGameState(IN_STAGE) &&
         IsWorldStage(world, stage)
     )
 
+    in_game = ptr != 0 && Player1Health() > 0
+
     cancel = never(
-        Player1Health() < prev(Player1Health()) ||
+        (IsStable(ptr) && Player1Health() < prev(Player1Health())) ||
         !IsGameState(IN_STAGE)
     )
 
     goal = IsStageState(CLEAR)
 
-    return start && cancel && trigger_when(goal)
+    return level_ready && in_game && cancel && trigger_when(goal)
 }
 
 achievement(
