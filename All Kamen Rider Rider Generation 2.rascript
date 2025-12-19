@@ -233,6 +233,8 @@ function Player1Character() => byte(0xDF9A4)
 
 function Player2Character() => byte(0xDF9A8)
 
+function CurrentStage() => byte(0xDF9D0)
+
 // Count bytes set to 1 in range
 function BytesInRangeCount(from, to)
 {
@@ -403,7 +405,7 @@ function BuildCharactersLookup()
 // LOOKUPS
 
 CharacterData = {
-    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x00, "Item": 0x000000},
+    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x56, "Item": 0x000000},
 
     "Ichigo":             { "Ultimate": 0x656c, "Mem": 0x00, "Item": 0x0DEF2C },
     "Nigo":               { "Ultimate": 0x65d8, "Mem": 0x01, "Item": 0x0DEF40 },
@@ -464,6 +466,40 @@ CharacterData = {
 }
 
 Characters = BuildCharactersLookup()
+
+StageData = {
+    0x0A: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Easy" },
+    0x0C: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Medium" },
+    0x0F: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Hard" },
+    0x25: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Danger" },
+    0x34: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Climax" },
+    0x14: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Easy" },
+    0x16: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Medium" },
+    0x19: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Hard" },
+    0x2F: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Danger" },
+    0x3E: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Climax" }
+    // …add remaining stages here
+}
+
+function BuildStageTitlesLookup()
+{
+    lookup = {}
+    for stage_id in StageData
+        lookup[stage_id] = StageData[stage_id]["Name"]
+    return lookup
+}
+
+StageTitles = BuildStageTitlesLookup()
+
+function BuildStageDifficultiesLookup()
+{
+    lookup = {}
+    for stage_id in StageData
+        lookup[stage_id] = StageData[stage_id]["Difficulty"]
+    return lookup
+}
+
+StageDifficulties = BuildStageDifficultiesLookup()
 
 //PROGRESSION
 
@@ -659,7 +695,10 @@ for ua in ultimate_achievements
 rich_presence_conditional_display(IsGameState(starting), "Starting the game")
 rich_presence_conditional_display(IsGameState(title_screen), "Title Screen")
 rich_presence_conditional_display(IsGameState(character_selection), "Character Selection")
-rich_presence_display("{0} and {1} are playing the game",
+rich_presence_conditional_display(IsGameState(stage_selection), "Stage Selection")
+rich_presence_display("{0} and {1} are fighting in {2} [{3}]",
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
-    rich_presence_lookup("Player 2 Character", Player2Character(), Characters)
+    rich_presence_lookup("Player 2 Character", Player2Character(), Characters),
+    rich_presence_lookup("Current Stage", CurrentStage(), StageTitles),
+    rich_presence_lookup("Current Difficulty", CurrentStage(), StageDifficulties)
 )
