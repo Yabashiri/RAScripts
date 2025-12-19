@@ -3,63 +3,62 @@
 
 True = 1
 False = 0
-CharactersTotal = 57
-StagesCount = 45
-MissionsCount = 90
-RiderItemsTotal = 64
-GalleryUnlocksTotal = 100
+CHARACTERS_TOTAL = 57
+STAGES_COUNT = 45
+MISSIONS_COUNT = 90
+RIDER_ITEMS_TOTAL = 64
+GALLERY_UNLOCKS_TOTAL = 100
 
 // Game states
-game_state = byte(0x000ffd2c)
-starting = 0x00
-in_stage = 0x01
-title_screen = 0x05 // also shop
-character_selection = 0x06
-stage_selection = 0x24
+GAME_STATE = byte(0x000ffd2c)
+STARTING = 0x00
+IN_STAGE = 0x01
+TITLE_SCREEN = 0x05
+CHARACTER_SELECTION = 0x06
+STAGE_SELECTION = 0x24
 
 // Stages
-World1_5 = 0x0DF415
-World2_5 = 0x0DF469
-World3_5 = 0x0DF4A5
-World4_5 = 0x0DF4F9
-World5_6 = 0x0DF541
-World6_7 = 0x0DF595
-World7_1 = 0x0DF5F5
-World7_2 = 0x0DF601
-World7_3 = 0x0DF60D
-World7_4 = 0x0DF619
-World7_5 = 0x0DF625
-World7_6 = 0x0DF631
-World7_7 = 0x0DF63D
-World7_8 = 0x0DF649
+WORLD1_5 = 0x0DF415
+WORLD2_5 = 0x0DF469
+WORLD3_5 = 0x0DF4A5
+WORLD4_5 = 0x0DF4F9
+WORLD5_6 = 0x0DF541
+WORLD6_7 = 0x0DF595
+WORLD7_1 = 0x0DF5F5
+WORLD7_2 = 0x0DF601
+WORLD7_3 = 0x0DF60D
+WORLD7_4 = 0x0DF619
+WORLD7_5 = 0x0DF625
+WORLD7_6 = 0x0DF631
+WORLD7_7 = 0x0DF63D
+WORLD7_8 = 0x0DF649
 
 // Stages states
-stage_state = 0x2cef48
-playing = 0x00
-clear = 0x04
-not_in_stage = 0x05
+STAGE_STATE = 0x2cef48
+PLAYING = 0x00
+CLEAR = 0x04
+NOT_IN_STAGE = 0x05
 
-gallery_start_bitfield = 0x00DF7D4
-gallery_length = 25
+GALLERY_START_BITFIELD = 0x00DF7D4
+GALLERY_LENGTH = 25
 
 // Character stats
-player1_endurance_stage_selection = 0x23111c
+PLAYER1_ENDURANCE_STAGE_SELECTION = 0x23111c
+PLAYER2_ENDURANCE_STAGE_SELECTION = 0x231150
 
-player2_endurance_stage_selection = 0x231150
+PLAYER1_ENDURANCE_SHOP = 0x231368
+PLAYER1_ATTACK_SHOP = 0x23136c
+PLAYER1_DEFENCE_SHOP = 0x231370
+PLAYER1_SKILL_SHOP = 0x231374
 
-player1_endurance_shop = 0x231368
-player1_attack_shop = 0x23136c
-player1_defence_shop = 0x231370
-player1_skill_shop = 0x231374
+PLAYER2_ENDURANCE_SHOP = 0x23139c
+PLAYER2_ATTACK_SHOP = 0x2313a0
+PLAYER2_DEFENCE_SHOP = 0x2313a4
+PLAYER2_SKILL_SHOP = 0x2313a8
 
-player2_endurance_shop = 0x23139c
-player2_attack_shop = 0x2313a0
-player2_defence_shop = 0x2313a4
-player2_skill_shop = 0x2313a8
-
-ultimate = 0xded18
-ultimate_gauge_max = 0x1b
-not_in_ultimate = 0x9054
+ULTIMATE = 0xded18
+ULTIMATE_GAUGE_MAX = 0x1b
+NOT_IN_ULTIMATE = 0x9054
 
 missions = [
     0xdf3e2, 0xdf3e3, 0xdf3ee, 0xdf3ef, 0xdf3fa, 0xdf3fb, 0xdf406, 0xdf407, 0xdf412, 0xdf413, // WORLD 1
@@ -71,7 +70,7 @@ missions = [
     0xdf5f2, 0xdf5f3, 0xdf5fe, 0xdf5ff, 0xdf60a, 0xdf60b, 0xdf616, 0xdf617, 0xdf622, 0xdf623, 0xdf62e, 0xdf62f, 0xdf63a, 0xdf63b, 0xdf646, 0xdf647 // WORLD 7
 ]
 
-easy_stages = [
+easyStages = [
     0xdf3e5, 0xdf3f1, 0xdf3fd, 0xdf409, 0xdf415, // WORLD 1
     0xdf421, 0xdf42d, 0xdf439, 0xdf445, 0xdf451, 0xdf45d, 0xdf469, // WORLD 2
     0xdf475, 0xdf481, 0xdf48d, 0xdf499, 0xdf4a5, 0xdf4b1, 0xdf4bd, // WORLD 3
@@ -81,7 +80,7 @@ easy_stages = [
     0xdf5f5, 0xdf601, 0xdf60d, 0xdf619, 0xdf625, 0xdf631, 0xdf63d, 0xdf649 // WORLD 7
 ]
 
-medium_stages = [
+mediumStages = [
     0xdf3e6, 0xdf3f2, 0xdf3fe, 0xdf40a, 0xdf416, // WORLD 1
     0xdf422, 0xdf42e, 0xdf43a, 0xdf446, 0xdf452, 0xdf45e, 0xdf46a, // WORLD 2
     0xdf476, 0xdf482, 0xdf48e, 0xdf49a, 0xdf4a6, 0xdf4b2, 0xdf4be, // WORLD 3
@@ -91,7 +90,7 @@ medium_stages = [
     0xdf5f6, 0xdf602, 0xdf60e, 0xdf61a, 0xdf626, 0xdf632, 0xdf63e, 0xdf64a // WORLD 7
 ]
 
-hard_stages = [
+hardStages = [
     0xdf3e7, 0xdf3f3, 0xdf3ff, 0xdf40b, 0xdf417, // WORLD 1
     0xdf423, 0xdf42f, 0xdf43b, 0xdf447, 0xdf453, 0xdf45f, 0xdf46b, // WORLD 2
     0xdf477, 0xdf483, 0xdf48f, 0xdf49b, 0xdf4a7, 0xdf4b3, 0xdf4bf, // WORLD 3
@@ -101,7 +100,7 @@ hard_stages = [
     0xdf5f7, 0xdf603, 0xdf60f, 0xdf61b, 0xdf627, 0xdf633, 0xdf63f, 0xdf64b // WORLD 7
 ]
 
-danger_stages = [
+dangerStages = [
     0xdf3e8, 0xdf3f4, 0xdf400, 0xdf40c, 0xdf418, // WORLD 1
     0xdf424, 0xdf430, 0xdf43c, 0xdf448, 0xdf454, 0xdf460, 0xdf46c, // WORLD 2
     0xdf478, 0xdf484, 0xdf490, 0xdf49c, 0xdf4a8, 0xdf4b4, 0xdf4c0, // WORLD 3
@@ -111,7 +110,7 @@ danger_stages = [
     0xdf5f8, 0xdf604, 0xdf610, 0xdf61c, 0xdf628, 0xdf634, 0xdf640, 0xdf64c // WORLD 7
 ]
 
-climax_stages = [
+climaxStages = [
     0xdf3e9, 0xdf3f5, 0xdf401, 0xdf40d, 0xdf419, // WORLD 1
     0xdf425, 0xdf431, 0xdf43d, 0xdf449, 0xdf455, 0xdf461, 0xdf46d, // WORLD 2
     0xdf479, 0xdf485, 0xdf491, 0xdf49d, 0xdf4a9, 0xdf4b5, 0xdf4c1, // WORLD 3
@@ -123,10 +122,10 @@ climax_stages = [
 
 // Items
 
-decade_item_bitfield = 0x0DF10C
-diend_item_bitfield = 0x0DF300
+DECADE_ITEM_BITFIELD = 0x0DF10C
+DIEND_ITEM_BITFIELD = 0x0DF300
 
-rider_items = [
+riderItems = [
     0x0DEF2C, // Ichigo
     0x0DEF40, // Nigo
     0x0DEF54, // V3
@@ -183,19 +182,19 @@ rider_items = [
     0x0DF378  // Meteor
 ]
 
-endurance_training = [
-    0xdef38, 0xdef4c, 0xdef60, 0xdef74, 0xdef88, 0xdef9c, 0xdefb0, 0xdefc4, 0xdefd8, 0xdefec, 0xdf000, 
-    0xdf014, 0xdf028, 0xdf03c, 0xdf050, 0xdf064, 0xdf078, 0xdf08c, 0xdf0a0, 0xdf0b4, 0xdf0c8, 0xdf0dc, 
-    0xdf0f0, 0xdf104, 0xdf118, 0xdf12c, 0xdf140, 0xdf154, 0xdf168, 0xdf17c, 0xdf190, 0xdf1a4, 0xdf1b8, 
-    0xdf1cc, 0xdf1e0, 0xdf1f4, 0xdf208, 0xdf21c, 0xdf230, 0xdf244, 0xdf258, 0xdf26c, 0xdf280, 0xdf294, 
+enduranceTraining = [
+    0xdef38, 0xdef4c, 0xdef60, 0xdef74, 0xdef88, 0xdef9c, 0xdefb0, 0xdefc4, 0xdefd8, 0xdefec, 0xdf000,
+    0xdf014, 0xdf028, 0xdf03c, 0xdf050, 0xdf064, 0xdf078, 0xdf08c, 0xdf0a0, 0xdf0b4, 0xdf0c8, 0xdf0dc,
+    0xdf0f0, 0xdf104, 0xdf118, 0xdf12c, 0xdf140, 0xdf154, 0xdf168, 0xdf17c, 0xdf190, 0xdf1a4, 0xdf1b8,
+    0xdf1cc, 0xdf1e0, 0xdf1f4, 0xdf208, 0xdf21c, 0xdf230, 0xdf244, 0xdf258, 0xdf26c, 0xdf280, 0xdf294,
     0xdf2a8, 0xdf2bc, 0xdf2d0, 0xdf2e4, 0xdf2f8, 0xdf30c, 0xdf320, 0xdf334, 0xdf348, 0xdf35c, 0xdf370, 0xdf384
 ]
 
 // FUNCTIONS
 
-function IsGameState(state) => game_state == state
+function IsGameState(state) => GAME_STATE == state
 
-function IsStageState(state) => byte(stage_state) == state
+function IsStageState(state) => byte(STAGE_STATE) == state
 
 function DeltaComparison(mem, value) => prev(byte(mem)) == value
 
@@ -215,14 +214,14 @@ function HealthPointer() => tbyte(0x2CE870)
 function Player1Health() => byte(HealthPointer() + 0x000180)
 
 function PlayerLevelAddress(player) {
-    is_in_stage = IsGameState(in_stage)
+    isInStage = IsGameState(IN_STAGE)
     if(player == 1) {
-        if(is_in_stage) 
+        if(isInStage)
             return 0x2C995C
             else return 0x231110
     }
     else
-        if(is_in_stage)
+        if(isInStage)
             return 0x2c9974
             else return 0x231144
 }
@@ -253,14 +252,14 @@ function StageBeatenOnce(easyDifficultyAddress) => DifficultiesBeatenInStage(eas
 
 function World7Completed()
 {
-    return StageBeatenOnce(World7_1) &&
-           StageBeatenOnce(World7_2) &&
-           StageBeatenOnce(World7_3) &&
-           StageBeatenOnce(World7_4) &&
-           StageBeatenOnce(World7_5) &&
-           StageBeatenOnce(World7_6) &&
-           StageBeatenOnce(World7_7) &&
-           StageBeatenOnce(World7_8)
+    return StageBeatenOnce(WORLD7_1) &&
+           StageBeatenOnce(WORLD7_2) &&
+           StageBeatenOnce(WORLD7_3) &&
+           StageBeatenOnce(WORLD7_4) &&
+           StageBeatenOnce(WORLD7_5) &&
+           StageBeatenOnce(WORLD7_6) &&
+           StageBeatenOnce(WORLD7_7) &&
+           StageBeatenOnce(WORLD7_8)
 }
 
 function MissionsCompletedCount()
@@ -274,7 +273,7 @@ function MissionsCompletedCount()
 function EasyStagesCompletedCount()
 {
     count = 0
-    for address in easy_stages
+    for address in easyStages
         count = count + byte(address)
     return count
 }
@@ -282,7 +281,7 @@ function EasyStagesCompletedCount()
 function MediumStagesCompletedCount()
 {
     count = 0
-    for address in medium_stages
+    for address in mediumStages
         count = count + byte(address)
     return count
 }
@@ -290,7 +289,7 @@ function MediumStagesCompletedCount()
 function HardStagesCompletedCount()
 {
     count = 0
-    for address in hard_stages
+    for address in hardStages
         count = count + byte(address)
     return count
 }
@@ -298,7 +297,7 @@ function HardStagesCompletedCount()
 function DangerStagesCompletedCount()
 {
     count = 0
-    for address in danger_stages
+    for address in dangerStages
         count = count + byte(address)
     return count
 }
@@ -306,7 +305,7 @@ function DangerStagesCompletedCount()
 function ClimaxStagesCompletedCount()
 {
     count = 0
-    for address in climax_stages
+    for address in climaxStages
         count = count + byte(address)
     return count
 }
@@ -325,9 +324,9 @@ function RiderItemsBought()
 function UnlockedGalleryItems()
 {
     count = 0
-    for offset in range(0, gallery_length - 1)
+    for offset in range(0, GALLERY_LENGTH - 1)
     {
-        address = gallery_start_bitfield + offset
+        address = GALLERY_START_BITFIELD + offset
         // Each address stores unlock flags in odd bit positions: 1, 3, 5, 7
         for bit_index in [1, 3, 5, 7]
             count = count + bit(bit_index, address)
@@ -335,12 +334,12 @@ function UnlockedGalleryItems()
     return count
 }
 
-function training_less_than(points, value)
+function trainingLessThan(points, value)
 {
     return any_of(points, p => word(p) > value)
 }
 
-function training_exceeds(points, value)
+function trainingExceeds(points, value)
 {
     return any_of(points, p => word(p) >= value)
 }
@@ -350,7 +349,7 @@ function UltimateGauge()
     return byte(0x2c9969)
 }
 
-function GetCharacterData(character_name, data) 
+function GetCharacterData(character_name, data)
 {
     character_data = CharacterData[character_name]
     return character_data[data]
@@ -370,25 +369,25 @@ function IsPlayingAs(player, character_name)
 function IsUsingUltimateAs(player, character_name)
 {
     ultimate_used = GetCharacterData(character_name, "Ultimate")
-    return IsPlayingAs(player, character_name) && word(ultimate) == ultimate_used
+    return IsPlayingAs(player, character_name) && word(ULTIMATE) == ultimate_used
 }
 
-function UsingDoubleUltimateAs(player_character, assist_character) 
-{    
+function UsingDoubleUltimateAs(player_character, assist_character)
+{
     start = once(
-        IsGameState(in_stage) &&
-        UltimateGauge() >= ultimate_gauge_max
+        IsGameState(IN_STAGE) &&
+        UltimateGauge() >= ULTIMATE_GAUGE_MAX
     )
 
     cancel = never(
-        !IsGameState(in_stage) ||
+        !IsGameState(IN_STAGE) ||
         !IsPlayingAs("Player1", player_character) ||
         !IsPlayingAs("Player2", assist_character)
     )
-    
-    goal = prev(!IsUsingUltimateAs("Player2", assist_character)) && 
+
+    goal = prev(!IsUsingUltimateAs("Player2", assist_character)) &&
     IsUsingUltimateAs("Player2", assist_character)
-    
+
     return start && cancel && goal
 }
 
@@ -506,123 +505,123 @@ StageDifficulties = BuildStageDifficultiesLookup()
 achievement(
     title = "You Have to Fight If You Want to Survive!", points = 5, type="progression",
     description = "Defeat World 1 boss on any difficulty",
-    trigger = (IsStageCleared(World1_5) && IsGameState(in_stage))
+    trigger = (IsStageCleared(WORLD1_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Will You Fall Into the Hell with Us?", points = 5, type="progression",
     description = "Defeat World 2 boss on any difficulty",
-    trigger = (IsStageCleared(World2_5) && IsGameState(in_stage))
+    trigger = (IsStageCleared(WORLD2_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Whoever Survives Will Fight Me", points = 5, type="progression",
     description = "Defeat World 3 boss on any difficulty",
-    trigger = (IsStageCleared(World3_5) && IsGameState(in_stage))
+    trigger = (IsStageCleared(WORLD3_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Now, Enjoy Your Hell!", points = 10, type="progression",
     description = "Defeat World 4 boss on any difficulty",
-    trigger = (IsStageCleared(World4_5) && IsGameState(in_stage))
+    trigger = (IsStageCleared(WORLD4_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Fight Fire with Rider", points = 10, type="progression",
     description = "Defeat World 5 boss on any difficulty",
-    trigger = (IsStageCleared(World5_6) && IsGameState(in_stage))
+    trigger = (IsStageCleared(WORLD5_6) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Master of Enemies", points = 25, type="win_condition",
     description = "Defeat World 6 boss on any difficulty",
-    trigger = (IsStageCleared(World6_7) && IsGameState(in_stage))
+    trigger = (IsStageCleared(WORLD6_7) && IsGameState(IN_STAGE))
 )
 
 //MEASURED
 
 achievement(
-    title = "World's Greatest Treasures", 
+    title = "World's Greatest Treasures",
     description = "Buy all rider items from the shop (including all of Decade's and Diend's)",
     points = 10,
-    trigger = 
-        prev(IsGameState(title_screen)) && 
-        IsGameState(title_screen) &&
-        prev(RiderItemsBought()) == RiderItemsTotal - 1 &&
-        measured(RiderItemsBought() == RiderItemsTotal)
+    trigger =
+        prev(IsGameState(TITLE_SCREEN)) &&
+        IsGameState(TITLE_SCREEN) &&
+        prev(RiderItemsBought()) == RIDER_ITEMS_TOTAL - 1 &&
+        measured(RiderItemsBought() == RIDER_ITEMS_TOTAL)
 )
 
 achievement(
-    title = "Memory of Heroez", 
+    title = "Memory of Heroez",
     description = "Unlock all galery items",
     points = 10,
-    trigger = 
-        prev(UnlockedGalleryItems()) < GalleryUnlocksTotal &&
-        measured(UnlockedGalleryItems() == GalleryUnlocksTotal)
+    trigger =
+        prev(UnlockedGalleryItems()) < GALLERY_UNLOCKS_TOTAL &&
+        measured(UnlockedGalleryItems() == GALLERY_UNLOCKS_TOTAL)
 )
 
 achievement(
-    title = "40 Years of Rider!", 
+    title = "40 Years of Rider!",
     description = "Unlock all characters, including password and hidden",
     points = 10,
-    trigger = 
-        prev(UnlockedCharacters()) == CharactersTotal - 1 &&
-        measured(UnlockedCharacters() == CharactersTotal)
+    trigger =
+        prev(UnlockedCharacters()) == CHARACTERS_TOTAL - 1 &&
+        measured(UnlockedCharacters() == CHARACTERS_TOTAL)
 )
 
 achievement(
-    title = "I'm On It", 
+    title = "I'm On It",
     description = "Complete all star missions",
     points = 50,
-    trigger = 
-        IsStageState(not_in_stage) &&
-        prev(MissionsCompletedCount()) == MissionsCount - 1 &&
-        measured(MissionsCompletedCount() == MissionsCount)
+    trigger =
+        IsStageState(NOT_IN_STAGE) &&
+        prev(MissionsCompletedCount()) == MISSIONS_COUNT - 1 &&
+        measured(MissionsCompletedCount() == MISSIONS_COUNT)
 )
 
 achievement(
     title = "I... Have Arrived!", points = 10,
     description = "Complete all stages on Easy difficulty at least once",
-    trigger = 
-        IsStageState(not_in_stage) &&
-        prev(EasyStagesCompletedCount()) == StagesCount - 1 &&
-        measured(EasyStagesCompletedCount() == StagesCount)
+    trigger =
+        IsStageState(NOT_IN_STAGE) &&
+        prev(EasyStagesCompletedCount()) == STAGES_COUNT - 1 &&
+        measured(EasyStagesCompletedCount() == STAGES_COUNT)
 )
 
 achievement(
     title = "Let's Go, Go, Go!", points = 10,
     description = "Complete all stages on Medium difficulty at least once",
-    trigger = 
-        IsStageState(not_in_stage) &&
-        prev(MediumStagesCompletedCount()) == StagesCount - 1 &&
-        measured(MediumStagesCompletedCount() == StagesCount)
+    trigger =
+        IsStageState(NOT_IN_STAGE) &&
+        prev(MediumStagesCompletedCount()) == STAGES_COUNT - 1 &&
+        measured(MediumStagesCompletedCount() == STAGES_COUNT)
 )
 
 achievement(
     title = "My Special Attack, Special Edition!", points = 10,
     description = "Complete all stages on Hard difficulty at least once",
-    trigger = 
-        IsStageState(not_in_stage) &&
-        prev(HardStagesCompletedCount()) == StagesCount - 1 &&
-        measured(HardStagesCompletedCount() == StagesCount)
+    trigger =
+        IsStageState(NOT_IN_STAGE) &&
+        prev(HardStagesCompletedCount()) == STAGES_COUNT - 1 &&
+        measured(HardStagesCompletedCount() == STAGES_COUNT)
 )
 
 achievement(
     title = "From Start to Finish...", points = 25,
     description = "Complete all stages on Danger difficulty at least once",
-    trigger = 
-        IsStageState(not_in_stage) &&
-        prev(DangerStagesCompletedCount()) == StagesCount - 1 &&
-        measured(DangerStagesCompletedCount() == StagesCount)
+    trigger =
+        IsStageState(NOT_IN_STAGE) &&
+        prev(DangerStagesCompletedCount()) == STAGES_COUNT - 1 &&
+        measured(DangerStagesCompletedCount() == STAGES_COUNT)
 )
 
 achievement(
     title = "...I'm Always at a Climax!", points = 50,
     description = "Complete all stages on Climax difficulty at least once",
-    trigger = 
-        IsStageState(not_in_stage) &&
-        prev(ClimaxStagesCompletedCount()) == StagesCount - 1 &&
-        measured(ClimaxStagesCompletedCount() == StagesCount)
+    trigger =
+        IsStageState(NOT_IN_STAGE) &&
+        prev(ClimaxStagesCompletedCount()) == STAGES_COUNT - 1 &&
+        measured(ClimaxStagesCompletedCount() == STAGES_COUNT)
 )
 
 //CHALLENGE
@@ -637,18 +636,18 @@ achievement(
     title = "Another Rider", points = 10,
     description = "Complete every stage in Another World once on any difficulty",
     trigger =
-        IsStageState(not_in_stage) && 
-        prev(!World7Completed()) && 
+        IsStageState(NOT_IN_STAGE) &&
+        prev(!World7Completed()) &&
         World7Completed()
 )
 
 achievement(
     title = "My Strength Has Made You Cry", points = 10,
     description = "Have Player character's Endurance at 300 at stage selection",
-    trigger = 
-        IsGameState(stage_selection) &&
-        prev(word(player1_endurance_stage_selection)) < 300 &&
-        word(player1_endurance_stage_selection) >= 300
+    trigger =
+        IsGameState(STAGE_SELECTION) &&
+        prev(word(PLAYER1_ENDURANCE_STAGE_SELECTION)) < 300 &&
+        word(PLAYER1_ENDURANCE_STAGE_SELECTION) >= 300
 )
 
 // ULTIMATES
@@ -692,10 +691,10 @@ for ua in ultimate_achievements
 
 // RICH PRESENCE
 
-rich_presence_conditional_display(IsGameState(starting), "Starting the game")
-rich_presence_conditional_display(IsGameState(title_screen), "Title Screen")
-rich_presence_conditional_display(IsGameState(character_selection), "Character Selection")
-rich_presence_conditional_display(IsGameState(stage_selection), "Stage Selection")
+rich_presence_conditional_display(IsGameState(STARTING), "Starting the game")
+rich_presence_conditional_display(IsGameState(TITLE_SCREEN), "Title Screen")
+rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), "Character Selection")
+rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
 rich_presence_display("{0} and {1} are fighting in {2} [{3}]",
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
     rich_presence_lookup("Player 2 Character", Player2Character(), Characters),
