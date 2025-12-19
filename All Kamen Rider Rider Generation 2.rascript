@@ -401,6 +401,8 @@ function BuildCharactersLookup()
     return lookup
 }
 
+function IsWorldStage(world, stage) => any_of(WorldStageToStageIds[world][stage], id => CurrentStage() == id)
+
 // LOOKUPS
 
 CharacterData = {
@@ -478,6 +480,15 @@ StageData = {
     0x2F: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Danger" },
     0x3E: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Climax" }
     // …add remaining stages here
+}
+
+WorldStageToStageIds = {
+    2: {
+        2: [ 0x0A, 0x0C, 0x0F, 0x25, 0x34 ]
+    },
+    3: {
+        2: [ 0x14, 0x16, 0x19, 0x2F, 0x3E ]
+    }
 }
 
 function BuildStageTitlesLookup()
@@ -626,10 +637,33 @@ achievement(
 
 //CHALLENGE
 
+function StageWithoutDamage(world, stage)
+{
+    start = once(
+        IsGameState(IN_STAGE) &&
+        IsWorldStage(world, stage)
+    )
+
+    cancel = never(
+        Player1Health() < prev(Player1Health()) ||
+        !IsGameState(IN_STAGE)
+    )
+
+    goal = IsStageState(CLEAR)
+
+    return start && cancel && trigger_when(goal)
+}
+
 achievement(
     title = "Temple Run", points = 5,
     description = "Complete stage 2-2 on any difficulty without taking damage",
-    trigger = (Player1Health() < prev(Player1Health()))
+    trigger = StageWithoutDamage(2, 2)
+)
+
+achievement(
+    title = "Steel Wall Run", points = 5,
+    description = "Complete stage 3-2 on any difficulty without taking damage",
+    trigger = StageWithoutDamage(3, 2)
 )
 
 achievement(
