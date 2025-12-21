@@ -14,7 +14,7 @@ GAME_STATE = byte(0x000ffd2c)
 STARTING = 0x00
 IN_STAGE = 0x01
 GALLERY = 0x04
-TITLE_SCREEN = 0x05 // Title screen, Shop
+SHOP = 0x05 // Title screen, Shop
 CHARACTER_SELECTION = 0x06
 SELECTION_TO_STAGE_TRANSITION = 0x10
 STAGE_SELECTION = 0x24
@@ -40,7 +40,7 @@ WORLD7_8 = 0x0DF649
 STAGE_STATE = 0x2cef48
 PLAYING = 0x00
 CLEAR = 0x04
-NOT_IN_STAGE = 0x05
+AFTER_CLEAR = 0x05
 
 GALLERY_START_BITFIELD = 0x00DF7D4
 GALLERY_LENGTH = 25
@@ -514,6 +514,12 @@ function BuildStageDifficultiesLookup()
     return lookup
 }
 
+function ExceedsThreshold(val, threshold)
+{
+    return prev(val) <= threshold &&
+           val > threshold
+}
+
 StageDifficulties = BuildStageDifficultiesLookup()
 
 //PROGRESSION
@@ -561,8 +567,8 @@ achievement(
     description = "Buy all rider items from the shop (including all of Decade's and Diend's)",
     points = 10,
     trigger =
-        prev(IsGameState(TITLE_SCREEN)) &&
-        IsGameState(TITLE_SCREEN) &&
+        prev(IsGameState(SHOP)) &&
+        IsGameState(SHOP) &&
         prev(RiderItemsBought()) == RIDER_ITEMS_TOTAL - 1 &&
         measured(RiderItemsBought() == RIDER_ITEMS_TOTAL)
 )
@@ -590,7 +596,7 @@ achievement(
     description = "Complete all star missions",
     points = 50,
     trigger =
-        IsStageState(NOT_IN_STAGE) &&
+        IsStageState(AFTER_CLEAR) &&
         prev(MissionsCompletedCount()) == MISSIONS_COUNT - 1 &&
         measured(MissionsCompletedCount() == MISSIONS_COUNT)
 )
@@ -599,7 +605,7 @@ achievement(
     title = "I... Have Arrived!", points = 10,
     description = "Complete all stages on Easy difficulty at least once",
     trigger =
-        IsStageState(NOT_IN_STAGE) &&
+        IsStageState(AFTER_CLEAR) &&
         prev(EasyStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(EasyStagesCompletedCount() == STAGES_COUNT)
 )
@@ -608,7 +614,7 @@ achievement(
     title = "Let's Go, Go, Go!", points = 10,
     description = "Complete all stages on Medium difficulty at least once",
     trigger =
-        IsStageState(NOT_IN_STAGE) &&
+        IsStageState(AFTER_CLEAR) &&
         prev(MediumStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(MediumStagesCompletedCount() == STAGES_COUNT)
 )
@@ -617,7 +623,7 @@ achievement(
     title = "My Special Attack, Special Edition!", points = 10,
     description = "Complete all stages on Hard difficulty at least once",
     trigger =
-        IsStageState(NOT_IN_STAGE) &&
+        IsStageState(AFTER_CLEAR) &&
         prev(HardStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(HardStagesCompletedCount() == STAGES_COUNT)
 )
@@ -626,7 +632,7 @@ achievement(
     title = "From Start to Finish...", points = 25,
     description = "Complete all stages on Danger difficulty at least once",
     trigger =
-        IsStageState(NOT_IN_STAGE) &&
+        IsStageState(AFTER_CLEAR) &&
         prev(DangerStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(DangerStagesCompletedCount() == STAGES_COUNT)
 )
@@ -635,7 +641,7 @@ achievement(
     title = "...I'm Always at a Climax!", points = 50,
     description = "Complete all stages on Climax difficulty at least once",
     trigger =
-        IsStageState(NOT_IN_STAGE) &&
+        IsStageState(AFTER_CLEAR) &&
         prev(ClimaxStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(ClimaxStagesCompletedCount() == STAGES_COUNT)
 )
@@ -680,18 +686,22 @@ achievement(
     title = "Another Rider", points = 10,
     description = "Complete every stage in Another World once on any difficulty",
     trigger =
-        IsStageState(NOT_IN_STAGE) &&
+        IsStageState(AFTER_CLEAR) &&
         prev(!World7Completed()) &&
         World7Completed()
 )
 
 achievement(
     title = "My Strength Has Made You Cry", points = 10,
-    description = "Have Player character's Endurance at 300 at stage selection",
+    description = "Finish a stage with character's Endurance exceeding 300",
     trigger =
+        IsStageState(AFTER_CLEAR) &&
+        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
         IsGameState(STAGE_SELECTION) &&
-        prev(word(PLAYER1_ENDURANCE_STAGE_SELECTION)) < 300 &&
-        word(PLAYER1_ENDURANCE_STAGE_SELECTION) >= 300
+        (
+            ExceedsThreshold(word(PLAYER1_ENDURANCE_STAGE_SELECTION), 300) || 
+            ExceedsThreshold(word(PLAYER2_ENDURANCE_STAGE_SELECTION), 300)
+        )
 )
 
 // ULTIMATES
@@ -736,7 +746,7 @@ for ua in ultimate_achievements
 // RICH PRESENCE
 
 rich_presence_conditional_display(IsGameState(STARTING), "Starting the game")
-rich_presence_conditional_display(IsGameState(TITLE_SCREEN), "Title Screen")
+// rich_presence_conditional_display(IsGameState(SHOP), "Title Screen")
 rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), "Character Selection")
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
 rich_presence_display("{0} and {1} are fighting in {2} [{3}]",
