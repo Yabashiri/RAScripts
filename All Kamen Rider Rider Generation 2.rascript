@@ -47,16 +47,23 @@ GALLERY_LENGTH = 25
 
 // Character stats
 PLAYER1_ENDURANCE_STAGE_SELECTION = 0x23111c
+PLAYER1_ATTACK_STAGE_SELECTION = 0x231120
+PLAYER1_DEFENSE_STAGE_SELECTION = 0x231124
+PLAYER1_SKILL_STAGE_SELECTION = 0x231128
+
 PLAYER2_ENDURANCE_STAGE_SELECTION = 0x231150
+PLAYER2_ATTACK_STAGE_SELECTION = 0x231154
+PLAYER2_DEFENSE_STAGE_SELECTION = 0x231158
+PLAYER2_SKILL_STAGE_SELECTION = 0x23115c
 
 PLAYER1_ENDURANCE_SHOP = 0x231368
 PLAYER1_ATTACK_SHOP = 0x23136c
-PLAYER1_DEFENCE_SHOP = 0x231370
+PLAYER1_DEFENSE_SHOP = 0x231370
 PLAYER1_SKILL_SHOP = 0x231374
 
 PLAYER2_ENDURANCE_SHOP = 0x23139c
 PLAYER2_ATTACK_SHOP = 0x2313a0
-PLAYER2_DEFENCE_SHOP = 0x2313a4
+PLAYER2_DEFENSE_SHOP = 0x2313a4
 PLAYER2_SKILL_SHOP = 0x2313a8
 
 ULTIMATE = 0xded18
@@ -695,12 +702,75 @@ achievement(
     title = "My Strength Has Made You Cry", points = 10,
     description = "Finish a stage with character's Endurance exceeding 300",
     trigger =
-        IsStageState(AFTER_CLEAR) &&
+        once(IsGameState(IN_STAGE)) &&
+        never(
+            !IsGameState(IN_STAGE) &&
+            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
+            !IsGameState(STAGE_SELECTION)
+        ) &&
         prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
         IsGameState(STAGE_SELECTION) &&
+        IsStageState(AFTER_CLEAR) &&
         (
             ExceedsThreshold(word(PLAYER1_ENDURANCE_STAGE_SELECTION), 300) || 
             ExceedsThreshold(word(PLAYER2_ENDURANCE_STAGE_SELECTION), 300)
+        )
+)
+
+achievement(
+    title = "Attack Ride", points = 10,
+    description = "Finish a stage with character's Attack exceeding 150",
+    trigger =
+        once(IsGameState(IN_STAGE)) &&
+        never(
+            !IsGameState(IN_STAGE) &&
+            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
+            !IsGameState(STAGE_SELECTION)
+        ) &&
+        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
+        IsGameState(STAGE_SELECTION) &&
+        IsStageState(AFTER_CLEAR) &&
+        (
+            ExceedsThreshold(word(PLAYER1_ATTACK_STAGE_SELECTION), 150) || 
+            ExceedsThreshold(word(PLAYER2_ATTACK_STAGE_SELECTION), 150)
+        )
+)
+
+achievement(
+    title = "No Fear, No Pain", points = 10,
+    description = "Finish a stage with character's Defense exceeding 150",
+    trigger =
+        once(IsGameState(IN_STAGE)) &&
+        never(
+            !IsGameState(IN_STAGE) &&
+            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
+            !IsGameState(STAGE_SELECTION)
+        ) &&
+        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
+        IsGameState(STAGE_SELECTION) &&
+        IsStageState(AFTER_CLEAR) &&
+        (
+            ExceedsThreshold(word(PLAYER1_DEFENSE_STAGE_SELECTION), 150) || 
+            ExceedsThreshold(word(PLAYER2_DEFENSE_STAGE_SELECTION), 150)
+        )
+)
+
+achievement(
+    title = "He Who Walks the Path of Heaven", points = 10,
+    description = "Finish a stage with character's Skill exceeding 150",
+    trigger =
+        once(IsGameState(IN_STAGE)) &&
+        never(
+            !IsGameState(IN_STAGE) &&
+            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
+            !IsGameState(STAGE_SELECTION)
+        ) &&
+        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
+        IsGameState(STAGE_SELECTION) &&
+        IsStageState(AFTER_CLEAR) &&
+        (
+            ExceedsThreshold(word(PLAYER1_SKILL_STAGE_SELECTION), 150) || 
+            ExceedsThreshold(word(PLAYER2_SKILL_STAGE_SELECTION), 150)
         )
 )
 
