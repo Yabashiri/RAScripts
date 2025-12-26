@@ -202,6 +202,8 @@ enduranceTraining = [
 
 // FUNCTIONS
 
+function bitwiseOr(a, b) => a + b - a * b
+
 function IsGameState(state) => GAME_STATE == state
 
 function IsStageState(state) => byte(STAGE_STATE) == state
@@ -339,9 +341,9 @@ function UnlockedGalleryItems()
     for offset in range(0, GALLERY_LENGTH - 1)
     {
         address = GALLERY_START_BITFIELD + offset
-        // Each address stores unlock flags in odd bit positions: 1, 3, 5, 7
-        for bit_index in [1, 3, 5, 7]
-            count = count + bit(bit_index, address)
+        // Each address stores 4 items. Item is unlocked if either its even or odd bit is set.
+        for bit_index in [0, 2, 4, 6]
+            count = count + bitwiseOr(bit(bit_index, address), bit(bit_index + 1, address))
     }
     return count
 }
@@ -584,7 +586,7 @@ achievement(
     title = "Memory of Heroez",
     description = "Unlock all galery items",
     points = 10,
-    trigger =
+    trigger = //TODO: ADD GAME STATE CHANGE
         prev(UnlockedGalleryItems()) < GALLERY_UNLOCKS_TOTAL &&
         measured(UnlockedGalleryItems() == GALLERY_UNLOCKS_TOTAL)
 )
