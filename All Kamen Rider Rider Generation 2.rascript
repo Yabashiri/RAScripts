@@ -66,6 +66,8 @@ PLAYER2_ATTACK_SHOP = 0x2313a0
 PLAYER2_DEFENSE_SHOP = 0x2313a4
 PLAYER2_SKILL_SHOP = 0x2313a8
 
+SHOP_COINS = 0x23126c
+
 ULTIMATE = 0xded18
 ULTIMATE_GAUGE_MAX = 0x1b
 NOT_IN_ULTIMATE = 0x9054
@@ -820,10 +822,24 @@ for ua in ultimate_achievements
 
 // RICH PRESENCE
 
-rich_presence_conditional_display(IsGameState(STARTING), "Starting the game")
+rich_presence_conditional_display(IsGameState(STARTING), "Game Start")
 rich_presence_conditional_display(IsGameState(SHOP) && prior(IsGameState(STARTING)), "Title Screen")
-rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)), "Shop")
-rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), "Character Selection")
+rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)), 
+    "Shop🛒 {0}🪙, Rider Items: {1}/{2}🗡️",
+    rich_presence_value("Coins", dword(SHOP_COINS)),
+    rich_presence_value("Rider Items Bought", RiderItemsBought()),
+    rich_presence_value("Rider Items Total", RIDER_ITEMS_TOTAL)
+)
+rich_presence_conditional_display(IsGameState(GALLERY),
+    "Gallery🖼️ Items Unlocked: {0}/{1}📷",
+    rich_presence_value("Gallery Unlocks", UnlockedGalleryItems()),
+    rich_presence_value("Gallery Total", GALLERY_UNLOCKS_TOTAL)
+)
+rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), 
+    "Character Selection🎭 Characters Unlocked: {0}/{1}🏍️",
+    rich_presence_value("Character Unlocks", UnlockedCharacters()),
+    rich_presence_value("Character Total", CHARACTERS_TOTAL)
+)
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
 rich_presence_display("{0} and {1} are fighting in {2} [{3}]",
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
