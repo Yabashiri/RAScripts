@@ -329,8 +329,10 @@ function RiderItemsBought()
     count = bitcount(CharacterData["Decade"]["Item"]) + bitcount(CharacterData["Diend"]["Item"])
     for character_name in CharacterData
     {
-        item = CharacterData[character_name]["Item"]
-        count = count + byte(item)
+        if (character_name != "Decade" && character_name != "Diend" && character_name != "Wizard") {
+            item = CharacterData[character_name]["Item"]
+            count = count + byte(item)
+        }
     }
     return count
 }
@@ -573,10 +575,9 @@ achievement(
 
 achievement(
     title = "World's Greatest Treasures",
-    description = "Buy all rider items from the shop (including all of Decade's and Diend's)",
+    description = "Buy all rider items from the shop, including all of Decade's and Diend's",
     points = 10,
     trigger =
-        prev(IsGameState(SHOP)) &&
         IsGameState(SHOP) &&
         prev(RiderItemsBought()) == RIDER_ITEMS_TOTAL - 1 &&
         measured(RiderItemsBought() == RIDER_ITEMS_TOTAL)
