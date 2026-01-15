@@ -578,6 +578,7 @@ achievement(
     description = "Buy all rider items from the shop, including all of Decade's and Diend's",
     points = 10,
     trigger =
+        !prior(IsGameState(STARTING)) &&
         IsGameState(SHOP) &&
         prev(RiderItemsBought()) == RIDER_ITEMS_TOTAL - 1 &&
         measured(RiderItemsBought() == RIDER_ITEMS_TOTAL)
@@ -820,7 +821,8 @@ for ua in ultimate_achievements
 // RICH PRESENCE
 
 rich_presence_conditional_display(IsGameState(STARTING), "Starting the game")
-// rich_presence_conditional_display(IsGameState(SHOP), "Title Screen")
+rich_presence_conditional_display(IsGameState(SHOP) && prior(IsGameState(STARTING)), "Title Screen")
+rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)), "Shop")
 rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), "Character Selection")
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
 rich_presence_display("{0} and {1} are fighting in {2} [{3}]",
