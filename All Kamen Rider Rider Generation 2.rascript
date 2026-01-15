@@ -258,7 +258,7 @@ function BytesInRangeCount(from, to)
     return count
 }
 
-function UnlockedCharacters() => BytesInRangeCount(0xdedc0, 0xdedf8)
+function UnlockedCharacters() => BytesInRangeCount(0xdedc0, 0xdedf7)
 
 function DifficultiesBeatenInStage(easyDifficultyAddress) => BytesInRangeCount(easyDifficultyAddress, easyDifficultyAddress + 3)
 
@@ -597,12 +597,13 @@ achievement(
     description = "Unlock all characters, including password and hidden",
     points = 10,
     trigger =
+        // TODO: Add more checks?
         prev(UnlockedCharacters()) == CHARACTERS_TOTAL - 1 &&
         measured(UnlockedCharacters() == CHARACTERS_TOTAL)
 )
 
 achievement(
-    title = "I'm On It",
+    title = "I'm on It",
     description = "Complete all star missions",
     points = 50,
     trigger =
