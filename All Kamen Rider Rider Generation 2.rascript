@@ -587,7 +587,7 @@ achievement(
     title = "Memory of Heroez",
     description = "Unlock all galery items",
     points = 10,
-    trigger = //TODO: ADD GAME STATE CHANGE
+    trigger =
         prev(UnlockedGalleryItems()) < GALLERY_UNLOCKS_TOTAL &&
         measured(UnlockedGalleryItems() == GALLERY_UNLOCKS_TOTAL)
 )
