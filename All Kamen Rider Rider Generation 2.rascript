@@ -498,6 +498,16 @@ CharacterData = {
 Characters = BuildCharactersLookup()
 
 StageData = {
+    0x01: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Easy" },
+    0x02: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Medium" },
+    0x05: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Hard" },
+    0x1B: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Danger" },
+    0x2A: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Climax" },
+    0x08: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Easy" },
+    // 0x0A: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Medium" },
+    0x0D: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Hard" },
+    0x23: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Danger" },
+    0x32: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Climax" },
     0x0A: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Easy" },
     0x0C: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Medium" },
     0x0F: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Hard" },
@@ -507,7 +517,12 @@ StageData = {
     0x16: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Medium" },
     0x19: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Hard" },
     0x2F: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Danger" },
-    0x3E: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Climax" }
+    0x3E: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Climax" },
+    0x1C: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Easy" },
+    0x1E: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Medium" },
+    0x21: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Hard" },
+    0x37: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Danger" },
+    0x46: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Climax" }
     // …add remaining stages here
 }
 
