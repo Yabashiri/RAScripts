@@ -20,6 +20,11 @@ SELECTION_TO_STAGE_TRANSITION = 0x10
 STAGE_SELECTION = 0x24
 STAGE_TO_SELECTION_TRANSITION = 0xed
 
+// Stage identification (new system)
+CURRENT_WORLD = 0xdf9c2
+CURRENT_STAGE_IN_WORLD = 0xdf9c4
+CURRENT_DIFFICULTY = 0xdf9f8
+
 // Stages
 WORLD1_5 = 0x0DF415
 WORLD2_5 = 0x0DF469
@@ -432,6 +437,29 @@ function BuildCharactersLookup()
 
 function IsWorldStage(world, stage) => any_of(WorldStageToStageIds[world][stage], id => CurrentStage() == id)
 
+// New stage system functions
+function CurrentWorld() => byte(CURRENT_WORLD)
+
+function CurrentStageInWorld() => byte(CURRENT_STAGE_IN_WORLD)
+
+function CurrentDifficulty() => byte(CURRENT_DIFFICULTY)
+
+function DifficultyName(difficultyValue)
+{
+    if (difficultyValue == 0x00) return "Easy"
+    if (difficultyValue == 0x01) return "Medium"
+    if (difficultyValue == 0x02) return "Hard"
+    if (difficultyValue == 0x03) return "Danger"
+    if (difficultyValue == 0x04) return "Climax"
+    return "Unknown"
+}
+
+function GetStageName(world, stage) => NewStageData[world][stage]["Name"]
+
+function CurrentStageName() => GetStageName(CurrentWorld(), CurrentStageInWorld())
+
+function CurrentDifficultyName() => DifficultyName(CurrentDifficulty())
+
 // LOOKUPS
 
 CharacterData = {
@@ -496,6 +524,75 @@ CharacterData = {
 }
 
 Characters = BuildCharactersLookup()
+
+NewStageData = {
+    0x01: {  // World 1 - 5 stages
+        0x04: { "Name": "City Invasion" },      // Stage 1
+        0x03: { "Name": "" },                   // Stage 2
+        0x05: { "Name": "" },                   // Stage 3
+        0x06: { "Name": "" },                   // Stage 4
+        0x5a: { "Name": "Venomous Snake Den" }  // Stage 5 (Boss)
+    },
+    0x02: {  // World 2 - 7 stages
+        0x01: { "Name": "" },                   // Stage 1
+        0x03: { "Name": "Endless Way" },        // Stage 2
+        0x04: { "Name": "" },                   // Stage 3
+        0x05: { "Name": "" },                   // Stage 4
+        0x02: { "Name": "" },                   // Stage 5
+        0x06: { "Name": "" },                   // Stage 6
+        0x5a: { "Name": "" }                    // Stage 7 (Boss)
+    },
+    0x03: {  // World 3 - 7 stages
+        0x01: { "Name": "" },                   // Stage 1
+        0x03: { "Name": "Wall Trap Run" },      // Stage 2
+        0x04: { "Name": "" },                   // Stage 3
+        0x05: { "Name": "" },                   // Stage 4
+        0x06: { "Name": "" },                   // Stage 5
+        0x07: { "Name": "" },                   // Stage 6
+        0x5a: { "Name": "" }                    // Stage 7 (Boss)
+    },
+    0x04: {  // World 4 - 5 stages
+        0x01: { "Name": "" },                   // Stage 1
+        0x04: { "Name": "Dark Night Rescue" },  // Stage 2
+        0x05: { "Name": "" },                   // Stage 3
+        0x06: { "Name": "" },                   // Stage 4
+        0x5a: { "Name": "" }                    // Stage 5 (Boss)
+    },
+    0x05: {  // World 5 - 6 stages
+        0x01: { "Name": "" },                   // Stage 1
+        0x02: { "Name": "" },                   // Stage 2
+        0x03: { "Name": "" },                   // Stage 3
+        0x05: { "Name": "" },                   // Stage 4
+        0x06: { "Name": "" },                   // Stage 5
+        0x5a: { "Name": "" }                    // Stage 6 (Boss)
+    },
+    0x06: {  // World 6 - 7 stages
+        0x01: { "Name": "" },                   // Stage 1
+        0x07: { "Name": "" },                   // Stage 2
+        0x02: { "Name": "" },                   // Stage 3
+        0x03: { "Name": "" },                   // Stage 4
+        0x05: { "Name": "" },                   // Stage 5
+        0x06: { "Name": "" },                   // Stage 6
+        0x5a: { "Name": "" }                    // Stage 7 (Boss)
+    },
+    0x07: {  // World 7 - 15 stages
+        0x06: { "Name": "" },                   // Stage 1
+        0x07: { "Name": "" },                   // Stage 2
+        0x01: { "Name": "" },                   // Stage 3
+        0x02: { "Name": "" },                   // Stage 4
+        0x03: { "Name": "" },                   // Stage 5
+        0x04: { "Name": "" },                   // Stage 6
+        0x05: { "Name": "" },                   // Stage 7
+        0x09: { "Name": "" },                   // Stage 8
+        0x0a: { "Name": "" },                   // Stage 9
+        0x0b: { "Name": "" },                   // Stage 10
+        0x0c: { "Name": "" },                   // Stage 11
+        0x0d: { "Name": "" },                   // Stage 12
+        0x0e: { "Name": "" },                   // Stage 13
+        0x0f: { "Name": "" },                   // Stage 14
+        0x10: { "Name": "" }                    // Stage 15
+    }
+}
 
 StageData = {
     0x01: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Easy" },
