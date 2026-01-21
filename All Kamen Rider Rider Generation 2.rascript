@@ -454,11 +454,46 @@ function DifficultyName(difficultyValue)
     return "Unknown"
 }
 
-function GetStageName(world, stage) => NewStageData[world][stage]["Name"]
+function CurrentStageKey() => CurrentWorld() * 256 + CurrentStageInWorld()
 
-function CurrentStageName() => GetStageName(CurrentWorld(), CurrentStageInWorld())
+function BuildStageOrderLookup()
+{
+    lookup = {}
+    for world in NewStageData
+    {
+        for stage_id in NewStageData[world]
+        {
+            key = world * 256 + stage_id
+            lookup[key] = NewStageData[world][stage_id]["Order"]
+        }
+    }
+    return lookup
+}
 
-function CurrentDifficultyName() => DifficultyName(CurrentDifficulty())
+function BuildStageNameLookup()
+{
+    lookup = {}
+    for world in NewStageData
+    {
+        for stage_id in NewStageData[world]
+        {
+            key = world * 256 + stage_id
+            lookup[key] = NewStageData[world][stage_id]["Name"]
+        }
+    }
+    return lookup
+}
+
+function BuildDifficultyLookup()
+{
+    return {
+        0x00: "Easy",
+        0x01: "Medium",
+        0x02: "Hard",
+        0x03: "Danger",
+        0x04: "Climax"
+    }
+}
 
 // LOOKUPS
 
@@ -527,72 +562,78 @@ Characters = BuildCharactersLookup()
 
 NewStageData = {
     0x01: {  // World 1 - 5 stages
-        0x04: { "Name": "City Invasion" },      // Stage 1
-        0x03: { "Name": "" },                   // Stage 2
-        0x05: { "Name": "" },                   // Stage 3
-        0x06: { "Name": "" },                   // Stage 4
-        0x5a: { "Name": "Venomous Snake Den" }  // Stage 5 (Boss)
+        0x04: { "Name": "City Invasion", "Order": "1" },
+        0x03: { "Name": "", "Order": "2" },
+        0x05: { "Name": "", "Order": "3" },
+        0x06: { "Name": "", "Order": "4" },
+        0x5a: { "Name": "Venomous Snake Den", "Order": "5" }
     },
     0x02: {  // World 2 - 7 stages
-        0x01: { "Name": "" },                   // Stage 1
-        0x03: { "Name": "Endless Way" },        // Stage 2
-        0x04: { "Name": "" },                   // Stage 3
-        0x05: { "Name": "" },                   // Stage 4
-        0x02: { "Name": "" },                   // Stage 5
-        0x06: { "Name": "" },                   // Stage 6
-        0x5a: { "Name": "" }                    // Stage 7 (Boss)
+        0x01: { "Name": "", "Order": "1" },
+        0x03: { "Name": "Endless Way", "Order": "2" },
+        0x04: { "Name": "", "Order": "3" },
+        0x05: { "Name": "", "Order": "4" },
+        0x02: { "Name": "", "Order": "5" },
+        0x06: { "Name": "", "Order": "6" },
+        0x5a: { "Name": "", "Order": "7" }
     },
     0x03: {  // World 3 - 7 stages
-        0x01: { "Name": "" },                   // Stage 1
-        0x03: { "Name": "Wall Trap Run" },      // Stage 2
-        0x04: { "Name": "" },                   // Stage 3
-        0x05: { "Name": "" },                   // Stage 4
-        0x06: { "Name": "" },                   // Stage 5
-        0x07: { "Name": "" },                   // Stage 6
-        0x5a: { "Name": "" }                    // Stage 7 (Boss)
+        0x01: { "Name": "", "Order": "1" },
+        0x03: { "Name": "Wall Trap Run", "Order": "2" },
+        0x04: { "Name": "", "Order": "3" },
+        0x05: { "Name": "", "Order": "4" },
+        0x06: { "Name": "", "Order": "5" },
+        0x07: { "Name": "", "Order": "6" },
+        0x5a: { "Name": "", "Order": "7" }
     },
     0x04: {  // World 4 - 5 stages
-        0x01: { "Name": "" },                   // Stage 1
-        0x04: { "Name": "Dark Night Rescue" },  // Stage 2
-        0x05: { "Name": "" },                   // Stage 3
-        0x06: { "Name": "" },                   // Stage 4
-        0x5a: { "Name": "" }                    // Stage 5 (Boss)
+        0x01: { "Name": "", "Order": "1" },
+        0x04: { "Name": "Dark Night Rescue", "Order": "2" },
+        0x05: { "Name": "", "Order": "3" },
+        0x06: { "Name": "", "Order": "4" },
+        0x5a: { "Name": "", "Order": "5" }
     },
     0x05: {  // World 5 - 6 stages
-        0x01: { "Name": "" },                   // Stage 1
-        0x02: { "Name": "" },                   // Stage 2
-        0x03: { "Name": "" },                   // Stage 3
-        0x05: { "Name": "" },                   // Stage 4
-        0x06: { "Name": "" },                   // Stage 5
-        0x5a: { "Name": "" }                    // Stage 6 (Boss)
+        0x01: { "Name": "", "Order": "1" },
+        0x02: { "Name": "", "Order": "2" },
+        0x03: { "Name": "", "Order": "3" },
+        0x05: { "Name": "", "Order": "4" },
+        0x06: { "Name": "", "Order": "5" },
+        0x5a: { "Name": "", "Order": "6" }
     },
     0x06: {  // World 6 - 7 stages
-        0x01: { "Name": "" },                   // Stage 1
-        0x07: { "Name": "" },                   // Stage 2
-        0x02: { "Name": "" },                   // Stage 3
-        0x03: { "Name": "" },                   // Stage 4
-        0x05: { "Name": "" },                   // Stage 5
-        0x06: { "Name": "" },                   // Stage 6
-        0x5a: { "Name": "" }                    // Stage 7 (Boss)
+        0x01: { "Name": "", "Order": "1" },
+        0x07: { "Name": "", "Order": "2" },
+        0x02: { "Name": "", "Order": "3" },
+        0x03: { "Name": "", "Order": "4" },
+        0x05: { "Name": "", "Order": "5" },
+        0x06: { "Name": "", "Order": "6" },
+        0x5a: { "Name": "", "Order": "7" }
     },
     0x07: {  // World 7 - 15 stages
-        0x06: { "Name": "" },                   // Stage 1
-        0x07: { "Name": "" },                   // Stage 2
-        0x01: { "Name": "" },                   // Stage 3
-        0x02: { "Name": "" },                   // Stage 4
-        0x03: { "Name": "" },                   // Stage 5
-        0x04: { "Name": "" },                   // Stage 6
-        0x05: { "Name": "" },                   // Stage 7
-        0x09: { "Name": "" },                   // Stage 8
-        0x0a: { "Name": "" },                   // Stage 9
-        0x0b: { "Name": "" },                   // Stage 10
-        0x0c: { "Name": "" },                   // Stage 11
-        0x0d: { "Name": "" },                   // Stage 12
-        0x0e: { "Name": "" },                   // Stage 13
-        0x0f: { "Name": "" },                   // Stage 14
-        0x10: { "Name": "" }                    // Stage 15
+        0x06: { "Name": "", "Order": "1" },
+        0x07: { "Name": "", "Order": "2" },
+        0x01: { "Name": "", "Order": "3" },
+        0x02: { "Name": "", "Order": "4" },
+        0x03: { "Name": "", "Order": "5" },
+        0x04: { "Name": "", "Order": "6" },
+        0x05: { "Name": "", "Order": "7" },
+        0x09: { "Name": "", "Order": "8" },
+        0x0a: { "Name": "", "Order": "9" },
+        0x0b: { "Name": "", "Order": "10" },
+        0x0c: { "Name": "", "Order": "11" },
+        0x0d: { "Name": "", "Order": "12" },
+        0x0e: { "Name": "", "Order": "13" },
+        0x0f: { "Name": "", "Order": "14" },
+        0x10: { "Name": "", "Order": "15" }
     }
 }
+
+StageOrders = BuildStageOrderLookup()
+
+StageNames = BuildStageNameLookup()
+
+Difficulties = BuildDifficultyLookup()
 
 StageData = {
     0x01: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Easy" },
@@ -980,11 +1021,13 @@ rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION),
     rich_presence_value("Character Total", CHARACTERS_TOTAL)
 )
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
-rich_presence_display("LVL {0} {1} and LVL {2} {3} | {4} | Difficulty: {5}",
+rich_presence_display("LVL {0} {1} and LVL {2} {3} | Stage {4}-{5} [{6}] | Difficulty: {7}",
     rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
     rich_presence_value("Player 2 Level", PlayerLevelInStage(2)),
     rich_presence_lookup("Player 2 Character", Player2Character(), Characters),
-    rich_presence_lookup("Current Stage", CurrentStage(), StageFullTitles),
-    rich_presence_lookup("Current Difficulty", CurrentStage(), StageDifficulties)
+    rich_presence_value("Current World", CurrentWorld()),
+    rich_presence_lookup("Current Stage Order", CurrentStageKey(), StageOrders),
+    rich_presence_lookup("Current Stage Name", CurrentStageKey(), StageNames),
+    rich_presence_lookup("Current Difficulty", CurrentDifficulty(), Difficulties)
 )
