@@ -244,6 +244,17 @@ function PlayerLevelAddress(player) {
 
 function PlayerLevel(player) => bcd(byte(PlayerLevelAddress(player)))
 
+function PlayerLevelAddressInStage(player) {
+    if(player == 1) {
+        return 0x2C995C
+    }
+    else {
+        return 0x2c9974
+    }
+}
+
+function PlayerLevelInStage(player) => bcd(byte(PlayerLevelAddressInStage(player)))
+
 function Player1Character() => byte(0xDF9A4)
 
 function Player2Character() => byte(0xDF9A8)
@@ -478,8 +489,8 @@ CharacterData = {
     "Diend":              { "Ultimate": 0x86dc, "Mem": 0x31, "Item": 0x0DF300 },
     "Kivala":             { "Ultimate": 0x8714, "Mem": 0x32, "Item": 0x0DF314 },
     "Accel":              { "Ultimate": 0x87e4, "Mem": 0x33, "Item": 0x0DF328 },
-    "Eternal":            { "Ultimate": 0x883c, "Mem": 0x34, "Item": 0x0DF350 },
-    "Skull":              { "Ultimate": 0x887c, "Mem": 0x35, "Item": 0x0DF33C },
+    "Skull":              { "Ultimate": 0x887c, "Mem": 0x34, "Item": 0x0DF33C },
+    "Eternal":            { "Ultimate": 0x88c8, "Mem": 0x35, "Item": 0x0DF350 },
     "Birth Prototype":    { "Ultimate": 0x89ec, "Mem": 0x36, "Item": 0x0DF364 },
     "Meteor":             { "Ultimate": 0x8b30, "Mem": 0x37, "Item": 0x0DF378 }
 }
@@ -841,9 +852,11 @@ rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION),
     rich_presence_value("Character Total", CHARACTERS_TOTAL)
 )
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
-rich_presence_display("{0} and {1} are fighting in {2} [{3}]",
+rich_presence_display("LVL {0} {1} and LVL {2} {3} | Stage X-Y Z Difficulty",
+    rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
-    rich_presence_lookup("Player 2 Character", Player2Character(), Characters),
-    rich_presence_lookup("Current Stage", CurrentStage(), StageTitles),
-    rich_presence_lookup("Current Difficulty", CurrentStage(), StageDifficulties)
+    rich_presence_value("Player 2 Level", PlayerLevelInStage(2)),
+    rich_presence_lookup("Player 2 Character", Player2Character(), Characters)
+    // rich_presence_lookup("Current Stage", CurrentStage(), StageTitles),
+    // rich_presence_lookup("Current Difficulty", CurrentStage(), StageDifficulties)
 )
