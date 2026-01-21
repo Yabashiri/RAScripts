@@ -538,6 +538,19 @@ function BuildStageDifficultiesLookup()
     return lookup
 }
 
+function BuildStageFullTitlesLookup()
+{
+    lookup = {}
+    for stage_id in StageData
+    {
+        world = StageData[stage_id]["World"]
+        stage = StageData[stage_id]["Stage"]
+        name = StageData[stage_id]["Name"]
+        lookup[stage_id] = format("Stage {0}-{1} [{2}]", world, stage, name)
+    }
+    return lookup
+}
+
 function ExceedsThreshold(val, threshold)
 {
     return prev(val) <= threshold &&
@@ -545,6 +558,8 @@ function ExceedsThreshold(val, threshold)
 }
 
 StageDifficulties = BuildStageDifficultiesLookup()
+
+StageFullTitles = BuildStageFullTitlesLookup()
 
 //PROGRESSION
 
@@ -687,7 +702,8 @@ function StageWithoutDamage(world, stage)
 
     cancel = never(
         (IsStable(ptr) && Player1Health() < prev(Player1Health())) ||
-        !IsGameState(IN_STAGE)
+        !IsGameState(IN_STAGE) ||
+        !IsWorldStage(world, stage)
     )
 
     goal = IsStageState(CLEAR)
@@ -852,11 +868,11 @@ rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION),
     rich_presence_value("Character Total", CHARACTERS_TOTAL)
 )
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
-rich_presence_display("LVL {0} {1} and LVL {2} {3} | Stage X-Y Z Difficulty",
+rich_presence_display("LVL {0} {1} and LVL {2} {3} | {4} | Difficulty: {5}",
     rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
     rich_presence_value("Player 2 Level", PlayerLevelInStage(2)),
-    rich_presence_lookup("Player 2 Character", Player2Character(), Characters)
-    // rich_presence_lookup("Current Stage", CurrentStage(), StageTitles),
-    // rich_presence_lookup("Current Difficulty", CurrentStage(), StageDifficulties)
+    rich_presence_lookup("Player 2 Character", Player2Character(), Characters),
+    rich_presence_lookup("Current Stage", CurrentStage(), StageFullTitles),
+    rich_presence_lookup("Current Difficulty", CurrentStage(), StageDifficulties)
 )
