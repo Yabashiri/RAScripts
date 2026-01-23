@@ -437,6 +437,19 @@ function BuildCharactersLookup()
 
 function IsWorldStage(world, stage) => any_of(WorldStageToStageIds[world][stage], id => CurrentStage() == id)
 
+function IsWorldStageByOrder(world, order)
+{
+    // Find stage_id in NewStageData that matches the order
+    for stage_id in NewStageData[world]
+    {
+        if (NewStageData[world][stage_id]["Order"] == order)
+        {
+            return CurrentWorld() == world && CurrentStageInWorld() == stage_id
+        }
+    }
+    return false
+}
+
 // New stage system functions
 function CurrentWorld() => byte(CURRENT_WORLD)
 
@@ -864,16 +877,39 @@ function StageWithoutDamage(world, stage)
     return level_ready && in_game && cancel && trigger_when(goal)
 }
 
+function StageWithoutDamageByOrder(world, order)
+{
+    ptr = HealthPointer()
+    
+    level_ready = once(
+        prev(GAME_STATE) == SELECTION_TO_STAGE_TRANSITION &&
+        IsGameState(IN_STAGE) &&
+        IsWorldStageByOrder(world, order)
+    )
+
+    in_game = ptr != 0 && Player1Health() > 0
+
+    cancel = never(
+        (IsStable(ptr) && Player1Health() < prev(Player1Health())) ||
+        !IsGameState(IN_STAGE) ||
+        !IsWorldStageByOrder(world, order)
+    )
+
+    goal = IsStageState(CLEAR)
+
+    return level_ready && in_game && cancel && trigger_when(goal)
+}
+
 achievement(
     title = "Temple Run", points = 5,
     description = "Complete stage 2-2 on any difficulty without taking damage",
-    trigger = StageWithoutDamage(2, 2)
+    trigger = StageWithoutDamageByOrder(2, "2")
 )
 
 achievement(
     title = "Steel Wall Run", points = 5,
     description = "Complete stage 3-2 on any difficulty without taking damage",
-    trigger = StageWithoutDamage(3, 2)
+    trigger = StageWithoutDamageByOrder(3, "2")
 )
 
 achievement(
