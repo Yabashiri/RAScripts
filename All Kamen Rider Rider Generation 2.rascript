@@ -497,7 +497,7 @@ function BuildDifficultyLookup()
 // LOOKUPS
 
 CharacterData = {
-    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x56, "Item": 0x000000},
+    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x38, "Item": 0x000000},
 
     "Ichigo":             { "Ultimate": 0x656c, "Mem": 0x00, "Item": 0x0DEF2C },
     "Nigo":               { "Ultimate": 0x65d8, "Mem": 0x01, "Item": 0x0DEF40 },
@@ -562,43 +562,43 @@ Characters = BuildCharactersLookup()
 NewStageData = {
     0x01: {  // World 1 - 5 stages
         0x04: { "Name": "City Invasion", "Order": "1" },
-        0x03: { "Name": "", "Order": "2" },
-        0x05: { "Name": "", "Order": "3" },
-        0x06: { "Name": "", "Order": "4" },
-        0x5a: { "Name": "Venomous Snake Den", "Order": "5" }
+        0x03: { "Name": "Vicious Watchdog", "Order": "2" },
+        0x05: { "Name": "Expanding Battlefront", "Order": "3" },
+        0x06: { "Name": "Assembled Forces", "Order": "4" },
+        0x5a: { "Name": "Venomous Snake's Den", "Order": "5" }
     },
     0x02: {  // World 2 - 7 stages
-        0x01: { "Name": "", "Order": "1" },
-        0x03: { "Name": "Endless Way", "Order": "2" },
-        0x04: { "Name": "", "Order": "3" },
-        0x05: { "Name": "", "Order": "4" },
-        0x02: { "Name": "", "Order": "5" },
-        0x06: { "Name": "", "Order": "6" },
-        0x5a: { "Name": "", "Order": "7" }
+        0x01: { "Name": "Water Vein Cavern", "Order": "1" },
+        0x03: { "Name": "Lost Passage", "Order": "2" },
+        0x04: { "Name": "Dust-Buried Ruins", "Order": "3" },
+        0x05: { "Name": "Escape to the Surface", "Order": "4" },
+        0x02: { "Name": "Isolated Space", "Order": "5" },
+        0x06: { "Name": "Trial of Shadows", "Order": "6" },
+        0x5a: { "Name": "Twilight Brothers", "Order": "7" }
     },
     0x03: {  // World 3 - 7 stages
-        0x01: { "Name": "", "Order": "1" },
+        0x01: { "Name": "Old Castle Infiltration", "Order": "1" },
         0x03: { "Name": "Wall Trap Run", "Order": "2" },
-        0x04: { "Name": "", "Order": "3" },
-        0x05: { "Name": "", "Order": "4" },
-        0x06: { "Name": "", "Order": "5" },
-        0x07: { "Name": "", "Order": "6" },
-        0x5a: { "Name": "", "Order": "7" }
+        0x04: { "Name": "Steel Giant", "Order": "3" },
+        0x05: { "Name": "Sky Temple", "Order": "4" },
+        0x06: { "Name": "Defense Breakthrough", "Order": "5" },
+        0x07: { "Name": "Endless Clash", "Order": "6" },
+        0x5a: { "Name": "Divine Phoenix", "Order": "7" }
     },
     0x04: {  // World 4 - 5 stages
-        0x01: { "Name": "", "Order": "1" },
-        0x04: { "Name": "Dark Night Rescue", "Order": "2" },
-        0x05: { "Name": "", "Order": "3" },
-        0x06: { "Name": "", "Order": "4" },
-        0x5a: { "Name": "", "Order": "5" }
+        0x01: { "Name": "Forest Cliff", "Order": "1" },
+        0x04: { "Name": "Darknight Church", "Order": "2" },
+        0x05: { "Name": "Flying Vanguard", "Order": "3" },
+        0x06: { "Name": "Encircling Assault", "Order": "4" },
+        0x5a: { "Name": "Death God’s Memory", "Order": "5" }
     },
     0x05: {  // World 5 - 6 stages
-        0x01: { "Name": "", "Order": "1" },
-        0x02: { "Name": "", "Order": "2" },
-        0x03: { "Name": "", "Order": "3" },
-        0x05: { "Name": "", "Order": "4" },
-        0x06: { "Name": "", "Order": "5" },
-        0x5a: { "Name": "", "Order": "6" }
+        0x01: { "Name": "Rockfall Ascent", "Order": "1" },
+        0x02: { "Name": "Abyssal Passage", "Order": "2" },
+        0x03: { "Name": "Scorching Roar", "Order": "3" },
+        0x05: { "Name": "Dangerous Night Operation", "Order": "4" },
+        0x06: { "Name": "Watch Your Step", "Order": "5" },
+        0x5a: { "Name": "Decisive Battle Underground", "Order": "6" }
     },
     0x06: {  // World 6 - 7 stages
         0x01: { "Name": "", "Order": "1" },
