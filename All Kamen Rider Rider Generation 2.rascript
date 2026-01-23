@@ -264,8 +264,6 @@ function Player1Character() => byte(0xDF9A4)
 
 function Player2Character() => byte(0xDF9A8)
 
-function CurrentStage() => byte(0xDF9D0)
-
 // Count bytes set to 1 in range
 function BytesInRangeCount(from, to)
 {
@@ -435,8 +433,6 @@ function BuildCharactersLookup()
     return lookup
 }
 
-function IsWorldStage(world, stage) => any_of(WorldStageToStageIds[world][stage], id => CurrentStage() == id)
-
 function IsWorldStageByOrder(world, order)
 {
     // Find stage_id in NewStageData that matches the order
@@ -456,16 +452,6 @@ function CurrentWorld() => byte(CURRENT_WORLD)
 function CurrentStageInWorld() => byte(CURRENT_STAGE_IN_WORLD)
 
 function CurrentDifficulty() => byte(CURRENT_DIFFICULTY)
-
-function DifficultyName(difficultyValue)
-{
-    if (difficultyValue == 0x00) return "Easy"
-    if (difficultyValue == 0x01) return "Medium"
-    if (difficultyValue == 0x02) return "Hard"
-    if (difficultyValue == 0x03) return "Danger"
-    if (difficultyValue == 0x04) return "Climax"
-    return "Unknown"
-}
 
 function CurrentStageKey() => CurrentWorld() * 256 + CurrentStageInWorld()
 
@@ -648,84 +634,11 @@ StageNames = BuildStageNameLookup()
 
 Difficulties = BuildDifficultyLookup()
 
-StageData = {
-    0x01: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Easy" },
-    0x02: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Medium" },
-    0x05: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Hard" },
-    0x1B: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Danger" },
-    0x2A: { "World": 1, "Stage": 1, "Name": "City Invasion", "Difficulty": "Climax" },
-    0x08: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Easy" },
-    // 0x0A: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Medium" },
-    0x0D: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Hard" },
-    0x23: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Danger" },
-    0x32: { "World": 1, "Stage": 5, "Name": "Venomous Snake Den", "Difficulty": "Climax" },
-    0x0A: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Easy" },
-    0x0C: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Medium" },
-    0x0F: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Hard" },
-    0x25: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Danger" },
-    0x34: { "World": 2, "Stage": 2, "Name": "Endless Way", "Difficulty": "Climax" },
-    0x14: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Easy" },
-    0x16: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Medium" },
-    0x19: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Hard" },
-    0x2F: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Danger" },
-    0x3E: { "World": 3, "Stage": 2, "Name": "Wall Trap Run", "Difficulty": "Climax" },
-    0x1C: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Easy" },
-    0x1E: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Medium" },
-    0x21: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Hard" },
-    0x37: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Danger" },
-    0x46: { "World": 4, "Stage": 2, "Name": "Dark Night Rescue", "Difficulty": "Climax" }
-    // …add remaining stages here
-}
-
-WorldStageToStageIds = {
-    2: {
-        2: [ 0x0A, 0x0C, 0x0F, 0x25, 0x34 ]
-    },
-    3: {
-        2: [ 0x14, 0x16, 0x19, 0x2F, 0x3E ]
-    }
-}
-
-function BuildStageTitlesLookup()
-{
-    lookup = {}
-    for stage_id in StageData
-        lookup[stage_id] = StageData[stage_id]["Name"]
-    return lookup
-}
-
-StageTitles = BuildStageTitlesLookup()
-
-function BuildStageDifficultiesLookup()
-{
-    lookup = {}
-    for stage_id in StageData
-        lookup[stage_id] = StageData[stage_id]["Difficulty"]
-    return lookup
-}
-
-function BuildStageFullTitlesLookup()
-{
-    lookup = {}
-    for stage_id in StageData
-    {
-        world = StageData[stage_id]["World"]
-        stage = StageData[stage_id]["Stage"]
-        name = StageData[stage_id]["Name"]
-        lookup[stage_id] = format("Stage {0}-{1} [{2}]", world, stage, name)
-    }
-    return lookup
-}
-
 function ExceedsThreshold(val, threshold)
 {
     return prev(val) <= threshold &&
            val > threshold
 }
-
-StageDifficulties = BuildStageDifficultiesLookup()
-
-StageFullTitles = BuildStageFullTitlesLookup()
 
 //PROGRESSION
 
@@ -853,29 +766,6 @@ achievement(
 )
 
 //CHALLENGE
-
-function StageWithoutDamage(world, stage)
-{
-    ptr = HealthPointer()
-    
-    level_ready = once(
-        prev(GAME_STATE) == SELECTION_TO_STAGE_TRANSITION &&
-        IsGameState(IN_STAGE) &&
-        IsWorldStage(world, stage)
-    )
-
-    in_game = ptr != 0 && Player1Health() > 0
-
-    cancel = never(
-        (IsStable(ptr) && Player1Health() < prev(Player1Health())) ||
-        !IsGameState(IN_STAGE) ||
-        !IsWorldStage(world, stage)
-    )
-
-    goal = IsStageState(CLEAR)
-
-    return level_ready && in_game && cancel && trigger_when(goal)
-}
 
 function StageWithoutDamageByOrder(world, order)
 {
