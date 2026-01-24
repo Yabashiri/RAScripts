@@ -561,70 +561,70 @@ Characters = BuildCharactersLookup()
 
 NewStageData = {
     0x01: {  // World 1 - 5 stages
-        0x04: { "Name": "City Invasion", "Order": "1" },
-        0x03: { "Name": "Vicious Watchdog", "Order": "2" },
-        0x05: { "Name": "Expanding Battlefront", "Order": "3" },
-        0x06: { "Name": "Assembled Forces", "Order": "4" },
-        0x5a: { "Name": "Venomous Snake's Den", "Order": "5" }
+        0x04: { "Name": "City Invasion",                 "Order": "1"  },
+        0x03: { "Name": "Vicious Watchdog",              "Order": "2"  },
+        0x05: { "Name": "Expanding Battlefront",         "Order": "3"  },
+        0x06: { "Name": "Assembled Forces",              "Order": "4"  },
+        0x5a: { "Name": "Venomous Snake's Den",          "Order": "5"  }
     },
     0x02: {  // World 2 - 7 stages
-        0x01: { "Name": "Water Vein Cavern", "Order": "1" },
-        0x03: { "Name": "Lost Passage", "Order": "2" },
-        0x04: { "Name": "Dust-Buried Ruins", "Order": "3" },
-        0x05: { "Name": "Escape to the Surface", "Order": "4" },
-        0x02: { "Name": "Isolated Space", "Order": "5" },
-        0x06: { "Name": "Trial of Shadows", "Order": "6" },
-        0x5a: { "Name": "Twilight Brothers", "Order": "7" }
+        0x01: { "Name": "Water Vein Cavern",             "Order": "1"  },
+        0x03: { "Name": "Lost Passage",                  "Order": "2"  },
+        0x04: { "Name": "Dust-Buried Ruins",             "Order": "3"  },
+        0x05: { "Name": "Escape to the Surface",         "Order": "4"  },
+        0x02: { "Name": "Isolated Space",                "Order": "5"  },
+        0x06: { "Name": "Trial of Shadows",              "Order": "6"  },
+        0x5a: { "Name": "Twilight Brothers",             "Order": "7"  }
     },
     0x03: {  // World 3 - 7 stages
-        0x01: { "Name": "Old Castle Infiltration", "Order": "1" },
-        0x03: { "Name": "Wall Trap Run", "Order": "2" },
-        0x04: { "Name": "Steel Giant", "Order": "3" },
-        0x05: { "Name": "Sky Temple", "Order": "4" },
-        0x06: { "Name": "Defense Breakthrough", "Order": "5" },
-        0x07: { "Name": "Endless Clash", "Order": "6" },
-        0x5a: { "Name": "Divine Phoenix", "Order": "7" }
+        0x01: { "Name": "Old Castle Infiltration",       "Order": "1"  },
+        0x03: { "Name": "Wall Trap Run",                 "Order": "2"  },
+        0x04: { "Name": "Steel Giant",                   "Order": "3"  },
+        0x05: { "Name": "Sky Temple",                    "Order": "4"  },
+        0x06: { "Name": "Defense Breakthrough",          "Order": "5"  },
+        0x07: { "Name": "Endless Clash",                 "Order": "6"  },
+        0x5a: { "Name": "Divine Phoenix",                "Order": "7"  }
     },
     0x04: {  // World 4 - 5 stages
-        0x01: { "Name": "Forest Cliff", "Order": "1" },
-        0x04: { "Name": "Darknight Church", "Order": "2" },
-        0x05: { "Name": "Flying Vanguard", "Order": "3" },
-        0x06: { "Name": "Encircling Assault", "Order": "4" },
-        0x5a: { "Name": "Death God’s Memory", "Order": "5" }
+        0x01: { "Name": "Forest Cliff",                  "Order": "1"  },
+        0x04: { "Name": "Darknight Church",              "Order": "2"  },
+        0x05: { "Name": "Flying Vanguard",               "Order": "3"  },
+        0x06: { "Name": "Encircling Assault",            "Order": "4"  },
+        0x5a: { "Name": "Death God's Memory",            "Order": "5"  }
     },
     0x05: {  // World 5 - 6 stages
-        0x01: { "Name": "Rockfall Ascent", "Order": "1" },
-        0x02: { "Name": "Abyssal Passage", "Order": "2" },
-        0x03: { "Name": "Scorching Roar", "Order": "3" },
-        0x05: { "Name": "Dangerous Night Operation", "Order": "4" },
-        0x06: { "Name": "Watch Your Step", "Order": "5" },
-        0x5a: { "Name": "Decisive Battle Underground", "Order": "6" }
+        0x01: { "Name": "Rockfall Ascent",               "Order": "1"  },
+        0x02: { "Name": "Abyssal Passage",               "Order": "2"  },
+        0x03: { "Name": "Scorching Roar",                "Order": "3"  },
+        0x05: { "Name": "Dangerous Night Operation",     "Order": "4"  },
+        0x06: { "Name": "Watch Your Step",               "Order": "5"  },
+        0x5a: { "Name": "Decisive Battle Underground",   "Order": "6"  }
     },
     0x06: {  // World 6 - 7 stages
-        0x01: { "Name": "", "Order": "1" },
-        0x07: { "Name": "", "Order": "2" },
-        0x02: { "Name": "", "Order": "3" },
-        0x03: { "Name": "", "Order": "4" },
-        0x05: { "Name": "", "Order": "5" },
-        0x06: { "Name": "", "Order": "6" },
-        0x5a: { "Name": "", "Order": "7" }
+        0x01: { "Name": "Crystal Plains",                "Order": "1"  },
+        0x07: { "Name": "March of the Monsters",         "Order": "2"  },
+        0x02: { "Name": "Floating Corridor",             "Order": "3"  },
+        0x03: { "Name": "Icy Clarity",                   "Order": "4"  },
+        0x05: { "Name": "Doctor Apocalypse",             "Order": "5"  },
+        0x06: { "Name": "Combat Zone",                   "Order": "6"  },
+        0x5a: { "Name": "Final Showdown",                "Order": "7"  }
     },
     0x07: {  // World 7 - 15 stages
-        0x06: { "Name": "", "Order": "1" },
-        0x07: { "Name": "", "Order": "2" },
-        0x01: { "Name": "", "Order": "3" },
-        0x02: { "Name": "", "Order": "4" },
-        0x03: { "Name": "", "Order": "5" },
-        0x04: { "Name": "", "Order": "6" },
-        0x05: { "Name": "", "Order": "7" },
-        0x09: { "Name": "", "Order": "8" },
-        0x0a: { "Name": "", "Order": "9" },
-        0x0b: { "Name": "", "Order": "10" },
-        0x0c: { "Name": "", "Order": "11" },
-        0x0d: { "Name": "", "Order": "12" },
-        0x0e: { "Name": "", "Order": "13" },
-        0x0f: { "Name": "", "Order": "14" },
-        0x10: { "Name": "", "Order": "15" }
+        0x06: { "Name": "Relentless Training",           "Order": "1"  },
+        0x07: { "Name": "Combat Challenge",              "Order": "2"  },
+        0x01: { "Name": "Trump Card Fortune Teller",     "Order": "3"  },
+        0x02: { "Name": "Creation of Life",              "Order": "4"  },
+        0x03: { "Name": "Sun's Judgment",                "Order": "5"  },
+        0x04: { "Name": "Silver King Shadowmoon",        "Order": "6"  },
+        0x05: { "Name": "Ultimate Darkness",             "Order": "7"  },
+        0x09: { "Name": "Unyielding Spirit",             "Order": "8"  },
+        0x0a: { "Name": "Brothers Return",               "Order": "9"  },
+        0x0b: { "Name": "Pact Warrior",                  "Order": "10" },
+        0x0c: { "Name": "Memory Reborn",                 "Order": "11" },
+        0x0d: { "Name": "Battle Hall",                   "Order": "12" },
+        0x0e: { "Name": "Crystal Dark Night",            "Order": "13" },
+        0x0f: { "Name": "Remnant Monster",               "Order": "14" },
+        0x10: { "Name": "Zodiac Ruins",                  "Order": "15" }
     }
 }
 
