@@ -813,7 +813,7 @@ achievement(
 
 achievement(
     title = "My Strength Has Made You Cry", points = 10,
-    description = "Finish a stage with character's Endurance exceeding 300",
+    description = "Finish a stage with character's Endurance exceeding 600",
     trigger =
         once(IsGameState(IN_STAGE)) &&
         never(
@@ -825,8 +825,8 @@ achievement(
         IsGameState(STAGE_SELECTION) &&
         IsStageState(AFTER_CLEAR) &&
         (
-            ExceedsThreshold(word(PLAYER1_ENDURANCE_STAGE_SELECTION), 300) || 
-            ExceedsThreshold(word(PLAYER2_ENDURANCE_STAGE_SELECTION), 300)
+            ExceedsThreshold(word(PLAYER1_ENDURANCE_STAGE_SELECTION), 600) || 
+            ExceedsThreshold(word(PLAYER2_ENDURANCE_STAGE_SELECTION), 600)
         )
 )
 
@@ -884,6 +884,17 @@ achievement(
         (
             ExceedsThreshold(word(PLAYER1_SKILL_STAGE_SELECTION), 150) || 
             ExceedsThreshold(word(PLAYER2_SKILL_STAGE_SELECTION), 150)
+        )
+)
+
+achievement(
+    title = "Watch My Transformation", points = 10,
+    description = "Reach Level 80 with any character",
+    trigger =
+        IsGameState(IN_STAGE) &&
+        (
+            ExceedsThreshold(byte(PlayerLevelAddressInStage(1)), 79) || 
+            ExceedsThreshold(byte(PlayerLevelAddressInStage(2)), 79)
         )
 )
 
@@ -946,7 +957,7 @@ rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION),
     rich_presence_value("Character Unlocks", UnlockedCharacters()),
     rich_presence_value("Character Total", CHARACTERS_TOTAL)
 )
-rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection")
+rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection") // password screen check
 rich_presence_display("LVL {0} {1} and LVL {2} {3} | Stage {4}-{5} [{6}] | Difficulty: {7}",
     rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
