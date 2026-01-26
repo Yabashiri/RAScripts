@@ -17,6 +17,8 @@ GALLERY = 0x04
 SHOP = 0x05 // Title screen, Shop
 CHARACTER_SELECTION = 0x06
 SELECTION_TO_STAGE_TRANSITION = 0x10
+GALLERY_TO_SHOP_TRANSITION = 0x17
+PASSWORD_SCREEN = 0x20
 STAGE_SELECTION = 0x24
 STAGE_TO_SELECTION_TRANSITION = 0xed
 
@@ -685,7 +687,7 @@ achievement(
     description = "Buy all rider items from the shop, including all of Decade's and Diend's",
     points = 10,
     trigger =
-        !prior(IsGameState(STARTING)) &&
+        (prior(IsGameState(STAGE_SELECTION)) || prior(IsGameState(GALLERY_TO_SHOP_TRANSITION))) &&
         IsGameState(SHOP) &&
         prev(RiderItemsBought()) == RIDER_ITEMS_TOTAL - 1 &&
         measured(RiderItemsBought() == RIDER_ITEMS_TOTAL)
@@ -696,6 +698,7 @@ achievement(
     description = "Unlock all galery items",
     points = 10,
     trigger =
+        (IsGameState(IN_STAGE) || IsGameState(STAGE_SELECTION)) &&
         prev(UnlockedGalleryItems()) < GALLERY_UNLOCKS_TOTAL &&
         measured(UnlockedGalleryItems() == GALLERY_UNLOCKS_TOTAL)
 )
@@ -705,7 +708,7 @@ achievement(
     description = "Unlock all characters, including password and hidden",
     points = 10,
     trigger =
-        // TODO: Add more checks?
+        (IsGameState(STAGE_SELECTION) || IsGameState(PASSWORD_SCREEN) || IsGameState(IN_STAGE)) &&
         prev(UnlockedCharacters()) == CHARACTERS_TOTAL - 1 &&
         measured(UnlockedCharacters() == CHARACTERS_TOTAL)
 )
