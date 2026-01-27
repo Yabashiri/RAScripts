@@ -77,7 +77,7 @@ SHOP_COINS = 0x23126c
 
 ULTIMATE = 0xded18
 ULTIMATE_GAUGE_MAX = 0x1b
-NOT_IN_ULTIMATE = 0x9054
+NOT_IN_ULTIMATE = 0xebfff869
 
 missions = [
     0xdf3e2, 0xdf3e3, 0xdf3ee, 0xdf3ef, 0xdf3fa, 0xdf3fb, 0xdf406, 0xdf407, 0xdf412, 0xdf413, // WORLD 1
@@ -233,6 +233,10 @@ function IsStageCleared(addr)
 function HealthPointer() => tbyte(0x2CE870)
 
 function Player1Health() => word(HealthPointer() + 0x000180)
+
+function UltimatePointer() => tbyte(ULTIMATE)
+
+function Ultimate() => dword(UltimatePointer())
 
 function IsStable(pointer) => pointer != 0 && pointer == prev(pointer)
 
@@ -406,6 +410,12 @@ function IsUsingUltimateAs(player, character_name)
     return IsPlayingAs(player, character_name) && word(ULTIMATE) == ultimate_used
 }
 
+function IsUsingUltimateAsNew(player, character_name)
+{
+    ultimate_used = GetCharacterData(character_name, "Ultimate")
+    return IsPlayingAs(player, character_name) && Ultimate() == ultimate_used
+}
+
 function UsingDoubleUltimateAs(player_character, assist_character)
 {
     start = once(
@@ -419,8 +429,8 @@ function UsingDoubleUltimateAs(player_character, assist_character)
         !IsPlayingAs("Player2", assist_character)
     )
 
-    goal = prev(!IsUsingUltimateAs("Player2", assist_character)) &&
-    IsUsingUltimateAs("Player2", assist_character)
+    goal = prev(!IsUsingUltimateAsNew("Player2", assist_character)) &&
+        IsUsingUltimateAsNew("Player2", assist_character)
 
     return start && cancel && goal
 }
@@ -499,64 +509,64 @@ function BuildDifficultyLookup()
 // LOOKUPS
 
 CharacterData = {
-    "Wizard":             { "Ultimate": 0x0000, "Mem": 0x38, "Item": 0x000000},
+    "Wizard":             { "Ultimate": 0xe0000000, "Mem": 0x38, "Item": 0x000000},
 
-    "Ichigo":             { "Ultimate": 0x656c, "Mem": 0x00, "Item": 0x0DEF2C },
-    "Nigo":               { "Ultimate": 0x65d8, "Mem": 0x01, "Item": 0x0DEF40 },
-    "V3":                 { "Ultimate": 0x6638, "Mem": 0x02, "Item": 0x0DEF54 },
-    "Riderman":           { "Ultimate": 0x6698, "Mem": 0x03, "Item": 0x0DEF68 },
-    "X":                  { "Ultimate": 0x6730, "Mem": 0x04, "Item": 0x0DEF7C },
-    "Amazon":             { "Ultimate": 0x67ac, "Mem": 0x05, "Item": 0x0DEF90 },
-    "Stronger":           { "Ultimate": 0x6850, "Mem": 0x06, "Item": 0x0DEFA4 },
-    "Skyrider":           { "Ultimate": 0x68b8, "Mem": 0x07, "Item": 0x0DEFB8 },
-    "Super-1":            { "Ultimate": 0x693c, "Mem": 0x08, "Item": 0x0DEFCC },
-    "ZX":                 { "Ultimate": 0x6998, "Mem": 0x09, "Item": 0x0DEFE0 },
-    "Black":              { "Ultimate": 0x6a40, "Mem": 0x0A, "Item": 0x0DEFF4 },
-    "Black RX":           { "Ultimate": 0x6ae0, "Mem": 0x0B, "Item": 0x0DF008 },
-    "Shin":               { "Ultimate": 0x6b14, "Mem": 0x0C, "Item": 0x0DF01C },
-    "ZO":                 { "Ultimate": 0x6b68, "Mem": 0x0D, "Item": 0x0DF030 },
-    "J":                  { "Ultimate": 0x6bec, "Mem": 0x0E, "Item": 0x0DF044 },
-    "Kuuga":              { "Ultimate": 0x6c34, "Mem": 0x0F, "Item": 0x0DF058 },
-    "Agito":              { "Ultimate": 0x6cac, "Mem": 0x10, "Item": 0x0DF06C },
-    "Ryuki":              { "Ultimate": 0x6d84, "Mem": 0x11, "Item": 0x0DF080 },
-    "Faiz":               { "Ultimate": 0x6ee4, "Mem": 0x12, "Item": 0x0DF094 },
-    "Blade":              { "Ultimate": 0x6fd8, "Mem": 0x13, "Item": 0x0DF0A8 },
-    "Hibiki":             { "Ultimate": 0x70a4, "Mem": 0x14, "Item": 0x0DF0BC },
-    "Kabuto":             { "Ultimate": 0x71bc, "Mem": 0x15, "Item": 0x0DF0D0 },
-    "Den-O":              { "Ultimate": 0x72a8, "Mem": 0x16, "Item": 0x0DF0E4 },
-    "Kiva":               { "Ultimate": 0x73cc, "Mem": 0x17, "Item": 0x0DF0F8 },
-    "Decade":             { "Ultimate": 0x7500, "Mem": 0x18, "Item": 0x0DF10C },
-    "W":                  { "Ultimate": 0x7668, "Mem": 0x19, "Item": 0x0DF120 },
-    "OOO":                { "Ultimate": 0x7864, "Mem": 0x1A, "Item": 0x0DF134 },
-    "Birth":              { "Ultimate": 0x798c, "Mem": 0x1B, "Item": 0x0DF148 },
-    "Fourze":             { "Ultimate": 0x7b50, "Mem": 0x1C, "Item": 0x0DF15C },
-    "Shadowmoon":         { "Ultimate": 0x7b94, "Mem": 0x1D, "Item": 0x0DF170 },
-    "G3-X":               { "Ultimate": 0x7c30, "Mem": 0x1E, "Item": 0x0DF184 },
-    "Gills":              { "Ultimate": 0x7c74, "Mem": 0x1F, "Item": 0x0DF198 },
-    "Knight":             { "Ultimate": 0x7d20, "Mem": 0x20, "Item": 0x0DF1AC },
-    "Zolda":              { "Ultimate": 0x7db0, "Mem": 0x21, "Item": 0x0DF1C0 },
-    "Ouja":               { "Ultimate": 0x7e08, "Mem": 0x22, "Item": 0x0DF1D4 },
-    "Odin":               { "Ultimate": 0x7e68, "Mem": 0x23, "Item": 0x0DF1E8 },
-    "Kaixa":              { "Ultimate": 0x7efc, "Mem": 0x24, "Item": 0x0DF1FC },
-    "Garren":             { "Ultimate": 0x7f7c, "Mem": 0x25, "Item": 0x0DF210 },
-    "Chalice":            { "Ultimate": 0x8010, "Mem": 0x26, "Item": 0x0DF224 },
-    "Leangle":            { "Ultimate": 0x80c0, "Mem": 0x27, "Item": 0x0DF238 },
-    "Ibuki":              { "Ultimate": 0x81e0, "Mem": 0x28, "Item": 0x0DF24C },
-    "Todoroki":           { "Ultimate": 0x825c, "Mem": 0x29, "Item": 0x0DF260 },
-    "Zanki":              { "Ultimate": 0x82a8, "Mem": 0x2A, "Item": 0x0DF274 },
-    "Gatack":             { "Ultimate": 0x832c, "Mem": 0x2B, "Item": 0x0DF288 },
-    "KickHopper":         { "Ultimate": 0x83bc, "Mem": 0x2C, "Item": 0x0DF29C },
-    "PunchHopper":        { "Ultimate": 0x843c, "Mem": 0x2D, "Item": 0x0DF2B0 },
-    "Zeronos":            { "Ultimate": 0x84ac, "Mem": 0x2E, "Item": 0x0DF2C4 },
-    "New Den-O":          { "Ultimate": 0x8518, "Mem": 0x2F, "Item": 0x0DF2D8 },
-    "Ixa":                { "Ultimate": 0x8650, "Mem": 0x30, "Item": 0x0DF2EC },
-    "Diend":              { "Ultimate": 0x86dc, "Mem": 0x31, "Item": 0x0DF300 },
-    "Kivala":             { "Ultimate": 0x8714, "Mem": 0x32, "Item": 0x0DF314 },
-    "Accel":              { "Ultimate": 0x87e4, "Mem": 0x33, "Item": 0x0DF328 },
-    "Skull":              { "Ultimate": 0x887c, "Mem": 0x34, "Item": 0x0DF33C },
-    "Eternal":            { "Ultimate": 0x88c8, "Mem": 0x35, "Item": 0x0DF350 },
-    "Birth Prototype":    { "Ultimate": 0x89ec, "Mem": 0x36, "Item": 0x0DF364 },
-    "Meteor":             { "Ultimate": 0x8b30, "Mem": 0x37, "Item": 0x0DF378 }
+    "Ichigo":             { "Ultimate": 0xe24dd090, "Mem": 0x00, "Item": 0x0DEF2C },
+    "Nigo":               { "Ultimate": 0xe58d707c, "Mem": 0x01, "Item": 0x0DEF40 },
+    "V3":                 { "Ultimate": 0xe28d504c, "Mem": 0x02, "Item": 0x0DEF54 },
+    "Riderman":           { "Ultimate": 0xe12fff31, "Mem": 0x03, "Item": 0x0DEF68 },
+    "X":                  { "Ultimate": 0xe28dd090, "Mem": 0x04, "Item": 0x0DEF7C },
+    "Amazon":             { "Ultimate": 0xebfff33b, "Mem": 0x05, "Item": 0x0DEF90 },
+    "Stronger":           { "Ultimate": 0xe3a02002, "Mem": 0x06, "Item": 0x0DEFA4 },
+    "Skyrider":           { "Ultimate": 0xe58d500c, "Mem": 0x07, "Item": 0x0DEFB8 },
+    "Super-1":            { "Ultimate": 0xe3a02000, "Mem": 0x08, "Item": 0x0DEFCC },
+    "ZX":                 { "Ultimate": 0xe1a0000a, "Mem": 0x09, "Item": 0x0DEFE0 },
+    "Black":              { "Ultimate": 0xebfff46c, "Mem": 0x0A, "Item": 0x0DEFF4 },
+    "Black RX":           { "Ultimate": 0xe92d4090, "Mem": 0x0B, "Item": 0x0DF008 },
+    "Shin":               { "Ultimate": 0xeb000005, "Mem": 0x0C, "Item": 0x0DF01C },
+    "ZO":                 { "Ultimate": 0xe8bd8038, "Mem": 0x0D, "Item": 0x0DF030 },
+    "J":                  { "Ultimate": 0xe5950c30, "Mem": 0x0E, "Item": 0x0DF044 },
+    "Kuuga":              { "Ultimate": 0xe20090ff, "Mem": 0x0F, "Item": 0x0DF058 },
+    "Agito":              { "Ultimate": 0xe3700001, "Mem": 0x10, "Item": 0x0DF06C },
+    "Ryuki":              { "Ultimate": 0x03a00000, "Mem": 0x11, "Item": 0x0DF080 },
+    "Faiz":               { "Ultimate": 0xe1d132f4, "Mem": 0x12, "Item": 0x0DF094 },
+    "Blade":              { "Ultimate": 0xe1a00846, "Mem": 0x13, "Item": 0x0DF0A8 },
+    "Hibiki":             { "Ultimate": 0xe59fc014, "Mem": 0x14, "Item": 0x0DF0BC },
+    "Kabuto":             { "Ultimate": 0x05801708, "Mem": 0x15, "Item": 0x0DF0D0 },
+    "Den-O":              { "Ultimate": 0xe58410a4, "Mem": 0x16, "Item": 0x0DF0E4 },
+    "Kiva":               { "Ultimate": 0xe5945194, "Mem": 0x17, "Item": 0x0DF0F8 },
+    "Decade":             { "Ultimate": 0xe8bd8008, "Mem": 0x18, "Item": 0x0DF10C },
+    "W":                  { "Ultimate": 0xe5913008, "Mem": 0x19, "Item": 0x0DF120 },
+    "OOO":                { "Ultimate": 0xe1d0c5b4, "Mem": 0x1A, "Item": 0x0DF134 },
+    "Birth":              { "Ultimate": 0xe5801c88, "Mem": 0x1B, "Item": 0x0DF148 },
+    "Fourze":             { "Ultimate": 0xe58d1028, "Mem": 0x1C, "Item": 0x0DF15C },
+    "Shadowmoon":         { "Ultimate": 0xe59a1014, "Mem": 0x1D, "Item": 0x0DF170 },
+    "G3-X":               { "Ultimate": 0xea000000, "Mem": 0x1E, "Item": 0x0DF184 },
+    "Gills":              { "Ultimate": 0xe5cd1010, "Mem": 0x1F, "Item": 0x0DF198 },
+    "Knight":             { "Ultimate": 0x66666667, "Mem": 0x20, "Item": 0x0DF1AC },
+    "Zolda":              { "Ultimate": 0xe12fff1e, "Mem": 0x21, "Item": 0x0DF1C0 },
+    "Ouja":               { "Ultimate": 0xeb000087, "Mem": 0x22, "Item": 0x0DF1D4 },
+    "Odin":               { "Ultimate": 0xe1a01006, "Mem": 0x23, "Item": 0x0DF1E8 },
+    "Kaixa":              { "Ultimate": 0xe3a00000, "Mem": 0x24, "Item": 0x0DF1FC },
+    "Garren":             { "Ultimate": 0xe1a01004, "Mem": 0x25, "Item": 0x0DF210 },
+    "Chalice":            { "Ultimate": 0xe1a04000, "Mem": 0x26, "Item": 0x0DF224 },
+    "Leangle":            { "Ultimate": 0xe1a05000, "Mem": 0x27, "Item": 0x0DF238 },
+    "Ibuki":              { "Ultimate": 0xe92d4010, "Mem": 0x28, "Item": 0x0DF24C },
+    "Todoroki":           { "Ultimate": 0xe12fff3c, "Mem": 0x29, "Item": 0x0DF260 },
+    "Zanki":              { "Ultimate": 0xebfeff10, "Mem": 0x2A, "Item": 0x0DF274 },
+    "Gatack":             { "Ultimate": 0xe59d000c, "Mem": 0x2B, "Item": 0x0DF288 },
+    "KickHopper":         { "Ultimate": 0xe12fff1e, "Mem": 0x2C, "Item": 0x0DF29C },
+    "PunchHopper":        { "Ultimate": 0xeb0000f2, "Mem": 0x2D, "Item": 0x0DF2B0 },
+    "Zeronos":            { "Ultimate": 0xe59530bc, "Mem": 0x2E, "Item": 0x0DF2C4 },
+    "New Den-O":          { "Ultimate": 0xe3a0800c, "Mem": 0x2F, "Item": 0x0DF2D8 },
+    "Ixa":                { "Ultimate": 0xeb00ac62, "Mem": 0x30, "Item": 0x0DF2EC },
+    "Diend":              { "Ultimate": 0xe2866001, "Mem": 0x31, "Item": 0x0DF300 },
+    "Kivala":             { "Ultimate": 0xd3500000, "Mem": 0x32, "Item": 0x0DF314 },
+    "Accel":              { "Ultimate": 0x18bd8038, "Mem": 0x33, "Item": 0x0DF328 },
+    "Skull":              { "Ultimate": 0xe3a06000, "Mem": 0x34, "Item": 0x0DF33C },
+    "Eternal":            { "Ultimate": 0xe92d4070, "Mem": 0x35, "Item": 0x0DF350 },
+    "Birth Prototype":    { "Ultimate": 0xe1500005, "Mem": 0x36, "Item": 0x0DF364 },
+    "Meteor":             { "Ultimate": 0xe59d0060, "Mem": 0x37, "Item": 0x0DF378 }
 }
 
 Characters = BuildCharactersLookup()
@@ -645,7 +655,7 @@ function ExceedsThreshold(val, threshold)
 //PROGRESSION
 
 achievement(
-    title = "You Have to Fight If You Want to Survive!", points = 5, type="progression",
+    title = "You Have to Fight if You Want to Survive!", points = 5, type="progression",
     description = "Defeat World 1 boss on any difficulty",
     trigger = (IsStageCleared(WORLD1_5) && IsGameState(IN_STAGE))
 )
@@ -903,7 +913,6 @@ achievement(
 
 // ULTIMATES
 
-// FUN: batch Double Ultimate/Skill achievements
 ultimate_achievements = [
     { "title": "Let's Go! Rider Kick",            "desc": "Use Double Ultimate as Ichigo with Nigo as your partner",                  "p1": "Ichigo",        "p2": "Nigo" },
     { "title": "Second Generation",               "desc": "Use Double Ultimate as V3 with Riderman as your partner",                  "p1": "V3",            "p2": "Riderman" },
