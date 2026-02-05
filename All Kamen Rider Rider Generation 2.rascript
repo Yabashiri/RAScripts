@@ -959,10 +959,11 @@ for ua in ultimate_achievements
 leaderboard(
     title = "Highest Combo",
     description = "What is the highest combo above 50 you can get?",
-    start = IsGameState(IN_STAGE) && GetCurrentCombo() >= MAX_COMBO_THRESHOLD,
+    start = IsGameState(IN_STAGE) && GetCurrentCombo() > prev(GetCurrentCombo()) && GetCurrentCombo() >= MAX_COMBO_THRESHOLD,
     cancel = !IsGameState(IN_STAGE),
     submit = IsGameState(IN_STAGE) && GetCurrentCombo() == 0 && prev(GetCurrentCombo()) >= MAX_COMBO_THRESHOLD,
-    value = prev(word(CURRENT_COMBO)),
+    id = 155643,
+    value = prev(GetCurrentCombo()),
     lower_is_better = false,
     format = "VALUE"
 )
@@ -998,3 +999,4 @@ rich_presence_display("LVL {0} {1} and LVL {2} {3} | Stage {4}-{5} [{6}] | Diffi
     rich_presence_lookup("Current Stage Name", CurrentStageKey(), StageNames),
     rich_presence_lookup("Current Difficulty", CurrentDifficulty(), Difficulties)
 )
+rich_presence_display("Playing All Kamen Rider: Rider Generation 2")
