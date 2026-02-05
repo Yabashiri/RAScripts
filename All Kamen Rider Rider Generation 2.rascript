@@ -79,6 +79,9 @@ ULTIMATE = 0xded18
 ULTIMATE_GAUGE_MAX = 0x1b
 NOT_IN_ULTIMATE = 0xebfff869
 
+CURRENT_COMBO = 0x2c99c4
+MAX_COMBO_THRESHOLD = 50
+
 missions = [
     0xdf3e2, 0xdf3e3, 0xdf3ee, 0xdf3ef, 0xdf3fa, 0xdf3fb, 0xdf406, 0xdf407, 0xdf412, 0xdf413, // WORLD 1
     0xdf41e, 0xdf41f, 0xdf42a, 0xdf42b, 0xdf436, 0xdf437, 0xdf442, 0xdf443, 0xdf44e, 0xdf44f, 0xdf45a, 0xdf45b, 0xdf466, 0xdf467, // WORLD 2
@@ -505,6 +508,8 @@ function BuildDifficultyLookup()
         0x04: "Climax"
     }
 }
+
+function GetCurrentCombo() => byte(CURRENT_COMBO)
 
 // LOOKUPS
 
@@ -948,6 +953,19 @@ for ua in ultimate_achievements
         trigger = UsingDoubleUltimateAs(ua["p1"], ua["p2"])
     )
 }
+
+// LEADERBOARDS
+
+leaderboard(
+    title = "Highest Combo",
+    description = "What is the highest combo above 50 you can get?",
+    start = IsGameState(IN_STAGE) && GetCurrentCombo() >= MAX_COMBO_THRESHOLD,
+    cancel = !IsGameState(IN_STAGE),
+    submit = IsGameState(IN_STAGE) && GetCurrentCombo() == 0 && prev(GetCurrentCombo()) >= MAX_COMBO_THRESHOLD,
+    value = prev(word(CURRENT_COMBO)),
+    lower_is_better = false,
+    format = "VALUE"
+)
 
 // RICH PRESENCE
 
