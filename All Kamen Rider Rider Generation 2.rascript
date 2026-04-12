@@ -958,7 +958,7 @@ for ua in ultimate_achievements
 
 leaderboard(
     title = "Highest Combo",
-    description = "What is the highest combo above 50 you can get?",
+    description = "Get the highest combo you can! [>50 Hits]",
     start = IsGameState(IN_STAGE) && GetCurrentCombo() > prev(GetCurrentCombo()) && GetCurrentCombo() >= MAX_COMBO_THRESHOLD,
     cancel = !IsGameState(IN_STAGE),
     submit = IsGameState(IN_STAGE) && GetCurrentCombo() == 0 && prev(GetCurrentCombo()) >= MAX_COMBO_THRESHOLD,
@@ -989,7 +989,7 @@ rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION),
     rich_presence_value("Character Total", CHARACTERS_TOTAL)
 )
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection") // password screen check
-rich_presence_display("LVL {0} {1} and LVL {2} {3} | Stage {4}-{5} [{6}] | Difficulty: {7}",
+rich_presence_conditional_display(IsGameState(IN_STAGE), "LVL {0} {1} and LVL {2} {3} | Stage {4}-{5} [{6}] | Difficulty: {7}",
     rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
     rich_presence_value("Player 2 Level", PlayerLevelInStage(2)),
