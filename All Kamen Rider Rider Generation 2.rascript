@@ -699,7 +699,7 @@ achievement(
 
 achievement(
     title = "World's Greatest Treasures",
-    description = "Buy all rider items from the shop, including all of Decade's and Diend's",
+    description = "Buy all 64 rider items from the shop",
     points = 10,
     trigger =
         (prior(IsGameState(STAGE_SELECTION)) || prior(IsGameState(GALLERY_TO_SHOP_TRANSITION))) &&
@@ -710,7 +710,7 @@ achievement(
 
 achievement(
     title = "Memory of Heroez",
-    description = "Unlock all galery items",
+    description = "Unlock all 100 galery items",
     points = 10,
     trigger =
         (IsGameState(IN_STAGE) || IsGameState(STAGE_SELECTION)) &&
@@ -720,7 +720,7 @@ achievement(
 
 achievement(
     title = "40 Years of Rider!",
-    description = "Unlock all characters, including password and hidden",
+    description = "Unlock all 57 characters",
     points = 10,
     trigger =
         (IsGameState(STAGE_SELECTION) || IsGameState(PASSWORD_SCREEN) || IsGameState(IN_STAGE)) &&
