@@ -710,7 +710,7 @@ achievement(
 
 achievement(
     title = "Memory of Heroez",
-    description = "Unlock all 100 galery items",
+    description = "Unlock all 100 gallery items",
     points = 10,
     trigger =
         (IsGameState(IN_STAGE) || IsGameState(STAGE_SELECTION)) &&
@@ -730,7 +730,7 @@ achievement(
 
 achievement(
     title = "I'm on It",
-    description = "Complete all star missions",
+    description = "Clear all star missions",
     points = 50,
     trigger =
         IsStageState(AFTER_CLEAR) &&
@@ -740,7 +740,7 @@ achievement(
 
 achievement(
     title = "I... Have Arrived!", points = 10,
-    description = "Complete all stages on Easy difficulty",
+    description = "Beat all stages on Easy difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(EasyStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -749,7 +749,7 @@ achievement(
 
 achievement(
     title = "Let's Go, Go, Go!", points = 10,
-    description = "Complete all stages on Medium difficulty",
+    description = "Beat all stages on Medium difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(MediumStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -758,7 +758,7 @@ achievement(
 
 achievement(
     title = "My Special Attack, Special Edition!", points = 10,
-    description = "Complete all stages on Hard difficulty",
+    description = "Beat all stages on Hard difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(HardStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -767,7 +767,7 @@ achievement(
 
 achievement(
     title = "From Start to Finish...", points = 25,
-    description = "Complete all stages on Danger difficulty",
+    description = "Beat all stages on Danger difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(DangerStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -776,7 +776,7 @@ achievement(
 
 achievement(
     title = "...I'm Always at a Climax!", points = 50,
-    description = "Complete all stages on Climax difficulty",
+    description = "Beat all stages on Climax difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(ClimaxStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -810,19 +810,19 @@ function StageWithoutDamageByOrder(world, order)
 
 achievement(
     title = "Temple Run", points = 5,
-    description = "Complete stage 2-2 on any difficulty without taking damage",
+    description = "Beat stage 2-2 on any difficulty without taking damage",
     trigger = StageWithoutDamageByOrder(2, "2")
 )
 
 achievement(
     title = "Steel Wall Run", points = 5,
-    description = "Complete stage 3-2 on any difficulty without taking damage",
+    description = "Beat stage 3-2 on any difficulty without taking damage",
     trigger = StageWithoutDamageByOrder(3, "2")
 )
 
 achievement(
     title = "Another Rider", points = 10,
-    description = "Complete every stage in Another World once on any difficulty",
+    description = "Beat every stage in Another World",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(!World7Completed()) &&
