@@ -661,37 +661,37 @@ function ExceedsThreshold(val, threshold)
 
 achievement(
     title = "You Have to Fight if You Want to Survive!", points = 5, type="progression",
-    description = "Defeat World 1 boss on any difficulty",
+    description = "Defeat World 1 boss",
     trigger = (IsStageCleared(WORLD1_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Will You Fall Into the Hell with Us?", points = 5, type="progression",
-    description = "Defeat World 2 boss on any difficulty",
+    description = "Defeat World 2 boss",
     trigger = (IsStageCleared(WORLD2_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Whoever Survives Will Fight Me", points = 5, type="progression",
-    description = "Defeat World 3 boss on any difficulty",
+    description = "Defeat World 3 boss",
     trigger = (IsStageCleared(WORLD3_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Now, Enjoy Your Hell!", points = 10, type="progression",
-    description = "Defeat World 4 boss on any difficulty",
+    description = "Defeat World 4 boss",
     trigger = (IsStageCleared(WORLD4_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Fight Fire with Rider", points = 10, type="progression",
-    description = "Defeat World 5 boss on any difficulty",
+    description = "Defeat World 5 boss",
     trigger = (IsStageCleared(WORLD5_6) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Master of Enemies", points = 25, type="win_condition",
-    description = "Defeat World 6 boss on any difficulty",
+    description = "Defeat World 6 boss",
     trigger = (IsStageCleared(WORLD6_7) && IsGameState(IN_STAGE))
 )
 
@@ -740,7 +740,7 @@ achievement(
 
 achievement(
     title = "I... Have Arrived!", points = 10,
-    description = "Complete all stages on Easy difficulty at least once",
+    description = "Complete all stages on Easy difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(EasyStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -749,7 +749,7 @@ achievement(
 
 achievement(
     title = "Let's Go, Go, Go!", points = 10,
-    description = "Complete all stages on Medium difficulty at least once",
+    description = "Complete all stages on Medium difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(MediumStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -758,7 +758,7 @@ achievement(
 
 achievement(
     title = "My Special Attack, Special Edition!", points = 10,
-    description = "Complete all stages on Hard difficulty at least once",
+    description = "Complete all stages on Hard difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(HardStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -767,7 +767,7 @@ achievement(
 
 achievement(
     title = "From Start to Finish...", points = 25,
-    description = "Complete all stages on Danger difficulty at least once",
+    description = "Complete all stages on Danger difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(DangerStagesCompletedCount()) == STAGES_COUNT - 1 &&
@@ -776,7 +776,7 @@ achievement(
 
 achievement(
     title = "...I'm Always at a Climax!", points = 50,
-    description = "Complete all stages on Climax difficulty at least once",
+    description = "Complete all stages on Climax difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
         prev(ClimaxStagesCompletedCount()) == STAGES_COUNT - 1 &&
