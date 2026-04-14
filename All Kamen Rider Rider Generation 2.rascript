@@ -960,10 +960,10 @@ leaderboard(
     title = "Highest Combo",
     description = "Get the highest combo you can! [>50 Hits]",
     start = IsGameState(IN_STAGE) && GetCurrentCombo() > prev(GetCurrentCombo()) && GetCurrentCombo() >= MAX_COMBO_THRESHOLD,
-    cancel = !IsGameState(IN_STAGE),
-    submit = IsGameState(IN_STAGE) && GetCurrentCombo() == 0 && prev(GetCurrentCombo()) >= MAX_COMBO_THRESHOLD,
+    cancel = always_false(),
+    submit = always_true(),
     id = 155643,
-    value = prev(GetCurrentCombo()),
+    value = GetCurrentCombo(),
     lower_is_better = false,
     format = "VALUE"
 )
