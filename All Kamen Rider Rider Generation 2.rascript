@@ -661,37 +661,37 @@ function ExceedsThreshold(val, threshold)
 
 achievement(
     title = "You Have to Fight if You Want to Survive!", points = 5, type="progression",
-    description = "Defeat World 1 boss",
+    description = "Beat World 1",
     trigger = (IsStageCleared(WORLD1_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
-    title = "Will You Fall Into the Hell with Us?", points = 5, type="progression",
-    description = "Defeat World 2 boss",
+    title = "Will You Fall into the Hell with Us?", points = 5, type="progression",
+    description = "Beat World 2",
     trigger = (IsStageCleared(WORLD2_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Whoever Survives Will Fight Me", points = 5, type="progression",
-    description = "Defeat World 3 boss",
+    description = "Beat World 3",
     trigger = (IsStageCleared(WORLD3_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Now, Enjoy Your Hell!", points = 10, type="progression",
-    description = "Defeat World 4 boss",
+    description = "Beat World 4",
     trigger = (IsStageCleared(WORLD4_5) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Fight Fire with Rider", points = 10, type="progression",
-    description = "Defeat World 5 boss",
+    description = "Beat World 5",
     trigger = (IsStageCleared(WORLD5_6) && IsGameState(IN_STAGE))
 )
 
 achievement(
     title = "Master of Enemies", points = 25, type="win_condition",
-    description = "Defeat World 6 boss",
+    description = "Beat World 6",
     trigger = (IsStageCleared(WORLD6_7) && IsGameState(IN_STAGE))
 )
 
@@ -730,7 +730,7 @@ achievement(
 
 achievement(
     title = "I'm on It",
-    description = "Clear all star missions",
+    description = "Beat all star missions",
     points = 50,
     trigger =
         IsStageState(AFTER_CLEAR) &&
