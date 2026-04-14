@@ -351,7 +351,7 @@ function ClimaxStagesCompletedCount()
 
 function RiderItemsBought()
 {
-    count = bitcount(CharacterData["Decade"]["Item"]) + bitcount(CharacterData["Diend"]["Item"])
+    count = bitcount(CharacterData["Decade"]["Item"]) + bit0(CharacterData["Diend"]["Item"]) + bit1(CharacterData["Diend"]["Item"])
     for character_name in CharacterData
     {
         if (character_name != "Decade" && character_name != "Diend" && character_name != "Wizard") {
