@@ -46,6 +46,7 @@ WORLD7_8 = 0x0DF649
 // Stages states
 STAGE_STATE = 0x2cef48
 PLAYING = 0x00
+PLAYING_TO_CLEAR = 0x01
 CLEAR = 0x04
 AFTER_CLEAR = 0x05
 
@@ -787,25 +788,21 @@ achievement(
 
 function StageWithoutDamageByOrder(world, order)
 {
-    ptr = HealthPointer()
-    
     level_ready = once(
         prev(GAME_STATE) == SELECTION_TO_STAGE_TRANSITION &&
         IsGameState(IN_STAGE) &&
         IsWorldStageByOrder(world, order)
     )
 
-    in_game = ptr != 0 && Player1Health() > 0
+    goal = prev(IsStageState(PLAYING_TO_CLEAR)) && IsStageState(CLEAR)
 
     cancel = never(
-        (IsStable(ptr) && Player1Health() < prev(Player1Health())) ||
+        (IsStable(HealthPointer()) && Player1Health() < prev(Player1Health())) ||
         !IsGameState(IN_STAGE) ||
         !IsWorldStageByOrder(world, order)
     )
 
-    goal = IsStageState(CLEAR)
-
-    return level_ready && in_game && cancel && trigger_when(goal)
+    return level_ready && trigger_when(goal) && cancel
 }
 
 achievement(
