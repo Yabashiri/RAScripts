@@ -8,6 +8,10 @@ STAGES_COUNT = 45
 MISSIONS_COUNT = 90
 RIDER_ITEMS_TOTAL = 64
 GALLERY_UNLOCKS_TOTAL = 100
+MULTIPLAYER_ENABLED = byte(0x000ead50)
+EASY_MODE_ENABLED = byte(0x000df774)
+MULTIPLAYER_DEFAULT = "[2P]"
+EASY_MODE_DEFAULT = "| Controls: Easy"
 
 // Game states
 GAME_STATE = byte(0x000ffd2c)
@@ -17,6 +21,7 @@ GALLERY = 0x04
 SHOP = 0x05 // Title screen, Shop
 CHARACTER_SELECTION = 0x06
 SELECTION_TO_STAGE_TRANSITION = 0x10
+MULTIPLAYER_SETUP = 0x15
 GALLERY_TO_SHOP_TRANSITION = 0x17
 PASSWORD_SCREEN = 0x20
 STAGE_SELECTION = 0x24
@@ -470,6 +475,14 @@ function CurrentStageInWorld() => byte(CURRENT_STAGE_IN_WORLD)
 function CurrentDifficulty() => byte(CURRENT_DIFFICULTY)
 
 function CurrentStageKey() => CurrentWorld() * 256 + CurrentStageInWorld()
+
+PlayerModeLookup = {
+    0: "[1P]"
+}
+
+EasyModeLookup = {
+    0: "| Controls: Normal"
+}
 
 function BuildStageOrderLookup()
 {
@@ -970,23 +983,39 @@ leaderboard(
 rich_presence_conditional_display(IsGameState(STARTING), "Game Start")
 rich_presence_conditional_display(IsGameState(SHOP) && prior(IsGameState(STARTING)), "Title Screen")
 rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)), 
-    "Shop🛒 {0}🪙, Rider Items: {1}/{2}🗡️",
+    "{0} Shop🛒 {1}🪙, Rider Items: {2}/{3}🗡️ {4}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Coins", dword(SHOP_COINS)),
     rich_presence_value("Rider Items Bought", RiderItemsBought()),
-    rich_presence_value("Rider Items Total", RIDER_ITEMS_TOTAL)
+    rich_presence_value("Rider Items Total", RIDER_ITEMS_TOTAL),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(GALLERY),
-    "Gallery🖼️ Items Unlocked: {0}/{1}📷",
+    "{0} Gallery🖼️ Items Unlocked: {1}/{2}📷 {3}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Gallery Unlocks", UnlockedGalleryItems()),
-    rich_presence_value("Gallery Total", GALLERY_UNLOCKS_TOTAL)
+    rich_presence_value("Gallery Total", GALLERY_UNLOCKS_TOTAL),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), 
-    "Character Selection🎭 Characters Unlocked: {0}/{1}🏍️",
+    "{0} Character Selection🎭 Characters Unlocked: {1}/{2}🏍️ {3}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Character Unlocks", UnlockedCharacters()),
-    rich_presence_value("Character Total", CHARACTERS_TOTAL)
+    rich_presence_value("Character Total", CHARACTERS_TOTAL),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
-rich_presence_conditional_display(IsGameState(STAGE_SELECTION), "Stage Selection") // password screen check
-rich_presence_conditional_display(IsGameState(IN_STAGE), "LVL {0} {1} and LVL {2} {3} | Stage {4}-{5} [{6}] | Difficulty: {7}",
+rich_presence_conditional_display(IsGameState(MULTIPLAYER_SETUP),
+    "{0} Connecting to Multiplayer🌐 {1}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+)
+rich_presence_conditional_display(IsGameState(STAGE_SELECTION), 
+    "{0} Stage Selection {1}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+) // password screen check
+rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} LVL {1} {2} and LVL {3} {4} | Stage {5}-{6} [{7}] | Difficulty: {8} {9}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
     rich_presence_value("Player 2 Level", PlayerLevelInStage(2)),
@@ -994,6 +1023,7 @@ rich_presence_conditional_display(IsGameState(IN_STAGE), "LVL {0} {1} and LVL {2
     rich_presence_value("Current World", CurrentWorld()),
     rich_presence_lookup("Current Stage Order", CurrentStageKey(), StageOrders),
     rich_presence_lookup("Current Stage Name", CurrentStageKey(), StageNames),
-    rich_presence_lookup("Current Difficulty", CurrentDifficulty(), Difficulties)
+    rich_presence_lookup("Current Difficulty", CurrentDifficulty(), Difficulties),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_display("Playing All Kamen Rider: Rider Generation 2")
