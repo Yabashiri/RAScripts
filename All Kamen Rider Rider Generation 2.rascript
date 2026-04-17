@@ -12,6 +12,7 @@ MULTIPLAYER_ENABLED = byte(0x000ead50)
 EASY_MODE_ENABLED = byte(0x000df774)
 MULTIPLAYER_DEFAULT = "[2P]"
 EASY_MODE_DEFAULT = "| Controls: Easy"
+PAUSE_STATE_DEFAULT = ""
 
 // Game states
 GAME_STATE = byte(0x000ffd2c)
@@ -33,6 +34,11 @@ SCREEN_DEFAULT = 0xe4
 SCREEN_DIALOGUE_CUTSCENE = 0xd4
 SCREEN_TRANSITION = 0xd0
 SCREEN_SINGLE_CUTSCENE = 0xe8
+
+// Pause states
+PAUSE_STATE = byte(0x002246b0)
+GAME_PAUSED = 0x41
+GAME_ACTIVE = 0x64
 
 // Stage identification (new system)
 CURRENT_WORLD = 0xdf9c2
@@ -234,6 +240,8 @@ function IsGameState(state) => GAME_STATE == state
 function IsStageState(state) => byte(STAGE_STATE) == state
 
 function IsScreenState(state) => SCREEN_STATE == state
+
+function IsPauseState(state) => PAUSE_STATE == state
 
 function DeltaComparison(mem, value) => prev(byte(mem)) == value
 
@@ -491,6 +499,10 @@ PlayerModeLookup = {
 
 EasyModeLookup = {
     0: "| Controls: Normal"
+}
+
+PauseStateLookup = {
+    GAME_PAUSED: "[Paused] "
 }
 
 function BuildStageOrderLookup()
@@ -1000,7 +1012,7 @@ rich_presence_conditional_display(IsGameState(STARTING) && IsScreenState(SCREEN_
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
-rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)), 
+rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)),
     "{0} Shop🛒 {1}🪙, Rider Items: {2}/{3}🗡️ {4}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Coins", dword(SHOP_COINS)),
@@ -1032,8 +1044,9 @@ rich_presence_conditional_display(IsGameState(STAGE_SELECTION),
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
-rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} LVL {1} {2} and LVL {3} {4} | Stage {5}-{6} [{7}] | Difficulty: {8} {9}",
+rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} {1}LVL {2} {3} and LVL {4} {5} | Stage {6}-{7} [{8}] | Difficulty: {9} {10}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("Pause State", PAUSE_STATE, PauseStateLookup, PAUSE_STATE_DEFAULT),
     rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
     rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
     rich_presence_value("Player 2 Level", PlayerLevelInStage(2)),
