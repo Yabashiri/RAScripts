@@ -27,6 +27,13 @@ PASSWORD_SCREEN = 0x20
 STAGE_SELECTION = 0x24
 STAGE_TO_SELECTION_TRANSITION = 0xed
 
+// Screen states
+SCREEN_STATE = byte(0x000ccb50)
+SCREEN_DEFAULT = 0xe4
+SCREEN_DIALOGUE_CUTSCENE = 0xd4
+SCREEN_TRANSITION = 0xd0
+SCREEN_SINGLE_CUTSCENE = 0xe8
+
 // Stage identification (new system)
 CURRENT_WORLD = 0xdf9c2
 CURRENT_STAGE_IN_WORLD = 0xdf9c4
@@ -225,6 +232,8 @@ function bitwiseOr(a, b) => a + b - a * b
 function IsGameState(state) => GAME_STATE == state
 
 function IsStageState(state) => byte(STAGE_STATE) == state
+
+function IsScreenState(state) => SCREEN_STATE == state
 
 function DeltaComparison(mem, value) => prev(byte(mem)) == value
 
@@ -980,8 +989,17 @@ leaderboard(
 
 // RICH PRESENCE
 
-rich_presence_conditional_display(IsGameState(STARTING), "Game Start")
-rich_presence_conditional_display(IsGameState(SHOP) && prior(IsGameState(STARTING)), "Title Screen")
+rich_presence_conditional_display(IsGameState(IN_STAGE) && 
+    (IsScreenState(SCREEN_DIALOGUE_CUTSCENE) || IsScreenState(SCREEN_SINGLE_CUTSCENE)), 
+    "{0} Watching a Cutscene {1}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+)
+rich_presence_conditional_display(IsGameState(STARTING) && IsScreenState(SCREEN_TRANSITION), 
+    "{0} Watching Credits {1}",
+    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+)
 rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)), 
     "{0} Shop🛒 {1}🪙, Rider Items: {2}/{3}🗡️ {4}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
@@ -1013,7 +1031,7 @@ rich_presence_conditional_display(IsGameState(STAGE_SELECTION),
     "{0} Stage Selection {1}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
-) // password screen check
+)
 rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} LVL {1} {2} and LVL {3} {4} | Stage {5}-{6} [{7}] | Difficulty: {8} {9}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
@@ -1026,4 +1044,6 @@ rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} LVL {1} {2} and LV
     rich_presence_lookup("Current Difficulty", CurrentDifficulty(), Difficulties),
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
+rich_presence_conditional_display(IsGameState(SHOP) && prior(IsGameState(STARTING)), "Title Screen")
+rich_presence_conditional_display(IsGameState(STARTING), "Game Start")
 rich_presence_display("Playing All Kamen Rider: Rider Generation 2")
