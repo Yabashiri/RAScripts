@@ -1013,25 +1013,22 @@ rich_presence_conditional_display(IsGameState(STARTING) && IsScreenState(SCREEN_
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)),
-    "{0} Shop🛒 {1}🪙, Rider Items: {2}/{3}🗡️ {4}",
+    "{0} Shop🛒 {1}🪙, Rider Items: {2}/64🗡️ {3}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Coins", dword(SHOP_COINS)),
     rich_presence_value("Rider Items Bought", RiderItemsBought()),
-    rich_presence_value("Rider Items Total", RIDER_ITEMS_TOTAL),
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(GALLERY),
-    "{0} Gallery🖼️ Items Unlocked: {1}/{2}📷 {3}",
+    "{0} Gallery🖼️ Items Unlocked: {1}/100📷 {2}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Gallery Unlocks", UnlockedGalleryItems()),
-    rich_presence_value("Gallery Total", GALLERY_UNLOCKS_TOTAL),
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), 
-    "{0} Character Selection🎭 Characters Unlocked: {1}/{2}🏍️ {3}",
+    "{0} Character Selection🎭 Characters Unlocked: {1}/57🏍️ {2}",
     rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Character Unlocks", UnlockedCharacters()),
-    rich_presence_value("Character Total", CHARACTERS_TOTAL),
     rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(MULTIPLAYER_SETUP),
