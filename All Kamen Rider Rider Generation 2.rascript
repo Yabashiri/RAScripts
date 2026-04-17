@@ -1004,55 +1004,55 @@ leaderboard(
 rich_presence_conditional_display(IsGameState(IN_STAGE) && 
     (IsScreenState(SCREEN_DIALOGUE_CUTSCENE) || IsScreenState(SCREEN_SINGLE_CUTSCENE)), 
     "{0} Watching a Cutscene {1}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(STARTING) && IsScreenState(SCREEN_TRANSITION), 
     "{0} Watching Credits {1}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)),
     "{0} Shop🛒 {1}🪙, Rider Items: {2}/64🗡️ {3}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Coins", dword(SHOP_COINS)),
-    rich_presence_value("Rider Items Bought", RiderItemsBought()),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_value("RiderItemsBought", RiderItemsBought()),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(GALLERY),
     "{0} Gallery🖼️ Items Unlocked: {1}/100📷 {2}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_value("Gallery Unlocks", UnlockedGalleryItems()),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_value("GalleryUnlocks", UnlockedGalleryItems()),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), 
     "{0} Character Selection🎭 Characters Unlocked: {1}/57🏍️ {2}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_value("Character Unlocks", UnlockedCharacters()),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_value("CharacterUnlocks", UnlockedCharacters()),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(MULTIPLAYER_SETUP),
     "{0} Connecting to Multiplayer🌐 {1}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), 
     "{0} Stage Selection {1}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} {1}LVL {2} {3} and LVL {4} {5} | Stage {6}-{7} [{8}] | Difficulty: {9} {10}",
-    rich_presence_lookup("Player Mode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("Pause State", PAUSE_STATE, PauseStateLookup, PAUSE_STATE_DEFAULT),
-    rich_presence_value("Player 1 Level", PlayerLevelInStage(1)),
-    rich_presence_lookup("Player 1 Character", Player1Character(), Characters),
-    rich_presence_value("Player 2 Level", PlayerLevelInStage(2)),
-    rich_presence_lookup("Player 2 Character", Player2Character(), Characters),
-    rich_presence_value("Current World", CurrentWorld()),
-    rich_presence_lookup("Current Stage Order", CurrentStageKey(), StageOrders),
-    rich_presence_lookup("Current Stage Name", CurrentStageKey(), StageNames),
-    rich_presence_lookup("Current Difficulty", CurrentDifficulty(), Difficulties),
-    rich_presence_lookup("Easy Mode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
+    rich_presence_lookup("PauseState", PAUSE_STATE, PauseStateLookup, PAUSE_STATE_DEFAULT),
+    rich_presence_value("Player1Level", PlayerLevelInStage(1)),
+    rich_presence_lookup("Player1Character", Player1Character(), Characters),
+    rich_presence_value("Player2Level", PlayerLevelInStage(2)),
+    rich_presence_lookup("Player2Character", Player2Character(), Characters),
+    rich_presence_value("CurrentWorld", CurrentWorld()),
+    rich_presence_lookup("CurrentStageOrder", CurrentStageKey(), StageOrders),
+    rich_presence_lookup("CurrentStageName", CurrentStageKey(), StageNames),
+    rich_presence_lookup("CurrentDifficulty", CurrentDifficulty(), Difficulties),
+    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(SHOP) && prior(IsGameState(STARTING)), "Title Screen")
 rich_presence_conditional_display(IsGameState(STARTING), "Game Start")
