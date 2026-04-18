@@ -937,6 +937,28 @@ achievement(
 )
 
 achievement(
+    title = "Set Up! Kamen Rider X", points = 2,
+    description = "Reach Level 10 with any character",
+    trigger =
+        IsGameState(IN_STAGE) &&
+        (
+            ExceedsThreshold(byte(PlayerLevelAddressInStage(1)), 9) || 
+            ExceedsThreshold(byte(PlayerLevelAddressInStage(2)), 9)
+        )
+)
+
+achievement(
+    title = "Training Since 1971", points = 5,
+    description = "Reach Level 40 with any character",
+    trigger =
+        IsGameState(IN_STAGE) &&
+        (
+            ExceedsThreshold(byte(PlayerLevelAddressInStage(1)), 39) || 
+            ExceedsThreshold(byte(PlayerLevelAddressInStage(2)), 39)
+        )
+)
+
+achievement(
     title = "Watch My Transformation", points = 10,
     description = "Reach Level 80 with any character",
     trigger =
