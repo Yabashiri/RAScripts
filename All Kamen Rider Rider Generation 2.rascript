@@ -228,7 +228,8 @@ enduranceTraining = [
     0xdf014, 0xdf028, 0xdf03c, 0xdf050, 0xdf064, 0xdf078, 0xdf08c, 0xdf0a0, 0xdf0b4, 0xdf0c8, 0xdf0dc,
     0xdf0f0, 0xdf104, 0xdf118, 0xdf12c, 0xdf140, 0xdf154, 0xdf168, 0xdf17c, 0xdf190, 0xdf1a4, 0xdf1b8,
     0xdf1cc, 0xdf1e0, 0xdf1f4, 0xdf208, 0xdf21c, 0xdf230, 0xdf244, 0xdf258, 0xdf26c, 0xdf280, 0xdf294,
-    0xdf2a8, 0xdf2bc, 0xdf2d0, 0xdf2e4, 0xdf2f8, 0xdf30c, 0xdf320, 0xdf334, 0xdf348, 0xdf35c, 0xdf370, 0xdf384
+    0xdf2a8, 0xdf2bc, 0xdf2d0, 0xdf2e4, 0xdf2f8, 0xdf30c, 0xdf320, 0xdf334, 0xdf348, 0xdf35c, 0xdf370, 
+    0xdf384, 0xdf398
 ]
 
 // FUNCTIONS
@@ -406,6 +407,15 @@ function trainingLessThan(points, value)
 function trainingExceeds(points, value)
 {
     return any_of(points, p => word(p) >= value)
+}
+
+function Player1EnduranceCrosses(value)
+{
+    return any_of(range(0, 56), i =>
+        Player1Character() == i &&
+        prev(word(enduranceTraining[i])) < value &&
+        measured(word(enduranceTraining[i]) >= value, when=Player1Character() == i)
+    )
 }
 
 function UltimateGauge()
@@ -861,22 +871,11 @@ achievement(
 )
 
 achievement(
-    title = "My Strength Has Made You Cry", points = 10,
-    description = "Finish a stage with character's Endurance exceeding 600",
+    title = "My Strength Has Made You Cry", points = 5,
+    description = "Reach at least 100 Endurance training points",
     trigger =
-        once(IsGameState(IN_STAGE)) &&
-        never(
-            !IsGameState(IN_STAGE) &&
-            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
-            !IsGameState(STAGE_SELECTION)
-        ) &&
-        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
-        IsGameState(STAGE_SELECTION) &&
-        IsStageState(AFTER_CLEAR) &&
-        (
-            ExceedsThreshold(word(PLAYER1_ENDURANCE_STAGE_SELECTION), 600) || 
-            ExceedsThreshold(word(PLAYER2_ENDURANCE_STAGE_SELECTION), 600)
-        )
+        IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
+        Player1EnduranceCrosses(100)
 )
 
 achievement(
