@@ -739,7 +739,7 @@ achievement(
     trigger =
         (prior(IsGameState(STAGE_SELECTION)) || prior(IsGameState(GALLERY_TO_SHOP_TRANSITION))) &&
         IsGameState(SHOP) &&
-        prev(RiderItemsBought()) == RIDER_ITEMS_TOTAL - 1 &&
+        prev(RiderItemsBought()) < RIDER_ITEMS_TOTAL &&
         measured(RiderItemsBought() == RIDER_ITEMS_TOTAL)
 )
 
@@ -759,7 +759,7 @@ achievement(
     points = 10,
     trigger =
         (IsGameState(STAGE_SELECTION) || IsGameState(PASSWORD_SCREEN) || IsGameState(IN_STAGE)) &&
-        prev(UnlockedCharacters()) == CHARACTERS_TOTAL - 1 &&
+        prev(UnlockedCharacters()) < CHARACTERS_TOTAL &&
         measured(UnlockedCharacters() == CHARACTERS_TOTAL)
 )
 
