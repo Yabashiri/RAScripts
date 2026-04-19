@@ -232,6 +232,33 @@ enduranceTraining = [
     0xdf384, 0xdf398
 ]
 
+attackTraining = [
+    0xdef3a, 0xdef4e, 0xdef62, 0xdef76, 0xdef8a, 0xdef9e, 0xdefb2, 0xdefc6, 0xdefda, 0xdefee, 0xdf002,
+    0xdf016, 0xdf02a, 0xdf03e, 0xdf052, 0xdf066, 0xdf07a, 0xdf08e, 0xdf0a2, 0xdf0b6, 0xdf0ca, 0xdf0de,
+    0xdf0f2, 0xdf106, 0xdf11a, 0xdf12e, 0xdf142, 0xdf156, 0xdf16a, 0xdf17e, 0xdf192, 0xdf1a6, 0xdf1ba,
+    0xdf1ce, 0xdf1e2, 0xdf1f6, 0xdf20a, 0xdf21e, 0xdf232, 0xdf246, 0xdf25a, 0xdf26e, 0xdf282, 0xdf296,
+    0xdf2aa, 0xdf2be, 0xdf2d2, 0xdf2e6, 0xdf2fa, 0xdf30e, 0xdf322, 0xdf336, 0xdf34a, 0xdf35e, 0xdf372,
+    0xdf386, 0xdf39a
+]
+
+defenseTraining = [
+    0xdef3c, 0xdef50, 0xdef64, 0xdef78, 0xdef8c, 0xdefa0, 0xdefb4, 0xdefc8, 0xdefdc, 0xdeff0, 0xdf004,
+    0xdf018, 0xdf02c, 0xdf040, 0xdf054, 0xdf068, 0xdf07c, 0xdf090, 0xdf0a4, 0xdf0b8, 0xdf0cc, 0xdf0e0,
+    0xdf0f4, 0xdf108, 0xdf11c, 0xdf130, 0xdf144, 0xdf158, 0xdf16c, 0xdf180, 0xdf194, 0xdf1a8, 0xdf1bc,
+    0xdf1d0, 0xdf1e4, 0xdf1f8, 0xdf20c, 0xdf220, 0xdf234, 0xdf248, 0xdf25c, 0xdf270, 0xdf284, 0xdf298,
+    0xdf2ac, 0xdf2c0, 0xdf2d4, 0xdf2e8, 0xdf2fc, 0xdf310, 0xdf324, 0xdf338, 0xdf34c, 0xdf360, 0xdf374,
+    0xdf388, 0xdf39c
+]
+
+skillTraining = [
+    0xdef3e, 0xdef52, 0xdef66, 0xdef7a, 0xdef8e, 0xdefa2, 0xdefb6, 0xdefca, 0xdefde, 0xdeff2, 0xdf006,
+    0xdf01a, 0xdf02e, 0xdf042, 0xdf056, 0xdf06a, 0xdf07e, 0xdf092, 0xdf0a6, 0xdf0ba, 0xdf0ce, 0xdf0e2,
+    0xdf0f6, 0xdf10a, 0xdf11e, 0xdf132, 0xdf146, 0xdf15a, 0xdf16e, 0xdf182, 0xdf196, 0xdf1aa, 0xdf1be,
+    0xdf1d2, 0xdf1e6, 0xdf1fa, 0xdf20e, 0xdf222, 0xdf236, 0xdf24a, 0xdf25e, 0xdf272, 0xdf286, 0xdf29a,
+    0xdf2ae, 0xdf2c2, 0xdf2d6, 0xdf2ea, 0xdf2fe, 0xdf312, 0xdf326, 0xdf33a, 0xdf34e, 0xdf362, 0xdf376,
+    0xdf38a, 0xdf39e
+]
+
 // FUNCTIONS
 
 function bitwiseOr(a, b) => a + b - a * b
@@ -415,6 +442,33 @@ function Player1EnduranceCrosses(value)
         Player1Character() == i &&
         prev(word(enduranceTraining[i])) < value &&
         measured(word(enduranceTraining[i]) >= value, when=Player1Character() == i)
+    )
+}
+
+function Player1AttackCrosses(value)
+{
+    return any_of(range(0, 56), i =>
+        Player1Character() == i &&
+        prev(word(attackTraining[i])) < value &&
+        measured(word(attackTraining[i]) >= value, when=Player1Character() == i)
+    )
+}
+
+function Player1DefenseCrosses(value)
+{
+    return any_of(range(0, 56), i =>
+        Player1Character() == i &&
+        prev(word(defenseTraining[i])) < value &&
+        measured(word(defenseTraining[i]) >= value, when=Player1Character() == i)
+    )
+}
+
+function Player1SkillCrosses(value)
+{
+    return any_of(range(0, 56), i =>
+        Player1Character() == i &&
+        prev(word(skillTraining[i])) < value &&
+        measured(word(skillTraining[i]) >= value, when=Player1Character() == i)
     )
 }
 
@@ -879,60 +933,27 @@ achievement(
 )
 
 achievement(
-    title = "Attack Ride", points = 10,
-    description = "Finish a stage with character's Attack exceeding 150",
+    title = "Attack Ride", points = 5,
+    description = "Reach at least 100 Attack training points",
     trigger =
-        once(IsGameState(IN_STAGE)) &&
-        never(
-            !IsGameState(IN_STAGE) &&
-            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
-            !IsGameState(STAGE_SELECTION)
-        ) &&
-        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
-        IsGameState(STAGE_SELECTION) &&
-        IsStageState(AFTER_CLEAR) &&
-        (
-            ExceedsThreshold(word(PLAYER1_ATTACK_STAGE_SELECTION), 150) || 
-            ExceedsThreshold(word(PLAYER2_ATTACK_STAGE_SELECTION), 150)
-        )
+        IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
+        Player1AttackCrosses(100)
 )
 
 achievement(
-    title = "No Fear, No Pain", points = 10,
-    description = "Finish a stage with character's Defense exceeding 150",
+    title = "No Fear, No Pain", points = 5,
+    description = "Reach at least 100 Defense training points",
     trigger =
-        once(IsGameState(IN_STAGE)) &&
-        never(
-            !IsGameState(IN_STAGE) &&
-            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
-            !IsGameState(STAGE_SELECTION)
-        ) &&
-        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
-        IsGameState(STAGE_SELECTION) &&
-        IsStageState(AFTER_CLEAR) &&
-        (
-            ExceedsThreshold(word(PLAYER1_DEFENSE_STAGE_SELECTION), 150) || 
-            ExceedsThreshold(word(PLAYER2_DEFENSE_STAGE_SELECTION), 150)
-        )
+        IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
+        Player1DefenseCrosses(100)
 )
 
 achievement(
-    title = "He Who Walks the Path of Heaven", points = 10,
-    description = "Finish a stage with character's Skill exceeding 150",
+    title = "He Who Walks the Path of Heaven", points = 5,
+    description = "Reach at least 100 Skill training points",
     trigger =
-        once(IsGameState(IN_STAGE)) &&
-        never(
-            !IsGameState(IN_STAGE) &&
-            !IsGameState(STAGE_TO_SELECTION_TRANSITION) &&
-            !IsGameState(STAGE_SELECTION)
-        ) &&
-        prev(IsGameState(STAGE_TO_SELECTION_TRANSITION)) &&
-        IsGameState(STAGE_SELECTION) &&
-        IsStageState(AFTER_CLEAR) &&
-        (
-            ExceedsThreshold(word(PLAYER1_SKILL_STAGE_SELECTION), 150) || 
-            ExceedsThreshold(word(PLAYER2_SKILL_STAGE_SELECTION), 150)
-        )
+        IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
+        Player1SkillCrosses(100)
 )
 
 achievement(
