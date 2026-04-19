@@ -163,7 +163,7 @@ Display:
 ?0xH0ffd2c=36?@PlayerMode(0xH0ead50) Stage Selection @EasyMode(0xH0df774)
 // === In-Game ===
 // Example: [1P] LVL 50 Decade and LVL 48 W | Stage 3-2 [Abyssal Passage] | Difficulty: Hard | Controls: Normal
-?0xH0ffd2c=1?@PauseState(0xH2246b0)@PlayerMode(0xH0ead50) LVL @Number(b0xH2c995c) @PlayerCharacter(0xH0df9a4) and LVL @Number(b0xH2c9974) @PlayerCharacter(0xH0df9a8) | Stage @Number(0xH0df9c2)-@CurrentStageOrder(0xH0df9c2*256_0xH0df9c4) [@CurrentStageName(0xH0df9c2*256_0xH0df9c4)] | Difficulty: @CurrentDifficulty(0xH0df9f8) @EasyMode(0xH0df774)
+?0xH0ffd2c=1?@PauseState(0xH2246b0)@PlayerMode(0xH0ead50) LVL @Number(b0xH2c995c) @PlayerCharacter(0xH0df9a4) and LVL @Number(b0xH2c9974) @PlayerCharacter(0xH0df9a8) | Stage @Number(0xH0df9c2)-@CurrentStageOrder(A:0xH0df9c2*256_M:0xH0df9c4) [@CurrentStageName(A:0xH0df9c2*256_M:0xH0df9c4)] | Difficulty: @CurrentDifficulty(0xH0df9f8) @EasyMode(0xH0df774)
 // === Title / Init ===
 ?0xH0ffd2c=5_p0xH0ffd2c=0?Title Screen
 ?0xH0ffd2c=0?Game Start
