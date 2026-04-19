@@ -926,7 +926,7 @@ achievement(
 
 achievement(
     title = "My Strength Has Made You Cry", points = 5,
-    description = "Reach at least 100 Endurance training points",
+    description = "Obtain 100 or more Endurance training points with any character",
     trigger =
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1EnduranceCrosses(100)
@@ -934,7 +934,7 @@ achievement(
 
 achievement(
     title = "Attack Ride", points = 5,
-    description = "Reach at least 100 Attack training points",
+    description = "Obtain 100 or more Attack training points with any character",
     trigger =
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1AttackCrosses(100)
@@ -942,7 +942,7 @@ achievement(
 
 achievement(
     title = "No Fear, No Pain", points = 5,
-    description = "Reach at least 100 Defense training points",
+    description = "Obtain 100 or more Defense training points with any character",
     trigger =
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1DefenseCrosses(100)
@@ -950,7 +950,7 @@ achievement(
 
 achievement(
     title = "He Who Walks the Path of Heaven", points = 5,
-    description = "Reach at least 100 Skill training points",
+    description = "Obtain 100 or more Skill training points with any character",
     trigger =
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1SkillCrosses(100)
