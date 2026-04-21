@@ -100,6 +100,26 @@ ULTIMATE = 0xded18
 ULTIMATE_GAUGE_MAX = 0x1b
 NOT_IN_ULTIMATE = 0xebfff869
 
+CHARACTER_FORM = word(0x2c9ac4)
+
+BaseFormByCharacter = {
+    0x19: 0x00f0,  // W
+    0x1C: 0x0810,  // Fourze
+    0x18: 0xa070,  // Decade
+    0x1A: 0xb1f0,  // OOO
+}
+
+FORM_CHANGE_CHARACTERS = [0x19, 0x1C, 0x18, 0x1A]
+
+function IsBaseFormChanged() => any_of(FORM_CHANGE_CHARACTERS, id =>
+    once(
+        Player1Character() == id &&
+        prev(CHARACTER_FORM) == BaseFormByCharacter[id] &&
+        CHARACTER_FORM == BaseFormByCharacter[id]
+    ) &&
+    CHARACTER_FORM != prev(CHARACTER_FORM)
+)
+
 CURRENT_COMBO = 0x2c99c4
 MAX_COMBO_THRESHOLD = 50
 
@@ -828,6 +848,15 @@ achievement(
 )
 
 //MEASURED
+
+achievement(
+    title = "This might tickle...", points = 1,
+    description = "Change into a different rider form",
+    trigger = 
+        IsStageState(PLAYING) &&
+        IsBaseFormChanged() &&
+        never(!IsGameState(IN_STAGE))
+)
 
 achievement(
     title = "Sell Medals",
