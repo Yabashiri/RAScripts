@@ -458,6 +458,15 @@ function ClimaxStagesCompletedCount()
     return count
 }
 
+function TotalStagesCompletedCount()
+{
+    return EasyStagesCompletedCount() +
+           MediumStagesCompletedCount() +
+           HardStagesCompletedCount() +
+           DangerStagesCompletedCount() +
+           ClimaxStagesCompletedCount()
+}
+
 function RiderItemsBought()
 {
     count = bitcount(CharacterData["Decade"]["Item"]) + bit0(CharacterData["Diend"]["Item"]) + bit1(CharacterData["Diend"]["Item"])
@@ -850,7 +859,7 @@ achievement(
 //MEASURED
 
 achievement(
-    title = "This might tickle...", points = 1,
+    title = "This Might Tickle…", points = 1,
     description = "Change into a different rider form",
     trigger = 
         IsStageState(PLAYING) &&
@@ -901,7 +910,7 @@ achievement(
 )
 
 achievement(
-    title = "Start Your Engine",
+    title = "Tighten Up",
     description = "Beat a Star Mission",
     points = 1,
     trigger =
@@ -911,7 +920,7 @@ achievement(
 )
 
 achievement(
-    title = "I'm on It",
+    title = "Time Judged All",
     description = "Beat every stage's first Star Mission",
     points = 10,
     trigger =
@@ -921,7 +930,7 @@ achievement(
 )
 
 achievement(
-    title = "Star of the Stars of the Stars",
+    title = "Power to Tearer",
     description = "Beat every stage's second Star Mission",
     points = 25,
     trigger =
@@ -973,6 +982,42 @@ achievement(
         IsStageState(AFTER_CLEAR) &&
         prev(ClimaxStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(ClimaxStagesCompletedCount() == STAGES_COUNT)
+)
+
+achievement(
+    title = "Sun Goes Up", points = 5,
+    description = "Beat 75 stage and difficulty combinations",
+    trigger =
+        IsStageState(AFTER_CLEAR) &&
+        prev(TotalStagesCompletedCount()) == 74 &&
+        measured(TotalStagesCompletedCount() == 75)
+)
+
+achievement(
+    title = "Got to Keep It Real", points = 5,
+    description = "Beat 125 stage and difficulty combinations",
+    trigger =
+        IsStageState(AFTER_CLEAR) &&
+        prev(TotalStagesCompletedCount()) == 124 &&
+        measured(TotalStagesCompletedCount() == 125)
+)
+
+achievement(
+    title = "Ride on Right Time", points = 10,
+    description = "Beat 175 stage and difficulty combinations",
+    trigger =
+        IsStageState(AFTER_CLEAR) &&
+        prev(TotalStagesCompletedCount()) == 174 &&
+        measured(TotalStagesCompletedCount() == 175)
+)
+
+achievement(
+    title = "Shout Out", points = 25,
+    description = "Beat 225 stage and difficulty combinations",
+    trigger =
+        IsStageState(AFTER_CLEAR) &&
+        prev(TotalStagesCompletedCount()) == 224 &&
+        measured(TotalStagesCompletedCount() == 225)
 )
 
 //CHALLENGE
