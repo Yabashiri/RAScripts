@@ -417,12 +417,7 @@ function UnlockedGalleryItems()
 {
     count = 0
     for offset in range(0, GALLERY_LENGTH - 1)
-    {
-        address = GALLERY_START_BITFIELD + offset
-        // Each address stores 4 items. Item is unlocked if either its even or odd bit is set.
-        for bit_index in [0, 2, 4, 6]
-            count = count + bitwiseOr(bit(bit_index, address), bit(bit_index + 1, address))
-    }
+        count = count + bitcount(GALLERY_START_BITFIELD + offset)
     return count
 }
 
@@ -968,7 +963,7 @@ achievement(
 )
 
 achievement(
-    title = "Training Since 1971", points = 5,
+    title = "Watch My Transformation", points = 5,
     description = "Reach Level 40 with any character",
     trigger =
         IsGameState(IN_STAGE) &&
@@ -979,7 +974,7 @@ achievement(
 )
 
 achievement(
-    title = "Watch My Transformation", points = 10,
+    title = "Training Since 1971", points = 10,
     description = "Reach Level 80 with any character",
     trigger =
         IsGameState(IN_STAGE) &&
