@@ -792,6 +792,17 @@ achievement(
 //MEASURED
 
 achievement(
+    title = "Sell Medals",
+    description = "Buy an item from the Shop",
+    points = 1,
+    trigger =
+        (prior(IsGameState(STAGE_SELECTION)) || prior(IsGameState(GALLERY_TO_SHOP_TRANSITION))) &&
+        IsGameState(SHOP) &&
+        prev(RiderItemsBought()) == 0 &&
+        RiderItemsBought() >= 1
+)
+
+achievement(
     title = "World's Greatest Treasures",
     description = "Buy all 64 rider items from the shop",
     points = 10,
