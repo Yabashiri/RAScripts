@@ -834,6 +834,16 @@ achievement(
 )
 
 achievement(
+    title = "Start Your Engine",
+    description = "Beat a Star Mission",
+    points = 1,
+    trigger =
+        IsStageState(AFTER_CLEAR) &&
+        prev(MissionsCompletedCount()) == 0 &&
+        MissionsCompletedCount() >= 1
+)
+
+achievement(
     title = "I'm on It",
     description = "Beat all star missions",
     points = 50,
