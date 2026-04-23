@@ -565,20 +565,20 @@ function IsUsingUltimateAs(player, character_name)
 function IsUsingUltimateAsNew(player, character_name)
 {
     ultimate_used = GetCharacterData(character_name, "Ultimate")
-    return IsPlayingAs(player, character_name) && Ultimate() == ultimate_used
+    return Ultimate() == ultimate_used
 }
 
 function UsingDoubleUltimateAs(player_character, assist_character)
 {
     start = once(
         IsGameState(IN_STAGE) &&
-        UltimateGauge() >= ULTIMATE_GAUGE_MAX
+        UltimateGauge() >= ULTIMATE_GAUGE_MAX &&
+        IsPlayingAs("Player1", player_character) &&
+        IsPlayingAs("Player2", assist_character)
     )
 
     cancel = never(
-        !IsGameState(IN_STAGE) ||
-        !IsPlayingAs("Player1", player_character) ||
-        !IsPlayingAs("Player2", assist_character)
+        !IsGameState(IN_STAGE)
     )
 
     goal = prev(!IsUsingUltimateAsNew("Player2", assist_character)) &&
@@ -670,7 +670,7 @@ function BuildDifficultyLookup()
     }
 }
 
-function GetCurrentCombo() => byte(CURRENT_COMBO)
+function GetCurrentCombo() => dword(CURRENT_COMBO)
 
 // LOOKUPS
 
@@ -859,7 +859,7 @@ achievement(
 //MEASURED
 
 achievement(
-    title = "This Might Tickle…", points = 1,
+    title = "This Might Tickle...", points = 1,
     description = "Change into a different rider form",
     trigger = 
         IsStageState(PLAYING) &&
@@ -880,7 +880,7 @@ achievement(
 
 achievement(
     title = "World's Greatest Treasures",
-    description = "Buy all 64 rider items from the shop",
+    description = "Buy all 64 rider items from the Shop",
     points = 10,
     trigger =
         (prior(IsGameState(STAGE_SELECTION)) || prior(IsGameState(GALLERY_TO_SHOP_TRANSITION))) &&
@@ -891,7 +891,7 @@ achievement(
 
 achievement(
     title = "Memory of Heroez",
-    description = "Unlock all 100 gallery items",
+    description = "Unlock all 100 gallery entries",
     points = 10,
     trigger =
         (IsGameState(IN_STAGE) || IsGameState(STAGE_SELECTION)) &&
@@ -976,7 +976,7 @@ achievement(
 )
 
 achievement(
-    title = "...I'm Always at a Climax!", points = 50,
+    title = "...I'm Always at a Climax!", points = 25,
     description = "Beat all stages on Climax difficulty",
     trigger =
         IsStageState(AFTER_CLEAR) &&
@@ -985,7 +985,7 @@ achievement(
 )
 
 achievement(
-    title = "Sun Goes Up", points = 5,
+    title = "Sun Goes Up", points = 10,
     description = "Beat 75 stage and difficulty combinations",
     trigger =
         IsStageState(AFTER_CLEAR) &&
@@ -994,7 +994,7 @@ achievement(
 )
 
 achievement(
-    title = "Got to Keep It Real", points = 5,
+    title = "Got to Keep It Real", points = 10,
     description = "Beat 125 stage and difficulty combinations",
     trigger =
         IsStageState(AFTER_CLEAR) &&
@@ -1106,7 +1106,7 @@ achievement(
 )
 
 achievement(
-    title = "Watch My Transformation", points = 5,
+    title = "Watch My Transformation", points = 10,
     description = "Reach Level 40 with any character",
     trigger =
         IsGameState(IN_STAGE) &&
@@ -1117,7 +1117,7 @@ achievement(
 )
 
 achievement(
-    title = "Training Since 1971", points = 10,
+    title = "Training Since 1971", points = 25,
     description = "Reach Level 80 with any character",
     trigger =
         IsGameState(IN_STAGE) &&
