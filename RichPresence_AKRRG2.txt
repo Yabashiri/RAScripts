@@ -77,8 +77,8 @@ Lookup:CurrentStageOrder
 1808=15
 
 Lookup:EasyMode
-0=| Controls: Normal
-*=| Controls: Easy
+0=| Controls: Easy
+*=| Controls: Normal
 
 Lookup:PauseState
 65=▌▌ 

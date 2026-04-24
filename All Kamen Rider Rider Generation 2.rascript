@@ -11,9 +11,9 @@ STAR_MISSIONS_2_COUNT = 45
 RIDER_ITEMS_TOTAL = 64
 GALLERY_UNLOCKS_TOTAL = 100
 MULTIPLAYER_ENABLED = byte(0x000ead50)
-EASY_MODE_ENABLED = byte(0x000df774)
+EASY_MODE_DISABLED = byte(0x000df774)
 MULTIPLAYER_DEFAULT = "[2P]"
-EASY_MODE_DEFAULT = "| Controls: Easy"
+EASY_MODE_DEFAULT = "| Controls: Normal"
 PAUSE_STATE_DEFAULT = ""
 
 // Game states
@@ -313,7 +313,7 @@ function IsScreenState(state) => SCREEN_STATE == state
 
 function IsPauseState(state) => PAUSE_STATE == state
 
-function AreAchievementsEnabled() => MULTIPLAYER_ENABLED == 0 && EASY_MODE_ENABLED == 0
+function AreAchievementsEnabled() => MULTIPLAYER_ENABLED == 0 && EASY_MODE_DISABLED == 1
 
 function DeltaComparison(mem, value) => prev(byte(mem)) == value
 
@@ -627,7 +627,7 @@ PlayerModeLookup = {
 }
 
 EasyModeLookup = {
-    0: "| Controls: Normal"
+    0: "| Controls: Easy"
 }
 
 PauseStateLookup = {
@@ -1214,41 +1214,41 @@ rich_presence_conditional_display(IsGameState(IN_STAGE) &&
     (IsScreenState(SCREEN_DIALOGUE_CUTSCENE) || IsScreenState(SCREEN_SINGLE_CUTSCENE)), 
     "{0} Watching a Cutscene {1}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(STARTING) && IsScreenState(SCREEN_TRANSITION), 
     "{0} Watching Credits {1}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(SHOP) && !prior(IsGameState(STARTING)),
     "{0} Shop🛒 {1}🪙, Rider Items: {2}/64🗡️ {3}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Number", dword(SHOP_COINS)),
     rich_presence_value("Number", RiderItemsBought()),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(GALLERY),
     "{0} Gallery🖼️ Items Unlocked: {1}/100📷 {2}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Number", UnlockedGalleryItems()),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(CHARACTER_SELECTION), 
     "{0} Character Selection🎭 Characters Unlocked: {1}/57🏍️ {2}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
     rich_presence_value("Number", UnlockedCharacters()),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(MULTIPLAYER_SETUP),
     "{0} Connecting to Multiplayer🌐 {1}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(STAGE_SELECTION), 
     "{0} Stage Selection {1}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} {1}LVL {2} {3} and LVL {4} {5} | Stage {6}-{7} [{8}] | Difficulty: {9} {10}",
     rich_presence_lookup("PlayerMode", MULTIPLAYER_ENABLED, PlayerModeLookup, MULTIPLAYER_DEFAULT),
@@ -1261,7 +1261,7 @@ rich_presence_conditional_display(IsGameState(IN_STAGE), "{0} {1}LVL {2} {3} and
     rich_presence_lookup("CurrentStageOrder", CurrentStageKey(), StageOrders),
     rich_presence_lookup("CurrentStageName", CurrentStageKey(), StageNames),
     rich_presence_lookup("CurrentDifficulty", CurrentDifficulty(), Difficulties),
-    rich_presence_lookup("EasyMode", EASY_MODE_ENABLED, EasyModeLookup, EASY_MODE_DEFAULT)
+    rich_presence_lookup("EasyMode", EASY_MODE_DISABLED, EasyModeLookup, EASY_MODE_DEFAULT)
 )
 rich_presence_conditional_display(IsGameState(SHOP) && prior(IsGameState(STARTING)), "Title Screen")
 rich_presence_conditional_display(IsGameState(STARTING), "Game Start")
