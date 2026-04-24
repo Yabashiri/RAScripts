@@ -313,6 +313,8 @@ function IsScreenState(state) => SCREEN_STATE == state
 
 function IsPauseState(state) => PAUSE_STATE == state
 
+function AreAchievementsEnabled() => MULTIPLAYER_ENABLED == 0 && EASY_MODE_ENABLED == 0
+
 function DeltaComparison(mem, value) => prev(byte(mem)) == value
 
 function IsStageCleared(addr)
@@ -571,6 +573,7 @@ function IsUsingUltimateAsNew(player, character_name)
 function UsingDoubleUltimateAs(player_character, assist_character)
 {
     start = once(
+        AreAchievementsEnabled() &&
         IsGameState(IN_STAGE) &&
         UltimateGauge() >= ULTIMATE_GAUGE_MAX &&
         IsPlayingAs("Player1", player_character) &&
@@ -823,37 +826,37 @@ function ExceedsThreshold(val, threshold)
 achievement(
     title = "You Have to Fight if You Want to Survive!", points = 5, type="progression",
     description = "Beat World 1",
-    trigger = (IsStageCleared(WORLD1_5) && IsGameState(IN_STAGE))
+    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD1_5) && IsGameState(IN_STAGE)
 )
 
 achievement(
     title = "Will You Fall into the Hell with Us?", points = 5, type="progression",
     description = "Beat World 2",
-    trigger = (IsStageCleared(WORLD2_5) && IsGameState(IN_STAGE))
+    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD2_5) && IsGameState(IN_STAGE)
 )
 
 achievement(
     title = "Whoever Survives Will Fight Me", points = 5, type="progression",
     description = "Beat World 3",
-    trigger = (IsStageCleared(WORLD3_5) && IsGameState(IN_STAGE))
+    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD3_5) && IsGameState(IN_STAGE)
 )
 
 achievement(
     title = "Now, Enjoy Your Hell!", points = 10, type="progression",
     description = "Beat World 4",
-    trigger = (IsStageCleared(WORLD4_5) && IsGameState(IN_STAGE))
+    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD4_5) && IsGameState(IN_STAGE)
 )
 
 achievement(
     title = "Fight Fire with Rider", points = 10, type="progression",
     description = "Beat World 5",
-    trigger = (IsStageCleared(WORLD5_6) && IsGameState(IN_STAGE))
+    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD5_6) && IsGameState(IN_STAGE)
 )
 
 achievement(
     title = "Master of Enemies", points = 25, type="win_condition",
     description = "Beat World 6",
-    trigger = (IsStageCleared(WORLD6_7) && IsGameState(IN_STAGE))
+    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD6_7) && IsGameState(IN_STAGE)
 )
 
 //MEASURED
@@ -862,6 +865,7 @@ achievement(
     title = "This Might Tickle...", points = 1,
     description = "Change into a different rider form",
     trigger = 
+        AreAchievementsEnabled() &&
         IsStageState(PLAYING) &&
         IsBaseFormChanged() &&
         never(!IsGameState(IN_STAGE))
@@ -872,6 +876,7 @@ achievement(
     description = "Buy an item from the Shop",
     points = 1,
     trigger =
+        AreAchievementsEnabled() &&
         (prior(IsGameState(STAGE_SELECTION)) || prior(IsGameState(GALLERY_TO_SHOP_TRANSITION))) &&
         IsGameState(SHOP) &&
         prev(RiderItemsBought()) == 0 &&
@@ -883,6 +888,7 @@ achievement(
     description = "Buy all 64 rider items from the Shop",
     points = 10,
     trigger =
+        AreAchievementsEnabled() &&
         (prior(IsGameState(STAGE_SELECTION)) || prior(IsGameState(GALLERY_TO_SHOP_TRANSITION))) &&
         IsGameState(SHOP) &&
         prev(RiderItemsBought()) < RIDER_ITEMS_TOTAL &&
@@ -894,6 +900,7 @@ achievement(
     description = "Unlock all 100 gallery entries",
     points = 10,
     trigger =
+        AreAchievementsEnabled() &&
         (IsGameState(IN_STAGE) || IsGameState(STAGE_SELECTION)) &&
         prev(UnlockedGalleryItems()) < GALLERY_UNLOCKS_TOTAL &&
         measured(UnlockedGalleryItems() == GALLERY_UNLOCKS_TOTAL)
@@ -904,6 +911,7 @@ achievement(
     description = "Unlock all 57 characters",
     points = 10,
     trigger =
+        AreAchievementsEnabled() &&
         (IsGameState(STAGE_SELECTION) || IsGameState(PASSWORD_SCREEN) || IsGameState(IN_STAGE)) &&
         prev(UnlockedCharacters()) < CHARACTERS_TOTAL &&
         measured(UnlockedCharacters() == CHARACTERS_TOTAL)
@@ -914,6 +922,7 @@ achievement(
     description = "Beat a Star Mission",
     points = 1,
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(MissionsCompletedCount()) == 0 &&
         MissionsCompletedCount() >= 1
@@ -924,6 +933,7 @@ achievement(
     description = "Beat every stage's first Star Mission",
     points = 10,
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(StarMissions1CompletedCount()) == STAR_MISSIONS_1_COUNT - 1 &&
         measured(StarMissions1CompletedCount() == STAR_MISSIONS_1_COUNT)
@@ -934,6 +944,7 @@ achievement(
     description = "Beat every stage's second Star Mission",
     points = 25,
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(StarMissions2CompletedCount()) == STAR_MISSIONS_2_COUNT - 1 &&
         measured(StarMissions2CompletedCount() == STAR_MISSIONS_2_COUNT)
@@ -943,6 +954,7 @@ achievement(
     title = "I... Have Arrived!", points = 10,
     description = "Beat all stages on Easy difficulty",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(EasyStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(EasyStagesCompletedCount() == STAGES_COUNT)
@@ -952,6 +964,7 @@ achievement(
     title = "Let's Go, Go, Go!", points = 10,
     description = "Beat all stages on Medium difficulty",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(MediumStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(MediumStagesCompletedCount() == STAGES_COUNT)
@@ -961,6 +974,7 @@ achievement(
     title = "My Special Attack, Special Edition!", points = 10,
     description = "Beat all stages on Hard difficulty",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(HardStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(HardStagesCompletedCount() == STAGES_COUNT)
@@ -970,6 +984,7 @@ achievement(
     title = "From Start to Finish...", points = 25,
     description = "Beat all stages on Danger difficulty",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(DangerStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(DangerStagesCompletedCount() == STAGES_COUNT)
@@ -979,6 +994,7 @@ achievement(
     title = "...I'm Always at a Climax!", points = 25,
     description = "Beat all stages on Climax difficulty",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(ClimaxStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(ClimaxStagesCompletedCount() == STAGES_COUNT)
@@ -988,6 +1004,7 @@ achievement(
     title = "Sun Goes Up", points = 10,
     description = "Beat 75 stage and difficulty combinations",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(TotalStagesCompletedCount()) == 74 &&
         measured(TotalStagesCompletedCount() == 75)
@@ -997,6 +1014,7 @@ achievement(
     title = "Got to Keep It Real", points = 10,
     description = "Beat 125 stage and difficulty combinations",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(TotalStagesCompletedCount()) == 124 &&
         measured(TotalStagesCompletedCount() == 125)
@@ -1006,6 +1024,7 @@ achievement(
     title = "Ride on Right Time", points = 10,
     description = "Beat 175 stage and difficulty combinations",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(TotalStagesCompletedCount()) == 174 &&
         measured(TotalStagesCompletedCount() == 175)
@@ -1015,6 +1034,7 @@ achievement(
     title = "Shout Out", points = 25,
     description = "Beat 225 stage and difficulty combinations",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(TotalStagesCompletedCount()) == 224 &&
         measured(TotalStagesCompletedCount() == 225)
@@ -1025,6 +1045,7 @@ achievement(
 function StageWithoutDamageByOrder(world, order)
 {
     level_ready = once(
+        AreAchievementsEnabled() &&
         prev(GAME_STATE) == SELECTION_TO_STAGE_TRANSITION &&
         IsGameState(IN_STAGE) &&
         IsWorldStageByOrder(world, order)
@@ -1057,6 +1078,7 @@ achievement(
     title = "Another Rider", points = 10,
     description = "Beat every stage in Another World",
     trigger =
+        AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
         prev(!World7Completed()) &&
         World7Completed()
@@ -1066,6 +1088,7 @@ achievement(
     title = "My Strength Has Made You Cry", points = 5,
     description = "Obtain 100 or more Endurance training points with any character",
     trigger =
+        AreAchievementsEnabled() &&
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1EnduranceCrosses(100)
 )
@@ -1074,6 +1097,7 @@ achievement(
     title = "Attack Ride", points = 5,
     description = "Obtain 100 or more Attack training points with any character",
     trigger =
+        AreAchievementsEnabled() &&
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1AttackCrosses(100)
 )
@@ -1082,6 +1106,7 @@ achievement(
     title = "No Fear, No Pain", points = 5,
     description = "Obtain 100 or more Defense training points with any character",
     trigger =
+        AreAchievementsEnabled() &&
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1DefenseCrosses(100)
 )
@@ -1090,6 +1115,7 @@ achievement(
     title = "He Who Walks the Path of Heaven", points = 5,
     description = "Obtain 100 or more Skill training points with any character",
     trigger =
+        AreAchievementsEnabled() &&
         IsGameState(SHOP) && !prior(IsGameState(STARTING)) &&
         Player1SkillCrosses(100)
 )
@@ -1098,6 +1124,7 @@ achievement(
     title = "Set Up! Kamen Rider X", points = 2,
     description = "Reach Level 10 with any character",
     trigger =
+        AreAchievementsEnabled() &&
         IsGameState(IN_STAGE) &&
         (
             ExceedsThreshold(byte(PlayerLevelAddressInStage(1)), 9) || 
@@ -1109,6 +1136,7 @@ achievement(
     title = "Watch My Transformation", points = 10,
     description = "Reach Level 40 with any character",
     trigger =
+        AreAchievementsEnabled() &&
         IsGameState(IN_STAGE) &&
         (
             ExceedsThreshold(byte(PlayerLevelAddressInStage(1)), 39) || 
@@ -1120,6 +1148,7 @@ achievement(
     title = "Training Since 1971", points = 25,
     description = "Reach Level 80 with any character",
     trigger =
+        AreAchievementsEnabled() &&
         IsGameState(IN_STAGE) &&
         (
             ExceedsThreshold(byte(PlayerLevelAddressInStage(1)), 79) || 
