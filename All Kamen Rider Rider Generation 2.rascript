@@ -112,12 +112,10 @@ BaseFormByCharacter = {
 FORM_CHANGE_CHARACTERS = [0x19, 0x1C, 0x18, 0x1A]
 
 function IsBaseFormChanged() => any_of(FORM_CHANGE_CHARACTERS, id =>
-    once(
-        Player1Character() == id &&
-        prev(CHARACTER_FORM) == BaseFormByCharacter[id] &&
-        CHARACTER_FORM == BaseFormByCharacter[id]
-    ) &&
-    CHARACTER_FORM != prev(CHARACTER_FORM)
+    Player1Character() == id &&
+    prev(CHARACTER_FORM) == BaseFormByCharacter[id] &&
+    CHARACTER_FORM != BaseFormByCharacter[id] &&
+    CHARACTER_FORM != 0
 )
 
 CURRENT_COMBO = 0x2c99c4
@@ -866,6 +864,7 @@ achievement(
     description = "Change into a different rider form",
     trigger = 
         AreAchievementsEnabled() &&
+        IsGameState(IN_STAGE) &&
         IsStageState(PLAYING) &&
         IsBaseFormChanged() &&
         never(!IsGameState(IN_STAGE))
