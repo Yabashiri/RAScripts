@@ -689,7 +689,7 @@ CharacterData = {
     "Super-1":            { "Ultimate": 0xe3a02000, "Mem": 0x08, "Item": 0x0DEFCC },
     "ZX":                 { "Ultimate": 0xe1a0000a, "Mem": 0x09, "Item": 0x0DEFE0 },
     "Black":              { "Ultimate": 0xebfff46c, "Mem": 0x0A, "Item": 0x0DEFF4 },
-    "Black RX":           { "Ultimate": 0xe92d4090, "Mem": 0x0B, "Item": 0x0DF008 },
+    "Black RX":           { "Ultimate": 0xe92d4010, "Mem": 0x0B, "Item": 0x0DF008 },
     "Shin":               { "Ultimate": 0xeb000005, "Mem": 0x0C, "Item": 0x0DF01C },
     "ZO":                 { "Ultimate": 0xe8bd8038, "Mem": 0x0D, "Item": 0x0DF030 },
     "J":                  { "Ultimate": 0xe5950c30, "Mem": 0x0E, "Item": 0x0DF044 },
@@ -923,6 +923,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(MissionsCompletedCount()) == 0 &&
         MissionsCompletedCount() >= 1
 )
@@ -934,6 +935,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(StarMissions1CompletedCount()) == STAR_MISSIONS_1_COUNT - 1 &&
         measured(StarMissions1CompletedCount() == STAR_MISSIONS_1_COUNT)
 )
@@ -945,6 +947,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(StarMissions2CompletedCount()) == STAR_MISSIONS_2_COUNT - 1 &&
         measured(StarMissions2CompletedCount() == STAR_MISSIONS_2_COUNT)
 )
@@ -955,6 +958,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(EasyStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(EasyStagesCompletedCount() == STAGES_COUNT)
 )
@@ -965,6 +969,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(MediumStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(MediumStagesCompletedCount() == STAGES_COUNT)
 )
@@ -975,6 +980,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(HardStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(HardStagesCompletedCount() == STAGES_COUNT)
 )
@@ -985,6 +991,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(DangerStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(DangerStagesCompletedCount() == STAGES_COUNT)
 )
@@ -995,6 +1002,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(ClimaxStagesCompletedCount()) == STAGES_COUNT - 1 &&
         measured(ClimaxStagesCompletedCount() == STAGES_COUNT)
 )
@@ -1005,6 +1013,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(TotalStagesCompletedCount()) == 74 &&
         measured(TotalStagesCompletedCount() == 75)
 )
@@ -1015,6 +1024,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(TotalStagesCompletedCount()) == 124 &&
         measured(TotalStagesCompletedCount() == 125)
 )
@@ -1025,6 +1035,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(TotalStagesCompletedCount()) == 174 &&
         measured(TotalStagesCompletedCount() == 175)
 )
@@ -1035,6 +1046,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(TotalStagesCompletedCount()) == 224 &&
         measured(TotalStagesCompletedCount() == 225)
 )
@@ -1079,6 +1091,7 @@ achievement(
     trigger =
         AreAchievementsEnabled() &&
         IsStageState(AFTER_CLEAR) &&
+        IsGameState(IN_STAGE) &&
         prev(!World7Completed()) &&
         World7Completed()
 )
@@ -1198,7 +1211,7 @@ for ua in ultimate_achievements
 leaderboard(
     title = "Highest Combo",
     description = "Get the highest combo you can! [>50 Hits]",
-    start = IsGameState(IN_STAGE) && GetCurrentCombo() == 0 && prev(GetCurrentCombo()) >= MAX_COMBO_THRESHOLD,
+    start = AreAchievementsEnabled() && IsGameState(IN_STAGE) && GetCurrentCombo() == 0 && prev(GetCurrentCombo()) >= MAX_COMBO_THRESHOLD,
     cancel = always_false(),
     submit = always_true(),
     id = 155643,
