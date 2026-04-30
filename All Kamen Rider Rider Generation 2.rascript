@@ -4,10 +4,10 @@
 True = 1
 False = 0
 CHARACTERS_TOTAL = 57
-STAGES_COUNT = 45
-MISSIONS_COUNT = 90
-STAR_MISSIONS_1_COUNT = 45
-STAR_MISSIONS_2_COUNT = 45
+STAGES_COUNT = 52
+MISSIONS_COUNT = 104
+STAR_MISSIONS_1_COUNT = 52
+STAR_MISSIONS_2_COUNT = 52
 RIDER_ITEMS_TOTAL = 64
 GALLERY_UNLOCKS_TOTAL = 100
 MULTIPLAYER_ENABLED = byte(0x000ead50)
@@ -50,18 +50,25 @@ CURRENT_DIFFICULTY = 0xdf9f8
 // Stages
 WORLD1_5 = 0x0DF415
 WORLD2_5 = 0x0DF469
-WORLD3_5 = 0x0DF4A5
+WORLD3_7 = 0x0DF4BA
 WORLD4_5 = 0x0DF4F9
 WORLD5_6 = 0x0DF541
 WORLD6_7 = 0x0DF595
-WORLD7_1 = 0x0DF5F5
-WORLD7_2 = 0x0DF601
-WORLD7_3 = 0x0DF60D
-WORLD7_4 = 0x0DF619
-WORLD7_5 = 0x0DF625
-WORLD7_6 = 0x0DF631
-WORLD7_7 = 0x0DF63D
-WORLD7_8 = 0x0DF649
+WORLD7_1  = 0x0DF5A1
+WORLD7_2  = 0x0DF5AD
+WORLD7_3  = 0x0DF5B9
+WORLD7_4  = 0x0DF5C5
+WORLD7_5  = 0x0DF5D1
+WORLD7_6  = 0x0DF5DD
+WORLD7_7  = 0x0DF5E9
+WORLD7_8  = 0x0DF5F5
+WORLD7_9  = 0x0DF601
+WORLD7_10 = 0x0DF60D
+WORLD7_11 = 0x0DF619
+WORLD7_12 = 0x0DF625
+WORLD7_13 = 0x0DF631
+WORLD7_14 = 0x0DF63D
+WORLD7_15 = 0x0DF649
 
 // Stages states
 STAGE_STATE = 0x2cef48
@@ -128,7 +135,8 @@ missions = [
     0xdf4c6, 0xdf4c7, 0xdf4d2, 0xdf4d3, 0xdf4de, 0xdf4df, 0xdf4ea, 0xdf4eb, 0xdf4f6, 0xdf4f7, // WORLD 4
     0xdf502, 0xdf503, 0xdf50e, 0xdf50f, 0xdf51a, 0xdf51b, 0xdf526, 0xdf527, 0xdf532, 0xdf533, 0xdf53e, 0xdf53f, // WORLD 5
     0xdf54a, 0xdf54b, 0xdf556, 0xdf557, 0xdf562, 0xdf563, 0xdf56e, 0xdf56f, 0xdf57a, 0xdf57b, 0xdf586, 0xdf587, 0xdf592, 0xdf593, // WORLD 6
-    0xdf5f2, 0xdf5f3, 0xdf5fe, 0xdf5ff, 0xdf60a, 0xdf60b, 0xdf616, 0xdf617, 0xdf622, 0xdf623, 0xdf62e, 0xdf62f, 0xdf63a, 0xdf63b, 0xdf646, 0xdf647 // WORLD 7
+    0xdf59e, 0xdf59f, 0xdf5aa, 0xdf5ab, 0xdf5b6, 0xdf5b7, 0xdf5c2, 0xdf5c3, 0xdf5ce, 0xdf5cf, 0xdf5da, 0xdf5db, 0xdf5e6, 0xdf5e7, // WORLD 7 (7-1 to 7-7)
+    0xdf5f2, 0xdf5f3, 0xdf5fe, 0xdf5ff, 0xdf60a, 0xdf60b, 0xdf616, 0xdf617, 0xdf622, 0xdf623, 0xdf62e, 0xdf62f, 0xdf63a, 0xdf63b, 0xdf646, 0xdf647 // WORLD 7 (7-8 to 7-15)
 ]
 
 starMissions1 = [
@@ -138,7 +146,8 @@ starMissions1 = [
     0xdf4c6, 0xdf4d2, 0xdf4de, 0xdf4ea, 0xdf4f6, // WORLD 4
     0xdf502, 0xdf50e, 0xdf51a, 0xdf526, 0xdf532, 0xdf53e, // WORLD 5
     0xdf54a, 0xdf556, 0xdf562, 0xdf56e, 0xdf57a, 0xdf586, 0xdf592, // WORLD 6
-    0xdf5f2, 0xdf5fe, 0xdf60a, 0xdf616, 0xdf622, 0xdf62e, 0xdf63a, 0xdf646 // WORLD 7
+    0xdf59e, 0xdf5aa, 0xdf5b6, 0xdf5c2, 0xdf5ce, 0xdf5da, 0xdf5e6, // WORLD 7 (7-1 to 7-7)
+    0xdf5f2, 0xdf5fe, 0xdf60a, 0xdf616, 0xdf622, 0xdf62e, 0xdf63a, 0xdf646 // WORLD 7 (7-8 to 7-15)
 ]
 
 starMissions2 = [
@@ -148,7 +157,8 @@ starMissions2 = [
     0xdf4c7, 0xdf4d3, 0xdf4df, 0xdf4eb, 0xdf4f7, // WORLD 4
     0xdf503, 0xdf50f, 0xdf51b, 0xdf527, 0xdf533, 0xdf53f, // WORLD 5
     0xdf54b, 0xdf557, 0xdf563, 0xdf56f, 0xdf57b, 0xdf587, 0xdf593, // WORLD 6
-    0xdf5f3, 0xdf5ff, 0xdf60b, 0xdf617, 0xdf623, 0xdf62f, 0xdf63b, 0xdf647 // WORLD 7
+    0xdf59f, 0xdf5ab, 0xdf5b7, 0xdf5c3, 0xdf5cf, 0xdf5db, 0xdf5e7, // WORLD 7 (7-1 to 7-7)
+    0xdf5f3, 0xdf5ff, 0xdf60b, 0xdf617, 0xdf623, 0xdf62f, 0xdf63b, 0xdf647 // WORLD 7 (7-8 to 7-15)
 ]
 
 easyStages = [
@@ -158,7 +168,8 @@ easyStages = [
     0xdf4c9, 0xdf4d5, 0xdf4e1, 0xdf4ed, 0xdf4f9, // WORLD 4
     0xdf505, 0xdf511, 0xdf51d, 0xdf529, 0xdf535, 0xdf541, // WORLD 5
     0xdf54d, 0xdf559, 0xdf565, 0xdf571, 0xdf57d, 0xdf589, 0xdf595, // WORLD 6
-    0xdf5f5, 0xdf601, 0xdf60d, 0xdf619, 0xdf625, 0xdf631, 0xdf63d, 0xdf649 // WORLD 7
+    0xdf5a1, 0xdf5ad, 0xdf5b9, 0xdf5c5, 0xdf5d1, 0xdf5dd, 0xdf5e9, // WORLD 7 (7-1 to 7-7)
+    0xdf5f5, 0xdf601, 0xdf60d, 0xdf619, 0xdf625, 0xdf631, 0xdf63d, 0xdf649 // WORLD 7 (7-8 to 7-15)
 ]
 
 mediumStages = [
@@ -168,7 +179,8 @@ mediumStages = [
     0xdf4ca, 0xdf4d6, 0xdf4e2, 0xdf4ee, 0xdf4fa, // WORLD 4
     0xdf506, 0xdf512, 0xdf51e, 0xdf52a, 0xdf536, 0xdf542, // WORLD 5
     0xdf54e, 0xdf55a, 0xdf566, 0xdf572, 0xdf57e, 0xdf58a, 0xdf596, // WORLD 6
-    0xdf5f6, 0xdf602, 0xdf60e, 0xdf61a, 0xdf626, 0xdf632, 0xdf63e, 0xdf64a // WORLD 7
+    0xdf5a2, 0xdf5ae, 0xdf5ba, 0xdf5c6, 0xdf5d2, 0xdf5de, 0xdf5ea, // WORLD 7 (7-1 to 7-7)
+    0xdf5f6, 0xdf602, 0xdf60e, 0xdf61a, 0xdf626, 0xdf632, 0xdf63e, 0xdf64a // WORLD 7 (7-8 to 7-15)
 ]
 
 hardStages = [
@@ -178,7 +190,8 @@ hardStages = [
     0xdf4cb, 0xdf4d7, 0xdf4e3, 0xdf4ef, 0xdf4fb, // WORLD 4
     0xdf507, 0xdf513, 0xdf51f, 0xdf52b, 0xdf537, 0xdf543, // WORLD 5
     0xdf54f, 0xdf55b, 0xdf567, 0xdf573, 0xdf57f, 0xdf58b, 0xdf597, // WORLD 6
-    0xdf5f7, 0xdf603, 0xdf60f, 0xdf61b, 0xdf627, 0xdf633, 0xdf63f, 0xdf64b // WORLD 7
+    0xdf5a3, 0xdf5af, 0xdf5bb, 0xdf5c7, 0xdf5d3, 0xdf5df, 0xdf5eb, // WORLD 7 (7-1 to 7-7)
+    0xdf5f7, 0xdf603, 0xdf60f, 0xdf61b, 0xdf627, 0xdf633, 0xdf63f, 0xdf64b // WORLD 7 (7-8 to 7-15)
 ]
 
 dangerStages = [
@@ -188,7 +201,8 @@ dangerStages = [
     0xdf4cc, 0xdf4d8, 0xdf4e4, 0xdf4f0, 0xdf4fc, // WORLD 4
     0xdf508, 0xdf514, 0xdf520, 0xdf52c, 0xdf538, 0xdf544, // WORLD 5
     0xdf550, 0xdf55c, 0xdf568, 0xdf574, 0xdf580, 0xdf58c, 0xdf598, // WORLD 6
-    0xdf5f8, 0xdf604, 0xdf610, 0xdf61c, 0xdf628, 0xdf634, 0xdf640, 0xdf64c // WORLD 7
+    0xdf5a4, 0xdf5b0, 0xdf5bc, 0xdf5c8, 0xdf5d4, 0xdf5e0, 0xdf5ec, // WORLD 7 (7-1 to 7-7)
+    0xdf5f8, 0xdf604, 0xdf610, 0xdf61c, 0xdf628, 0xdf634, 0xdf640, 0xdf64c // WORLD 7 (7-8 to 7-15)
 ]
 
 climaxStages = [
@@ -198,7 +212,8 @@ climaxStages = [
     0xdf4cd, 0xdf4d9, 0xdf4e5, 0xdf4f1, 0xdf4fd, // WORLD 4
     0xdf509, 0xdf515, 0xdf521, 0xdf52d, 0xdf539, 0xdf545, // WORLD 5
     0xdf551, 0xdf55d, 0xdf569, 0xdf575, 0xdf581, 0xdf58d, 0xdf599, // WORLD 6
-    0xdf5f9, 0xdf605, 0xdf611, 0xdf61d, 0xdf629, 0xdf635, 0xdf641, 0xdf64d // WORLD 7
+    0xdf5a5, 0xdf5b1, 0xdf5bd, 0xdf5c9, 0xdf5d5, 0xdf5e1, 0xdf5ed, // WORLD 7 (7-1 to 7-7)
+    0xdf5f9, 0xdf605, 0xdf611, 0xdf61d, 0xdf629, 0xdf635, 0xdf641, 0xdf64d // WORLD 7 (7-8 to 7-15)
 ]
 
 // Items
@@ -384,14 +399,21 @@ function StageBeatenOnce(easyDifficultyAddress) => DifficultiesBeatenInStage(eas
 
 function World7Completed()
 {
-    return StageBeatenOnce(WORLD7_1) &&
-           StageBeatenOnce(WORLD7_2) &&
-           StageBeatenOnce(WORLD7_3) &&
-           StageBeatenOnce(WORLD7_4) &&
-           StageBeatenOnce(WORLD7_5) &&
-           StageBeatenOnce(WORLD7_6) &&
-           StageBeatenOnce(WORLD7_7) &&
-           StageBeatenOnce(WORLD7_8)
+    return StageBeatenOnce(WORLD7_1)  &&
+           StageBeatenOnce(WORLD7_2)  &&
+           StageBeatenOnce(WORLD7_3)  &&
+           StageBeatenOnce(WORLD7_4)  &&
+           StageBeatenOnce(WORLD7_5)  &&
+           StageBeatenOnce(WORLD7_6)  &&
+           StageBeatenOnce(WORLD7_7)  &&
+           StageBeatenOnce(WORLD7_8)  &&
+           StageBeatenOnce(WORLD7_9)  &&
+           StageBeatenOnce(WORLD7_10) &&
+           StageBeatenOnce(WORLD7_11) &&
+           StageBeatenOnce(WORLD7_12) &&
+           StageBeatenOnce(WORLD7_13) &&
+           StageBeatenOnce(WORLD7_14) &&
+           StageBeatenOnce(WORLD7_15)
 }
 
 function MissionsCompletedCount()
@@ -836,7 +858,7 @@ achievement(
 achievement(
     title = "Whoever Survives Will Fight Me", points = 5, type="progression",
     description = "Beat World 3",
-    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD3_5) && IsGameState(IN_STAGE)
+    trigger = AreAchievementsEnabled() && IsStageCleared(WORLD3_7) && IsGameState(IN_STAGE)
 )
 
 achievement(
@@ -1097,7 +1119,7 @@ achievement(
 )
 
 achievement(
-    title = "My Strength Has Made You Cry", points = 5,
+    title = "My Strength Has Made You Cry", points = 5, type = "missable"
     description = "Obtain 100 or more Endurance training points with any character",
     trigger =
         AreAchievementsEnabled() &&
@@ -1106,7 +1128,7 @@ achievement(
 )
 
 achievement(
-    title = "Attack Ride", points = 5,
+    title = "Attack Ride", points = 5, type = "missable"
     description = "Obtain 100 or more Attack training points with any character",
     trigger =
         AreAchievementsEnabled() &&
@@ -1115,7 +1137,7 @@ achievement(
 )
 
 achievement(
-    title = "No Fear, No Pain", points = 5,
+    title = "No Fear, No Pain", points = 5, type = "missable"
     description = "Obtain 100 or more Defense training points with any character",
     trigger =
         AreAchievementsEnabled() &&
@@ -1124,7 +1146,7 @@ achievement(
 )
 
 achievement(
-    title = "He Who Walks the Path of Heaven", points = 5,
+    title = "He Who Walks the Path of Heaven", points = 5, type = "missable"
     description = "Obtain 100 or more Skill training points with any character",
     trigger =
         AreAchievementsEnabled() &&
