@@ -1119,7 +1119,7 @@ achievement(
 )
 
 achievement(
-    title = "My Strength Has Made You Cry", points = 5, type = "missable"
+    title = "My Strength Has Made You Cry", points = 5, type = "missable",
     description = "Obtain 100 or more Endurance training points with any character",
     trigger =
         AreAchievementsEnabled() &&
@@ -1128,7 +1128,7 @@ achievement(
 )
 
 achievement(
-    title = "Attack Ride", points = 5, type = "missable"
+    title = "Attack Ride", points = 5, type = "missable",
     description = "Obtain 100 or more Attack training points with any character",
     trigger =
         AreAchievementsEnabled() &&
@@ -1137,7 +1137,7 @@ achievement(
 )
 
 achievement(
-    title = "No Fear, No Pain", points = 5, type = "missable"
+    title = "No Fear, No Pain", points = 5, type = "missable",
     description = "Obtain 100 or more Defense training points with any character",
     trigger =
         AreAchievementsEnabled() &&
@@ -1146,7 +1146,7 @@ achievement(
 )
 
 achievement(
-    title = "He Who Walks the Path of Heaven", points = 5, type = "missable"
+    title = "He Who Walks the Path of Heaven", points = 5, type = "missable",
     description = "Obtain 100 or more Skill training points with any character",
     trigger =
         AreAchievementsEnabled() &&
