@@ -1,1 +1,8 @@
-﻿Examples
+Examples/
+work/
+backups/
+*.state
+*.sram
+*.sav
+*.dsv
+*.bak
