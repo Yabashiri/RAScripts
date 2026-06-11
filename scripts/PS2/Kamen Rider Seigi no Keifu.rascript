@@ -6,13 +6,17 @@ CHAPTER_ONE_HINT_FILES_TOTAL = 50
 
 // MEMORY: game state
 
+ADDR_TITLE_SCREEN_TASK_HANDLE = 0x00400220
 ADDR_CURRENT_LOCATION = 0x0041f08c
 ADDR_CURRENT_CHAPTER = 0x0041f0a0
+// Script flag bit 5: Rider Select active; bit 6: Clear-data flag.
+ADDR_SCRIPT_FLAGS_10000_10007 = 0x0041f606
 ADDR_SAVE_COUNTER = 0x00428234
 ADDR_CURRENT_PLAYER_CHARACTER = 0x0044badc
 ADDR_CURRENT_HEALTH = 0x0044bae4
 ADDR_MAX_HEALTH = 0x0044bae8
 
+titleScreenTaskHandle = word(ADDR_TITLE_SCREEN_TASK_HANDLE)
 currentLocation = dword(ADDR_CURRENT_LOCATION)
 currentChapter = dword(ADDR_CURRENT_CHAPTER)
 saveCounter = dword(ADDR_SAVE_COUNTER)
@@ -38,6 +42,22 @@ ADDR_FILES_FOUND_HINT_9 = 0x0041f3db
 // FUNCTIONS
 
 function IsCurrentChapter(chapter) => currentChapter == chapter
+
+function IsTitleScreenTaskRunning() => titleScreenTaskHandle != 0
+
+function IsRiderSelectActive() => bit5(ADDR_SCRIPT_FLAGS_10000_10007) == 1
+
+function IsClearDataFlagSet() => bit6(ADDR_SCRIPT_FLAGS_10000_10007) == 1
+
+function RiderSelectFlagsChanged() =>
+    prev(bit5(ADDR_SCRIPT_FLAGS_10000_10007)) != bit5(ADDR_SCRIPT_FLAGS_10000_10007) ||
+    prev(bit6(ADDR_SCRIPT_FLAGS_10000_10007)) != bit6(ADDR_SCRIPT_FLAGS_10000_10007)
+
+function VintageFashionTrigger() =>
+    IsTitleScreenTaskRunning() &&
+    IsRiderSelectActive() &&
+    IsClearDataFlagSet() &&
+    RiderSelectFlagsChanged()
 
 function ChapterOneHintFilesFound()
 {
@@ -248,11 +268,17 @@ PlayerCharacterLookup = {
 
 achievement(
     title = "Major in Power Planting", points = 10,
-    description = "Collect all Hint Files found in Chapter 1",
+    description = "Collect all Files and Keywords found in Chapter 1",
     trigger =
         IsCurrentChapter(CHAPTER_ONE) &&
         prev(ChapterOneHintFilesFound()) == CHAPTER_ONE_HINT_FILES_TOTAL - 1 &&
         measured(ChapterOneHintFilesFound() == CHAPTER_ONE_HINT_FILES_TOTAL)
+)
+
+achievement(
+    title = "Vintage Fashion", points = 1,
+    description = "Start a playthrough using Ichigo and Nigo's old outfits",
+    trigger = VintageFashionTrigger()
 )
 
 // RICH PRESENCE START
