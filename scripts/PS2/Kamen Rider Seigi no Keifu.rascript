@@ -1,6 +1,9 @@
 // Kamen Rider: Seigi no Keifu
 // #ID = 31667
 
+CHAPTER_ONE = 1
+CHAPTER_ONE_HINT_FILES_TOTAL = 50
+
 // MEMORY: game state
 
 ADDR_CURRENT_LOCATION = 0x0041f08c
@@ -16,6 +19,80 @@ saveCounter = dword(ADDR_SAVE_COUNTER)
 currentPlayerCharacter = dword(ADDR_CURRENT_PLAYER_CHARACTER)
 currentHealth = dword(ADDR_CURRENT_HEALTH)
 maxHealth = dword(ADDR_MAX_HEALTH)
+
+// MEMORY: files found
+
+ADDR_FILES_FOUND_KEY_1 = 0x0041f25c
+ADDR_FILES_FOUND_KEY_2 = 0x0041f25d
+ADDR_FILES_FOUND_KEY_3 = 0x0041f25e
+ADDR_FILES_FOUND_HINT_1 = 0x0041f3d3
+ADDR_FILES_FOUND_HINT_2 = 0x0041f3d4
+ADDR_FILES_FOUND_HINT_3 = 0x0041f3d5
+ADDR_FILES_FOUND_HINT_4 = 0x0041f3d6
+ADDR_FILES_FOUND_HINT_5 = 0x0041f3d7
+ADDR_FILES_FOUND_HINT_6 = 0x0041f3d8
+ADDR_FILES_FOUND_HINT_7 = 0x0041f3d9
+ADDR_FILES_FOUND_HINT_8 = 0x0041f3da
+ADDR_FILES_FOUND_HINT_9 = 0x0041f3db
+
+// FUNCTIONS
+
+function IsCurrentChapter(chapter) => currentChapter == chapter
+
+function ChapterOneHintFilesFound()
+{
+    return
+        bit4(ADDR_FILES_FOUND_KEY_1) +
+        bit5(ADDR_FILES_FOUND_KEY_1) +
+        bit6(ADDR_FILES_FOUND_KEY_1) +
+        bit0(ADDR_FILES_FOUND_KEY_2) +
+        bit1(ADDR_FILES_FOUND_KEY_2) +
+        bit2(ADDR_FILES_FOUND_KEY_2) +
+        bit3(ADDR_FILES_FOUND_KEY_2) +
+        bit4(ADDR_FILES_FOUND_KEY_2) +
+        bit5(ADDR_FILES_FOUND_KEY_2) +
+        bit6(ADDR_FILES_FOUND_KEY_2) +
+        bit7(ADDR_FILES_FOUND_KEY_2) +
+        bit0(ADDR_FILES_FOUND_KEY_3) +
+        bit1(ADDR_FILES_FOUND_KEY_3) +
+        bit2(ADDR_FILES_FOUND_KEY_3) +
+        bit3(ADDR_FILES_FOUND_KEY_3) +
+        bit4(ADDR_FILES_FOUND_HINT_1) +
+        bit5(ADDR_FILES_FOUND_HINT_1) +
+        bit6(ADDR_FILES_FOUND_HINT_1) +
+        bit2(ADDR_FILES_FOUND_HINT_2) +
+        bit3(ADDR_FILES_FOUND_HINT_2) +
+        bit4(ADDR_FILES_FOUND_HINT_2) +
+        bit5(ADDR_FILES_FOUND_HINT_2) +
+        bit6(ADDR_FILES_FOUND_HINT_2) +
+        bit7(ADDR_FILES_FOUND_HINT_2) +
+        bit0(ADDR_FILES_FOUND_HINT_3) +
+        bit1(ADDR_FILES_FOUND_HINT_3) +
+        bit2(ADDR_FILES_FOUND_HINT_3) +
+        bit3(ADDR_FILES_FOUND_HINT_3) +
+        bit4(ADDR_FILES_FOUND_HINT_3) +
+        bit5(ADDR_FILES_FOUND_HINT_3) +
+        bit1(ADDR_FILES_FOUND_HINT_4) +
+        bit2(ADDR_FILES_FOUND_HINT_4) +
+        bit3(ADDR_FILES_FOUND_HINT_4) +
+        bit4(ADDR_FILES_FOUND_HINT_4) +
+        bit6(ADDR_FILES_FOUND_HINT_4) +
+        bit2(ADDR_FILES_FOUND_HINT_5) +
+        bit3(ADDR_FILES_FOUND_HINT_5) +
+        bit4(ADDR_FILES_FOUND_HINT_5) +
+        bit5(ADDR_FILES_FOUND_HINT_5) +
+        bit6(ADDR_FILES_FOUND_HINT_5) +
+        bit3(ADDR_FILES_FOUND_HINT_6) +
+        bit1(ADDR_FILES_FOUND_HINT_7) +
+        bit2(ADDR_FILES_FOUND_HINT_7) +
+        bit5(ADDR_FILES_FOUND_HINT_7) +
+        bit6(ADDR_FILES_FOUND_HINT_7) +
+        bit7(ADDR_FILES_FOUND_HINT_7) +
+        bit0(ADDR_FILES_FOUND_HINT_8) +
+        bit1(ADDR_FILES_FOUND_HINT_8) +
+        bit1(ADDR_FILES_FOUND_HINT_9) +
+        bit2(ADDR_FILES_FOUND_HINT_9)
+}
 
 // LOOKUPS
 
@@ -166,6 +243,17 @@ PlayerCharacterLookup = {
     0x06: "Kamen Rider Agito",
     0x07: "Tsugami Shouichi",
 }
+
+// ACHIEVEMENTS
+
+achievement(
+    title = "Major in Power Planting", points = 10,
+    description = "Collect all Hint Files found in Chapter 1",
+    trigger =
+        IsCurrentChapter(CHAPTER_ONE) &&
+        prev(ChapterOneHintFilesFound()) == CHAPTER_ONE_HINT_FILES_TOTAL - 1 &&
+        measured(ChapterOneHintFilesFound() == CHAPTER_ONE_HINT_FILES_TOTAL)
+)
 
 // RICH PRESENCE START
 
