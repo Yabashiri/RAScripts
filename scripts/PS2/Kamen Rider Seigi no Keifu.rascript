@@ -7,8 +7,10 @@ CHAPTER_ONE_HINT_FILES_TOTAL = 50
 // MEMORY: game state
 
 ADDR_TITLE_SCREEN_TASK_HANDLE = 0x00400220
+ADDR_CURRENT_SCENE_POINTER = 0x0041f080
 ADDR_CURRENT_LOCATION = 0x0041f08c
 ADDR_CURRENT_CHAPTER = 0x0041f0a0
+OFFSET_CURRENT_SCENE = 0x6C
 // Script flag bit 5: Rider Select active; bit 6: Clear-data flag.
 ADDR_SCRIPT_FLAGS_10000_10007 = 0x0041f606
 ADDR_SAVE_COUNTER = 0x00428234
@@ -17,6 +19,7 @@ ADDR_CURRENT_HEALTH = 0x0044bae4
 ADDR_MAX_HEALTH = 0x0044bae8
 
 titleScreenTaskHandle = word(ADDR_TITLE_SCREEN_TASK_HANDLE)
+currentScenePointer = dword(ADDR_CURRENT_SCENE_POINTER)
 currentLocation = dword(ADDR_CURRENT_LOCATION)
 currentChapter = dword(ADDR_CURRENT_CHAPTER)
 saveCounter = dword(ADDR_SAVE_COUNTER)
@@ -42,6 +45,16 @@ ADDR_FILES_FOUND_HINT_9 = 0x0041f3db
 // FUNCTIONS
 
 function IsCurrentChapter(chapter) => currentChapter == chapter
+
+function CurrentSceneAddress() => currentScenePointer + OFFSET_CURRENT_SCENE
+
+function IsCurrentScene(scene) =>
+    currentScenePointer != 0 &&
+    ascii_string_equals(CurrentSceneAddress(), scene)
+
+function IsWatchingCutscene() =>
+    currentScenePointer != 0 &&
+    ascii_string_equals(CurrentSceneAddress(), "EV", 2)
 
 function IsTitleScreenTaskRunning() => titleScreenTaskHandle != 0
 
@@ -281,7 +294,24 @@ achievement(
     trigger = VintageFashionTrigger()
 )
 
+achievement(
+    title = "Some Kamen Rider: Rider Generation",
+    description = "Finish Chapter Five",
+    points = 10,
+    type = "progression",
+    trigger =
+        once(IsCurrentScene("EV098_00")) &&
+        currentLocation == 123 &&
+        prev(currentChapter == 6) &&
+        currentChapter == 7
+)
+
 // RICH PRESENCE START
+
+rich_presence_conditional_display(IsWatchingCutscene(), "{0} is watching a cutscene | 💾 {1}",
+    rich_presence_lookup("CurrentPlayerCharacter", currentPlayerCharacter, PlayerCharacterLookup),
+    rich_presence_value("Number", saveCounter)
+)
 
 rich_presence_conditional_display(currentChapter > 0, "[{0}] {1} is in {2} | ❤️{3}/{4} | 💾 {5}",
     rich_presence_lookup("CurrentChapter", currentChapter, ChapterLookup),
