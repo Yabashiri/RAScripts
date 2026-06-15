@@ -3,6 +3,7 @@
 
 CHAPTER_ONE = 1
 CHAPTER_ONE_HINT_FILES_TOTAL = 50
+ENEMY_SEMIMINGA = 0x28
 
 // MEMORY: game state
 
@@ -14,6 +15,8 @@ OFFSET_CURRENT_SCENE = 0x6C
 // Script flag bit 5: Rider Select active; bit 6: Clear-data flag.
 ADDR_SCRIPT_FLAGS_10000_10007 = 0x0041f606
 ADDR_SAVE_COUNTER = 0x00428234
+ADDR_ENEMY_1_MODEL_ID = 0x004a420c
+ADDR_ENEMY_1_CURRENT_HEALTH = 0x004a4214
 ADDR_CURRENT_PLAYER_CHARACTER = 0x0044badc
 ADDR_CURRENT_HEALTH = 0x0044bae4
 ADDR_MAX_HEALTH = 0x0044bae8
@@ -23,6 +26,8 @@ currentScenePointer = dword(ADDR_CURRENT_SCENE_POINTER)
 currentLocation = dword(ADDR_CURRENT_LOCATION)
 currentChapter = dword(ADDR_CURRENT_CHAPTER)
 saveCounter = dword(ADDR_SAVE_COUNTER)
+enemy1ModelId = dword(ADDR_ENEMY_1_MODEL_ID)
+enemy1CurrentHealth = dword(ADDR_ENEMY_1_CURRENT_HEALTH)
 currentPlayerCharacter = dword(ADDR_CURRENT_PLAYER_CHARACTER)
 currentHealth = dword(ADDR_CURRENT_HEALTH)
 maxHealth = dword(ADDR_MAX_HEALTH)
@@ -48,13 +53,9 @@ function IsCurrentChapter(chapter) => currentChapter == chapter
 
 function CurrentSceneAddress() => currentScenePointer + OFFSET_CURRENT_SCENE
 
-function IsCurrentScene(scene) =>
-    currentScenePointer != 0 &&
-    ascii_string_equals(CurrentSceneAddress(), scene)
+function IsCurrentScene(scene) => ascii_string_equals(CurrentSceneAddress(), scene)
 
-function IsWatchingCutscene() =>
-    currentScenePointer != 0 &&
-    ascii_string_equals(CurrentSceneAddress(), "EV", 2)
+function IsWatchingCutscene() => ascii_string_equals(CurrentSceneAddress(), "EV", 2)
 
 function IsTitleScreenTaskRunning() => titleScreenTaskHandle != 0
 
@@ -304,6 +305,18 @@ achievement(
         currentLocation == 123 &&
         prev(currentChapter == 6) &&
         currentChapter == 7
+)
+
+achievement(
+    title = "Kamen Rider? In This Era?",
+    description = "Defeat Semiminga after learning of their evil plan",
+    points = 2,
+    type = "progression",
+    trigger =
+        enemy1CurrentHealth == 0 &&
+        currentLocation == 23 &&
+        prev(enemy1ModelId) == ENEMY_SEMIMINGA &&
+        enemy1ModelId == 0
 )
 
 // RICH PRESENCE START
