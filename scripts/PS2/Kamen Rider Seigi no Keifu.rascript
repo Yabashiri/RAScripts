@@ -346,12 +346,24 @@ achievement(
 )
 
 achievement(
+    title = "The Mystery of the Power Plant",
+    description = "Finish Chapter 1",
+    points = 5,
+    type = "progression",
+    trigger =
+        prior(IsCurrentScene("EV013_03")) &&
+        currentLocation == 95 &&
+        prev(currentChapter == 1) &&
+        currentChapter == 2
+)
+
+achievement(
     title = "Some Kamen Rider: Rider Generation",
-    description = "Finish Chapter Five",
+    description = "Finish Chapter 5",
     points = 10,
     type = "progression",
     trigger =
-        once(IsCurrentScene("EV098_00")) &&
+        prior(IsCurrentScene("EV098_00")) &&
         currentLocation == 123 &&
         prev(currentChapter == 6) &&
         currentChapter == 7
