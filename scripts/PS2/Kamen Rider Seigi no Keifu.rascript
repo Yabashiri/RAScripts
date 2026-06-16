@@ -4,6 +4,7 @@
 CHAPTER_ONE = 1
 CHAPTER_ONE_HINT_FILES_TOTAL = 50
 ENEMY_SEMIMINGA = 0x28
+ENEMY_EVIL_EYE_COMPLETE_FORM = 0x4C
 
 // MEMORY: game state
 
@@ -278,6 +279,55 @@ PlayerCharacterLookup = {
     0x07: "Tsugami Shouichi",
 }
 
+EnemyLookup = {
+    0x1C: "Bone Combatman",
+    0x1D: "Wolf Combatman",
+    0x1E: "Black Combatman",
+    0x1F: "Reinforced Shocker Combatman",
+    0x20: "Red Combatman",
+    0x21: "Reinforced Shocker Combatman (Red)",
+    0x22: "Shocker Scientist",
+    0x23: "Gel Shocker Combatman",
+    0x24: "Gel Shocker Scientist",
+    0x26: "Garagaranda",
+    0x27: "Worm Man",
+    0x28: "Semiminga",
+    0x29: "Gillizames",
+    0x2A: "Siomaneking",
+    0x2B: "Sea Dragons",
+    0x2E: "Imorigues",
+    0x2F: "Kamikirikid",
+    0x30: "Hell Chameleon Transmigrated",
+    0x31: "Hilchameleon",
+    0x32: "Ganikoumoru",
+    0x33: "Sasori Tokagues",
+    0x34: "Sasori Tokagues Transmigrated",
+    0x35: "Utsubo Games",
+    0x36: "Washi Kamaguilli",
+    0x37: "Haetori Bachi",
+    0x38: "Isoguin Jaguar",
+    0x39: "Isoguin Jaguar Transmigrated",
+    0x3A: "Ika Devil",
+    0x3B: "Goaster",
+    0x3C: "Namekujira",
+    0x3D: "Hilguerrilla",
+    0x3E: "Kamestone",
+    0x3F: "Gilgamess",
+    0x40: "Namazugillar",
+    0x41: "Zanjioh",
+    0x42: "Zanjioh Strengthened",
+    0x43: "Golden Wolf Man",
+    0x44: "Man Spider",
+    0x45: "Sarracenian",
+    0x46: "Sabotegron",
+    0x47: "Dokugander",
+    0x48: "Armadillong",
+    0x49: "Eiking",
+    0x4A: "Bee Woman",
+    0x4C: "Evil Eye Complete Form",
+    0x52: "Evil Eye Ultimate Form",
+}
+
 // ACHIEVEMENTS
 
 achievement(
@@ -319,10 +369,69 @@ achievement(
         enemy1ModelId == 0
 )
 
+achievement(
+    title = "Now Let Him Cook",
+    description = "Finish the game as Kamen Rider Agito",
+    points = 10,
+    type = "win_condition",
+    trigger =
+        prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
+        enemy1ModelId == 0 &&
+        currentLocation == 98 &&
+        currentChapter == 7 &&
+        currentPlayerCharacter == 6
+)
+
+achievement(
+    title = "My Battle, Our Battle",
+    description = "Finish the game as Kamen Rider Ichigo",
+    points = 10,
+    type = "win_condition",
+    id = 617219,
+    trigger =
+        prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
+        enemy1ModelId == 0 &&
+        currentLocation == 98 &&
+        currentChapter == 7 &&
+        currentPlayerCharacter == 0
+)
+
+achievement(
+    title = "Light and Darkness",
+    description = "Finish the game as Kamen Rider V3",
+    points = 10,
+    type = "win_condition",
+    trigger =
+        prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
+        enemy1ModelId == 0 &&
+        currentLocation == 98 &&
+        currentChapter == 7 &&
+        currentPlayerCharacter == 2
+)
+
+achievement(
+    title = "It's Our Turn Next",
+    description = "Finish the game as Kamen Rider Black",
+    points = 10,
+    type = "win_condition",
+    trigger =
+        prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
+        enemy1ModelId == 0 &&
+        currentLocation == 98 &&
+        currentChapter == 7 &&
+        currentPlayerCharacter == 4
+)
+
 // RICH PRESENCE START
 
 rich_presence_conditional_display(IsWatchingCutscene(), "{0} is watching a cutscene | 💾 {1}",
     rich_presence_lookup("CurrentPlayerCharacter", currentPlayerCharacter, PlayerCharacterLookup),
+    rich_presence_value("Number", saveCounter)
+)
+
+rich_presence_conditional_display(enemy1ModelId >= 0x26, "{0} is fighting {1} | 💾 {2}",
+    rich_presence_lookup("CurrentPlayerCharacter", currentPlayerCharacter, PlayerCharacterLookup),
+    rich_presence_lookup("CurrentEnemy", enemy1ModelId, EnemyLookup),
     rich_presence_value("Number", saveCounter)
 )
 
