@@ -3,6 +3,9 @@
 
 CHAPTER_ONE = 1
 CHAPTER_ONE_HINT_FILES_TOTAL = 50
+MOVE_LEVEL_LV3 = 2
+PLAYER_KAMEN_RIDER_AGITO = 0x06
+PLAYER_TSUGAMI_SHOUICHI = 0x07
 ENEMY_SEMIMINGA = 0x28
 ENEMY_EVIL_EYE_COMPLETE_FORM = 0x4C
 
@@ -16,6 +19,7 @@ OFFSET_CURRENT_SCENE = 0x6C
 // Script flag bit 5: Rider Select active; bit 6: Clear-data flag.
 ADDR_SCRIPT_FLAGS_10000_10007 = 0x0041f606
 ADDR_SAVE_COUNTER = 0x00428234
+ADDR_PLAY_DATA = 0x0042c148
 ADDR_ENEMY_1_MODEL_ID = 0x004a420c
 ADDR_ENEMY_1_CURRENT_HEALTH = 0x004a4214
 ADDR_CURRENT_PLAYER_CHARACTER = 0x0044badc
@@ -32,6 +36,18 @@ enemy1CurrentHealth = dword(ADDR_ENEMY_1_CURRENT_HEALTH)
 currentPlayerCharacter = dword(ADDR_CURRENT_PLAYER_CHARACTER)
 currentHealth = dword(ADDR_CURRENT_HEALTH)
 maxHealth = dword(ADDR_MAX_HEALTH)
+
+// MEMORY: move levels
+
+ADDR_LOW_POWER_PUNCH_MOVE_LEVEL = 0x0044e968
+ADDR_HIGH_POWER_PUNCH_MOVE_LEVEL = 0x0044e96c
+ADDR_LOW_POWER_KICK_MOVE_LEVEL = 0x0044e970
+ADDR_HIGH_POWER_KICK_MOVE_LEVEL = 0x0044e974
+
+lowPowerPunchMoveLevel = dword(ADDR_LOW_POWER_PUNCH_MOVE_LEVEL)
+highPowerPunchMoveLevel = dword(ADDR_HIGH_POWER_PUNCH_MOVE_LEVEL)
+lowPowerKickMoveLevel = dword(ADDR_LOW_POWER_KICK_MOVE_LEVEL)
+highPowerKickMoveLevel = dword(ADDR_HIGH_POWER_KICK_MOVE_LEVEL)
 
 // MEMORY: files found
 
@@ -63,6 +79,24 @@ function IsTitleScreenTaskRunning() => titleScreenTaskHandle != 0
 function IsRiderSelectActive() => bit5(ADDR_SCRIPT_FLAGS_10000_10007) == 1
 
 function IsClearDataFlagSet() => bit6(ADDR_SCRIPT_FLAGS_10000_10007) == 1
+
+function HasClearData() => bit(10, ADDR_PLAY_DATA) == 1
+
+function IsCurrentPlayerAgito() =>
+    currentPlayerCharacter == PLAYER_KAMEN_RIDER_AGITO ||
+    currentPlayerCharacter == PLAYER_TSUGAMI_SHOUICHI
+
+function MoveLv3Count() =>
+    lowPowerPunchMoveLevel / MOVE_LEVEL_LV3 +
+    highPowerPunchMoveLevel / MOVE_LEVEL_LV3 +
+    lowPowerKickMoveLevel / MOVE_LEVEL_LV3 +
+    highPowerKickMoveLevel / MOVE_LEVEL_LV3
+
+function PrevMoveLv3Count() =>
+    prev(lowPowerPunchMoveLevel) / MOVE_LEVEL_LV3 +
+    prev(highPowerPunchMoveLevel) / MOVE_LEVEL_LV3 +
+    prev(lowPowerKickMoveLevel) / MOVE_LEVEL_LV3 +
+    prev(highPowerKickMoveLevel) / MOVE_LEVEL_LV3
 
 function RiderSelectFlagsChanged() =>
     prev(bit5(ADDR_SCRIPT_FLAGS_10000_10007)) != bit5(ADDR_SCRIPT_FLAGS_10000_10007) ||
@@ -337,6 +371,19 @@ achievement(
         IsCurrentChapter(CHAPTER_ONE) &&
         prev(ChapterOneHintFilesFound()) == CHAPTER_ONE_HINT_FILES_TOTAL - 1 &&
         measured(ChapterOneHintFilesFound() == CHAPTER_ONE_HINT_FILES_TOTAL)
+)
+
+achievement(
+    title = "Nutritional Bento Power",
+    description = "Upgrade all 4 of Agito's moves to Lv.3 during Chapter 1 without Clear Data",
+    points = 10,
+    type = "missable",
+    trigger =
+        !HasClearData() &&
+        IsCurrentChapter(CHAPTER_ONE) &&
+        IsCurrentPlayerAgito() &&
+        PrevMoveLv3Count() == 3 &&
+        measured(MoveLv3Count() == 4)
 )
 
 achievement(

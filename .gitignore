@@ -1,6 +1,7 @@
 Examples/
 work/
 backups/
+AGENTS.md
 *.state
 *.sram
 *.sav
