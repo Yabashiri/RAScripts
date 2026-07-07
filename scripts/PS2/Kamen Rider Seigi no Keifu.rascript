@@ -5,6 +5,8 @@ CHAPTER_ONE = 1
 CHAPTER_TWO = 2
 CHAPTER_THREE = 3
 CHAPTER_FOUR = 4
+CHAPTER_SIX = 6
+CHAPTER_SEVEN = 7
 CHAPTER_ONE_HINT_FILES_TOTAL = 50
 MOVE_LEVEL_LV3 = 2
 PLAYER_KAMEN_RIDER_ICHIGO = 0x00
@@ -460,8 +462,8 @@ achievement(
     trigger =
         prior(IsCurrentScene("EV013_03")) &&
         currentLocation == 95 &&
-        prev(currentChapter == 1) &&
-        currentChapter == 2
+        prev(IsCurrentChapter(CHAPTER_ONE)) &&
+        IsCurrentChapter(CHAPTER_TWO)
 )
 
 achievement(
@@ -472,8 +474,8 @@ achievement(
     trigger =
         prior(IsCurrentScene("EV098_00")) &&
         currentLocation == 123 &&
-        prev(currentChapter == 6) &&
-        currentChapter == 7
+        prev(IsCurrentChapter(CHAPTER_SIX)) &&
+        IsCurrentChapter(CHAPTER_SEVEN)
 )
 
 achievement(
@@ -497,8 +499,8 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        currentChapter == 7 &&
-        currentPlayerCharacter == 6
+        IsCurrentChapter(CHAPTER_SEVEN) &&
+        currentPlayerCharacter == PLAYER_KAMEN_RIDER_AGITO
 )
 
 achievement(
@@ -511,8 +513,8 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        currentChapter == 7 &&
-        currentPlayerCharacter == 0
+        IsCurrentChapter(CHAPTER_SEVEN) &&
+        currentPlayerCharacter == PLAYER_KAMEN_RIDER_ICHIGO
 )
 
 achievement(
@@ -524,8 +526,8 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        currentChapter == 7 &&
-        currentPlayerCharacter == 2
+        IsCurrentChapter(CHAPTER_SEVEN) &&
+        currentPlayerCharacter == PLAYER_KAMEN_RIDER_V3
 )
 
 achievement(
@@ -537,8 +539,8 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        currentChapter == 7 &&
-        currentPlayerCharacter == 4
+        IsCurrentChapter(CHAPTER_SEVEN) &&
+        currentPlayerCharacter == PLAYER_KAMEN_RIDER_BLACK
 )
 
 // RICH PRESENCE START
