@@ -2,8 +2,17 @@
 // #ID = 31667
 
 CHAPTER_ONE = 1
+CHAPTER_TWO = 2
+CHAPTER_THREE = 3
+CHAPTER_FOUR = 4
 CHAPTER_ONE_HINT_FILES_TOTAL = 50
 MOVE_LEVEL_LV3 = 2
+PLAYER_KAMEN_RIDER_ICHIGO = 0x00
+PLAYER_HONGO_TAKESHI = 0x01
+PLAYER_KAMEN_RIDER_V3 = 0x02
+PLAYER_ICHIMONJI_HAYATO = 0x03
+PLAYER_KAMEN_RIDER_BLACK = 0x04
+PLAYER_MINAMI_KOTARO = 0x05
 PLAYER_KAMEN_RIDER_AGITO = 0x06
 PLAYER_TSUGAMI_SHOUICHI = 0x07
 ENEMY_SEMIMINGA = 0x28
@@ -85,6 +94,18 @@ function HasClearData() => bit(10, ADDR_PLAY_DATA) == 1
 function IsCurrentPlayerAgito() =>
     currentPlayerCharacter == PLAYER_KAMEN_RIDER_AGITO ||
     currentPlayerCharacter == PLAYER_TSUGAMI_SHOUICHI
+
+function IsCurrentPlayerBlack() =>
+    currentPlayerCharacter == PLAYER_KAMEN_RIDER_BLACK ||
+    currentPlayerCharacter == PLAYER_MINAMI_KOTARO
+
+function IsCurrentPlayerV3() =>
+    currentPlayerCharacter == PLAYER_KAMEN_RIDER_V3 ||
+    currentPlayerCharacter == PLAYER_ICHIMONJI_HAYATO
+
+function IsCurrentPlayerIchigo() =>
+    currentPlayerCharacter == PLAYER_KAMEN_RIDER_ICHIGO ||
+    currentPlayerCharacter == PLAYER_HONGO_TAKESHI
 
 function MoveLv3Count() =>
     lowPowerPunchMoveLevel / MOVE_LEVEL_LV3 +
@@ -382,6 +403,45 @@ achievement(
         !HasClearData() &&
         IsCurrentChapter(CHAPTER_ONE) &&
         IsCurrentPlayerAgito() &&
+        PrevMoveLv3Count() == 3 &&
+        measured(MoveLv3Count() == 4)
+)
+
+achievement(
+    title = "The Making of Creation King",
+    description = "Upgrade all 4 of Black's moves to Lv.3 during Chapter 2 without Clear Data",
+    points = 10,
+    type = "missable",
+    trigger =
+        !HasClearData() &&
+        IsCurrentChapter(CHAPTER_TWO) &&
+        IsCurrentPlayerBlack() &&
+        PrevMoveLv3Count() == 3 &&
+        measured(MoveLv3Count() == 4)
+)
+
+achievement(
+    title = "Ride the Twin Winds",
+    description = "Upgrade all 4 of V3's moves to Lv.3 during Chapter 3 without Clear Data",
+    points = 10,
+    type = "missable",
+    trigger =
+        !HasClearData() &&
+        IsCurrentChapter(CHAPTER_THREE) &&
+        IsCurrentPlayerV3() &&
+        PrevMoveLv3Count() == 3 &&
+        measured(MoveLv3Count() == 4)
+)
+
+achievement(
+    title = "An Old Hero, an Old Legend",
+    description = "Upgrade all 4 of Ichigo's moves to Lv.3 during Chapter 4 without Clear Data",
+    points = 10,
+    type = "missable",
+    trigger =
+        !HasClearData() &&
+        IsCurrentChapter(CHAPTER_FOUR) &&
+        IsCurrentPlayerIchigo() &&
         PrevMoveLv3Count() == 3 &&
         measured(MoveLv3Count() == 4)
 )
