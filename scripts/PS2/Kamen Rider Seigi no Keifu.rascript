@@ -33,6 +33,7 @@ ADDR_SAVE_COUNTER = 0x00428234
 ADDR_PLAY_DATA = 0x0042c148
 ADDR_ENEMY_1_MODEL_ID = 0x004a420c
 ADDR_ENEMY_1_CURRENT_HEALTH = 0x004a4214
+ADDR_ENEMY_2_MODEL_ID = 0x004ad6fc
 ADDR_CURRENT_PLAYER_CHARACTER = 0x0044badc
 ADDR_CURRENT_HEALTH = 0x0044bae4
 ADDR_MAX_HEALTH = 0x0044bae8
@@ -44,6 +45,7 @@ currentChapter = dword(ADDR_CURRENT_CHAPTER)
 saveCounter = dword(ADDR_SAVE_COUNTER)
 enemy1ModelId = dword(ADDR_ENEMY_1_MODEL_ID)
 enemy1CurrentHealth = dword(ADDR_ENEMY_1_CURRENT_HEALTH)
+enemy2ModelId = dword(ADDR_ENEMY_2_MODEL_ID)
 currentPlayerCharacter = dword(ADDR_CURRENT_PLAYER_CHARACTER)
 currentHealth = dword(ADDR_CURRENT_HEALTH)
 maxHealth = dword(ADDR_MAX_HEALTH)
@@ -545,14 +547,29 @@ achievement(
 
 // RICH PRESENCE START
 
-rich_presence_conditional_display(IsWatchingCutscene(), "{0} is watching a cutscene | 💾 {1}",
+rich_presence_conditional_display(IsWatchingCutscene(), "{0} is watching a cutscene in {1} | ❤️{2}/{3} | 💾 {4}",
     rich_presence_lookup("CurrentPlayerCharacter", currentPlayerCharacter, PlayerCharacterLookup),
+    rich_presence_lookup("CurrentLocation", currentLocation, LocationLookup),
+    rich_presence_value("Number", currentHealth),
+    rich_presence_value("Number", maxHealth),
     rich_presence_value("Number", saveCounter)
 )
 
-rich_presence_conditional_display(enemy1ModelId >= 0x26, "{0} is fighting {1} | 💾 {2}",
+rich_presence_conditional_display(enemy1ModelId >= 0x26, "{0} is fighting {1} in {2} | ❤️{3}/{4} | 💾 {5}",
     rich_presence_lookup("CurrentPlayerCharacter", currentPlayerCharacter, PlayerCharacterLookup),
     rich_presence_lookup("CurrentEnemy", enemy1ModelId, EnemyLookup),
+    rich_presence_lookup("CurrentLocation", currentLocation, LocationLookup),
+    rich_presence_value("Number", currentHealth),
+    rich_presence_value("Number", maxHealth),
+    rich_presence_value("Number", saveCounter)
+)
+
+rich_presence_conditional_display(enemy2ModelId >= 0x26, "{0} is fighting {1} in {2} | ❤️{3}/{4} | 💾 {5}",
+    rich_presence_lookup("CurrentPlayerCharacter", currentPlayerCharacter, PlayerCharacterLookup),
+    rich_presence_lookup("CurrentEnemy", enemy2ModelId, EnemyLookup),
+    rich_presence_lookup("CurrentLocation", currentLocation, LocationLookup),
+    rich_presence_value("Number", currentHealth),
+    rich_presence_value("Number", maxHealth),
     rich_presence_value("Number", saveCounter)
 )
 
