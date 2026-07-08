@@ -469,6 +469,18 @@ achievement(
 )
 
 achievement(
+    title = "The Evil Lurking in the Ruins",
+    description = "Finish Chapter 2",
+    points = 5,
+    type = "progression",
+    trigger =
+        prior(IsCurrentScene("EV020_03")) &&
+        currentLocation == 94 &&
+        prev(IsCurrentChapter(CHAPTER_TWO)) &&
+        IsCurrentChapter(CHAPTER_THREE)
+)
+
+achievement(
     title = "Some Kamen Rider: Rider Generation",
     description = "Finish Chapter 5",
     points = 10,
