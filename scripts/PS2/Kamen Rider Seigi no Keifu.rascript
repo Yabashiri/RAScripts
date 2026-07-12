@@ -23,8 +23,10 @@ ENEMY_EVIL_EYE_COMPLETE_FORM = 0x4C
 // MEMORY: game state
 
 ADDR_TITLE_SCREEN_TASK_HANDLE = 0x00400220
+ADDR_SCENE_CHANGE_FLAGS = 0x0041eff2
 ADDR_CURRENT_SCENE_POINTER = 0x0041f080
 ADDR_CURRENT_LOCATION = 0x0041f08c
+ADDR_REQUESTED_LOCATION = 0x0041f090
 ADDR_CURRENT_CHAPTER = 0x0041f0a0
 OFFSET_CURRENT_SCENE = 0x6C
 // Script flag bit 5: Rider Select active; bit 6: Clear-data flag.
@@ -41,6 +43,7 @@ ADDR_MAX_HEALTH = 0x0044bae8
 titleScreenTaskHandle = word(ADDR_TITLE_SCREEN_TASK_HANDLE)
 currentScenePointer = dword(ADDR_CURRENT_SCENE_POINTER)
 currentLocation = dword(ADDR_CURRENT_LOCATION)
+requestedLocation = dword(ADDR_REQUESTED_LOCATION)
 currentChapter = dword(ADDR_CURRENT_CHAPTER)
 saveCounter = dword(ADDR_SAVE_COUNTER)
 enemy1ModelId = dword(ADDR_ENEMY_1_MODEL_ID)
@@ -49,6 +52,17 @@ enemy2ModelId = dword(ADDR_ENEMY_2_MODEL_ID)
 currentPlayerCharacter = dword(ADDR_CURRENT_PLAYER_CHARACTER)
 currentHealth = dword(ADDR_CURRENT_HEALTH)
 maxHealth = dword(ADDR_MAX_HEALTH)
+
+// MEMORY: enemy work slots
+
+ADDR_ENEMY_SLOT_1_BASE = 0x0049dea0
+ENEMY_SLOT_STRIDE = 0x94f0
+OFFSET_ENEMY_CURRENT_HEALTH = 0x6374
+OFFSET_ENEMY_MAX_HEALTH = 0x6378
+
+EnemySlotBases = []
+for slot in range(0, 7)
+    array_push(EnemySlotBases, ADDR_ENEMY_SLOT_1_BASE + slot * ENEMY_SLOT_STRIDE)
 
 // MEMORY: move levels
 
@@ -80,6 +94,51 @@ ADDR_FILES_FOUND_HINT_9 = 0x0041f3db
 // FUNCTIONS
 
 function IsCurrentChapter(chapter) => currentChapter == chapter
+
+function DoorTransitionRequested() =>
+    // afFieldChangeReq writes the requested field and raises bit 7. Camera
+    // changes inside the current field use requested screen and bit 6 instead.
+    prev(bit7(ADDR_SCENE_CHANGE_FLAGS)) == 0 &&
+    bit7(ADDR_SCENE_CHANGE_FLAGS) == 1 &&
+    requestedLocation != currentLocation
+
+function WasEnemySlotAlive(slotBase)
+{
+    health = prev(dword(slotBase + OFFSET_ENEMY_CURRENT_HEALTH))
+    maximumHealth = prev(dword(slotBase + OFFSET_ENEMY_MAX_HEALTH))
+    return health != 0 && health <= maximumHealth
+}
+
+function AtLeastSixEnemySlotsWereAlive()
+{
+    alternatives = []
+
+    // Generate every group of six slots. Unlike tally(), these are ordinary
+    // frame-local conditions and cannot accumulate hits from a single enemy.
+    for skippedSlot1 in range(0, 6)
+    {
+        for skippedSlot2 in range(skippedSlot1 + 1, 7)
+        {
+            sixSlotsAlive = always_true()
+
+            for slot in range(0, 7)
+            {
+                if slot != skippedSlot1 && slot != skippedSlot2
+                    sixSlotsAlive = sixSlotsAlive && WasEnemySlotAlive(EnemySlotBases[slot])
+            }
+
+            array_push(alternatives, sixSlotsAlive)
+        }
+    }
+
+    return any_of(alternatives, alternative => alternative)
+}
+
+function DoorDragonTrigger()
+{
+    doorEvent = DoorTransitionRequested()
+    return AtLeastSixEnemySlotsWereAlive() && trigger_when(doorEvent)
+}
 
 function CurrentSceneAddress() => currentScenePointer + OFFSET_CURRENT_SCENE
 
@@ -502,6 +561,13 @@ achievement(
         currentLocation == 23 &&
         prev(enemy1ModelId) == ENEMY_SEMIMINGA &&
         enemy1ModelId == 0
+)
+
+achievement(
+    title = "Door Dragon",
+    description = "Enter a door with at least 6 enemies chasing you",
+    points = 2,
+    trigger = DoorDragonTrigger()
 )
 
 achievement(
