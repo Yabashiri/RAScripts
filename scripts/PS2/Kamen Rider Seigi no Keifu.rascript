@@ -57,6 +57,8 @@ maxHealth = dword(ADDR_MAX_HEALTH)
 
 ADDR_ENEMY_SLOT_1_BASE = 0x0049dea0
 ENEMY_SLOT_STRIDE = 0x94f0
+OFFSET_ENEMY_ACTIVE_FLAGS = 0x00
+OFFSET_ENEMY_DEATH_FLAGS = 0x03
 OFFSET_ENEMY_CURRENT_HEALTH = 0x6374
 OFFSET_ENEMY_MAX_HEALTH = 0x6378
 
@@ -102,42 +104,48 @@ function DoorTransitionRequested() =>
     bit7(ADDR_SCENE_CHANGE_FLAGS) == 1 &&
     requestedLocation != currentLocation
 
-function WasEnemySlotAlive(slotBase)
+function EnemySlotActiveCount(previous)
 {
-    health = prev(dword(slotBase + OFFSET_ENEMY_CURRENT_HEALTH))
-    maximumHealth = prev(dword(slotBase + OFFSET_ENEMY_MAX_HEALTH))
-    return health != 0 && health <= maximumHealth
-}
+    activeCount = 0
 
-function AtLeastSixEnemySlotsWereAlive()
-{
-    alternatives = []
-
-    // Generate every group of six slots. Unlike tally(), these are ordinary
-    // frame-local conditions and cannot accumulate hits from a single enemy.
-    for skippedSlot1 in range(0, 6)
+    for slotBase in EnemySlotBases
     {
-        for skippedSlot2 in range(skippedSlot1 + 1, 7)
-        {
-            sixSlotsAlive = always_true()
-
-            for slot in range(0, 7)
-            {
-                if slot != skippedSlot1 && slot != skippedSlot2
-                    sixSlotsAlive = sixSlotsAlive && WasEnemySlotAlive(EnemySlotBases[slot])
-            }
-
-            array_push(alternatives, sixSlotsAlive)
-        }
+        if previous
+            activeCount = activeCount + prev(bit0(slotBase + OFFSET_ENEMY_ACTIVE_FLAGS))
+        else
+            activeCount = activeCount + bit0(slotBase + OFFSET_ENEMY_ACTIVE_FLAGS)
     }
 
-    return any_of(alternatives, alternative => alternative)
+    return activeCount
 }
+
+function EnemySlotDeathCount(previous)
+{
+    deathCount = 0
+
+    for slotBase in EnemySlotBases
+    {
+        if previous
+            deathCount = deathCount + prev(bit0(slotBase + OFFSET_ENEMY_DEATH_FLAGS))
+        else
+            deathCount = deathCount + bit0(slotBase + OFFSET_ENEMY_DEATH_FLAGS)
+    }
+
+    return deathCount
+}
+
+function AtLeastSixEnemySlotsAlive(previous) =>
+    // Comparing the two sums avoids unsigned underflow during slot cleanup.
+    EnemySlotActiveCount(previous) >= EnemySlotDeathCount(previous) + 6
 
 function DoorDragonTrigger()
 {
     doorEvent = DoorTransitionRequested()
-    return AtLeastSixEnemySlotsWereAlive() && trigger_when(doorEvent)
+    enemiesReady =
+        AtLeastSixEnemySlotsAlive(false) ||
+        AtLeastSixEnemySlotsAlive(true)
+
+    return enemiesReady && trigger_when(doorEvent)
 }
 
 function CurrentSceneAddress() => currentScenePointer + OFFSET_CURRENT_SCENE
