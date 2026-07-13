@@ -104,48 +104,34 @@ function DoorTransitionRequested() =>
     bit7(ADDR_SCENE_CHANGE_FLAGS) == 1 &&
     requestedLocation != currentLocation
 
-function EnemySlotActiveCount(previous)
+function PreviousEnemySlotActiveCount()
 {
     activeCount = 0
 
     for slotBase in EnemySlotBases
-    {
-        if previous
-            activeCount = activeCount + prev(bit0(slotBase + OFFSET_ENEMY_ACTIVE_FLAGS))
-        else
-            activeCount = activeCount + bit0(slotBase + OFFSET_ENEMY_ACTIVE_FLAGS)
-    }
+        activeCount = activeCount + prev(bit0(slotBase + OFFSET_ENEMY_ACTIVE_FLAGS))
 
     return activeCount
 }
 
-function EnemySlotDeathCount(previous)
+function PreviousEnemySlotDeathCount()
 {
     deathCount = 0
 
     for slotBase in EnemySlotBases
-    {
-        if previous
-            deathCount = deathCount + prev(bit0(slotBase + OFFSET_ENEMY_DEATH_FLAGS))
-        else
-            deathCount = deathCount + bit0(slotBase + OFFSET_ENEMY_DEATH_FLAGS)
-    }
+        deathCount = deathCount + prev(bit0(slotBase + OFFSET_ENEMY_DEATH_FLAGS))
 
     return deathCount
 }
 
-function AtLeastSixEnemySlotsAlive(previous) =>
+function AtLeastSixEnemySlotsWereAlive() =>
     // Comparing the two sums avoids unsigned underflow during slot cleanup.
-    EnemySlotActiveCount(previous) >= EnemySlotDeathCount(previous) + 6
+    PreviousEnemySlotActiveCount() >= PreviousEnemySlotDeathCount() + 6
 
 function DoorDragonTrigger()
 {
     doorEvent = DoorTransitionRequested()
-    enemiesReady =
-        AtLeastSixEnemySlotsAlive(false) ||
-        AtLeastSixEnemySlotsAlive(true)
-
-    return enemiesReady && trigger_when(doorEvent)
+    return AtLeastSixEnemySlotsWereAlive() && trigger_when(doorEvent)
 }
 
 function CurrentSceneAddress() => currentScenePointer + OFFSET_CURRENT_SCENE
@@ -574,7 +560,7 @@ achievement(
 achievement(
     title = "Door Dragon",
     description = "Enter a door with at least 6 enemies chasing you",
-    points = 2,
+    points = 1,
     trigger = DoorDragonTrigger()
 )
 
