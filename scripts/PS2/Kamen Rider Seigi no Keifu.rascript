@@ -12,7 +12,9 @@ CHAPTER_ONE_DOCUMENTS_TOTAL = 8
 CHAPTER_TWO_DOCUMENTS_TOTAL = 7
 CHAPTER_THREE_DOCUMENTS_TOTAL = 9
 CHAPTER_FOUR_DOCUMENTS_TOTAL = 9
-CHAPTER_FIVE_DOCUMENTS_TOTAL = 31MOVE_LEVEL_LV3 = 2
+CHAPTER_FIVE_DOCUMENTS_TOTAL = 31
+SETTING_THE_STAGE_TARGET = 10
+MOVE_LEVEL_LV3 = 2
 PLAYER_KAMEN_RIDER_ICHIGO = 0x00
 PLAYER_HONGO_TAKESHI = 0x01
 PLAYER_KAMEN_RIDER_V3 = 0x02
@@ -29,6 +31,7 @@ ENEMY_EVIL_EYE_COMPLETE_FORM = 0x4C
 ADDR_TITLE_SCREEN_TASK_HANDLE = 0x00400220
 ADDR_SCENE_CHANGE_FLAGS = 0x0041eff2
 ADDR_CURRENT_SCENE_POINTER = 0x0041f080
+ADDR_CURRENT_SCREEN = 0x0041f084
 ADDR_CURRENT_LOCATION = 0x0041f08c
 ADDR_REQUESTED_LOCATION = 0x0041f090
 ADDR_CURRENT_CHAPTER = 0x0041f0a0
@@ -46,6 +49,7 @@ ADDR_MAX_HEALTH = 0x0044bae8
 
 titleScreenTaskHandle = word(ADDR_TITLE_SCREEN_TASK_HANDLE)
 currentScenePointer = dword(ADDR_CURRENT_SCENE_POINTER)
+currentScreen = dword(ADDR_CURRENT_SCREEN)
 currentLocation = dword(ADDR_CURRENT_LOCATION)
 requestedLocation = dword(ADDR_REQUESTED_LOCATION)
 currentChapter = dword(ADDR_CURRENT_CHAPTER)
@@ -56,6 +60,25 @@ enemy2ModelId = dword(ADDR_ENEMY_2_MODEL_ID)
 currentPlayerCharacter = dword(ADDR_CURRENT_PLAYER_CHARACTER)
 currentHealth = dword(ADDR_CURRENT_HEALTH)
 maxHealth = dword(ADDR_MAX_HEALTH)
+
+// MEMORY: recovery item inventory
+
+ADDR_ITEM_BOX_BASE = 0x00424774
+ITEM_BOX_STRIDE = 0x1b0
+RECOVERY_ITEM_SLOT_ID_OFFSET = 0x02
+ITEM_SLOT_STRIDE = 0x24
+ADDR_MENU_ITEM_COMMAND = 0x005e91d8
+MENU_ITEM_COMMAND_SET = 1
+
+// Four era/Rider item boxes, each with six dedicated recovery-item slots.
+RecoveryItemSlotAddresses = []
+for itemBox in range(0, 3)
+    for slot in range(0, 5)
+        array_push(RecoveryItemSlotAddresses,
+            ADDR_ITEM_BOX_BASE + itemBox * ITEM_BOX_STRIDE +
+            RECOVERY_ITEM_SLOT_ID_OFFSET + slot * ITEM_SLOT_STRIDE)
+
+menuItemCommand = dword(ADDR_MENU_ITEM_COMMAND)
 
 // MEMORY: enemy work slots
 
@@ -183,6 +206,35 @@ ADDR_KAIJIN_FILE_PICKUP_FLAGS_2232_2239 = 0x0041f23b
 
 function IsCurrentChapter(chapter) => currentChapter == chapter
 
+// Recovery slots are either empty (0xFFFF) or contain IDs 0x07D1-0x07D4.
+// Bit 3 of the ID's high byte is therefore an empty-slot flag.
+SettingTheStageProgressConditions = []
+for slotAddress in RecoveryItemSlotAddresses
+{
+    array_push(SettingTheStageProgressConditions,
+        prev(menuItemCommand) == MENU_ITEM_COMMAND_SET &&
+        prev(bit3(slotAddress + 1)) == 0 &&
+        bit3(slotAddress + 1) == 1
+    )
+
+    array_push(SettingTheStageProgressConditions, deduct(
+        prev(bit3(slotAddress + 1)) == 1 &&
+        bit3(slotAddress + 1) == 0
+    ))
+}
+
+function DidChangeLogicalLocation() =>
+    // Bits 0-1 select the era/Rider variant. Bits 2-6 identify the location.
+    prev(bit2(ADDR_CURRENT_LOCATION)) != bit2(ADDR_CURRENT_LOCATION) ||
+    prev(bit3(ADDR_CURRENT_LOCATION)) != bit3(ADDR_CURRENT_LOCATION) ||
+    prev(bit4(ADDR_CURRENT_LOCATION)) != bit4(ADDR_CURRENT_LOCATION) ||
+    prev(bit5(ADDR_CURRENT_LOCATION)) != bit5(ADDR_CURRENT_LOCATION) ||
+    prev(bit6(ADDR_CURRENT_LOCATION)) != bit6(ADDR_CURRENT_LOCATION)
+
+function DidLeaveCurrentScreen() =>
+    prev(currentScreen) != currentScreen ||
+    DidChangeLogicalLocation()
+
 function DoorTransitionRequested() =>
     // afFieldChangeReq writes the requested field and raises bit 7. Camera
     // changes inside the current field use requested screen and bit 6 instead.
@@ -287,6 +339,22 @@ function CollectionCompleted(count, total) =>
 function IsChapterFive() =>
     IsCurrentChapter(CHAPTER_FIVE_FIRST_HALF) ||
     IsCurrentChapter(CHAPTER_FIVE_SECOND_HALF)
+
+function SettingTheStageTrigger()
+{
+    reset = never(
+        !IsChapterFive() ||
+        DidLeaveCurrentScreen()
+    )
+
+    progress = measured(tally(
+        SETTING_THE_STAGE_TARGET,
+        SettingTheStageProgressConditions
+    ))
+
+    return IsChapterFive() && progress && reset
+}
+
 // LOOKUPS
 
 ChapterLookup = {
@@ -534,6 +602,12 @@ achievement(
     trigger =
         IsCurrentChapter(CHAPTER_SIX) &&
         CollectionCompleted(bit3(ADDR_KAIJIN_FILE_PICKUP_FLAGS_2232_2239), 1)
+)
+
+achievement(
+    title = "Setting the Stage", points = 2,
+    description = "In Chapter 5, use SET to place 10 Life or Energy Packs on the ground without leaving the current screen",
+    trigger = SettingTheStageTrigger()
 )
 
 achievement(
