@@ -5,10 +5,14 @@ CHAPTER_ONE = 1
 CHAPTER_TWO = 2
 CHAPTER_THREE = 3
 CHAPTER_FOUR = 4
-CHAPTER_SIX = 6
-CHAPTER_SEVEN = 7
-CHAPTER_ONE_HINT_FILES_TOTAL = 50
-MOVE_LEVEL_LV3 = 2
+CHAPTER_FIVE_FIRST_HALF = 5
+CHAPTER_FIVE_SECOND_HALF = 6
+CHAPTER_SIX = 7
+CHAPTER_ONE_DOCUMENTS_TOTAL = 8
+CHAPTER_TWO_DOCUMENTS_TOTAL = 7
+CHAPTER_THREE_DOCUMENTS_TOTAL = 9
+CHAPTER_FOUR_DOCUMENTS_TOTAL = 9
+CHAPTER_FIVE_DOCUMENTS_TOTAL = 31MOVE_LEVEL_LV3 = 2
 PLAYER_KAMEN_RIDER_ICHIGO = 0x00
 PLAYER_HONGO_TAKESHI = 0x01
 PLAYER_KAMEN_RIDER_V3 = 0x02
@@ -92,6 +96,88 @@ ADDR_FILES_FOUND_HINT_6 = 0x0041f3d8
 ADDR_FILES_FOUND_HINT_7 = 0x0041f3d9
 ADDR_FILES_FOUND_HINT_8 = 0x0041f3da
 ADDR_FILES_FOUND_HINT_9 = 0x0041f3db
+
+ChapterOneDocumentFlags = [
+    [ADDR_FILES_FOUND_KEY_1, 4],  // Elevator Operation
+    [ADDR_FILES_FOUND_KEY_1, 5],  // Gate Controller
+    [ADDR_FILES_FOUND_HINT_1, 4], // Gameplay Manual 1
+    [ADDR_FILES_FOUND_HINT_2, 3], // Gate Controller Manual
+    [ADDR_FILES_FOUND_HINT_2, 5], // Pool Control Device Manual
+    [ADDR_FILES_FOUND_HINT_2, 6], // Notice from Security
+    [ADDR_FILES_FOUND_HINT_3, 1], // Room Access Code Change Order
+    [ADDR_FILES_FOUND_HINT_4, 3], // Cultivation Chamber file
+]
+
+ChapterTwoDocumentFlags = [
+    [ADDR_FILES_FOUND_KEY_1, 6],  // Transformer Repair
+    [ADDR_FILES_FOUND_HINT_4, 4], // Storage Record Fragment
+    [ADDR_FILES_FOUND_HINT_4, 5], // Newspaper Clipping
+    [ADDR_FILES_FOUND_HINT_4, 6], // Transformer Repair Report
+    [ADDR_FILES_FOUND_HINT_4, 7], // Director's Memo 1
+    [ADDR_FILES_FOUND_HINT_5, 0], // Gene Fusion Experiment Record
+    [ADDR_FILES_FOUND_HINT_5, 1], // General Black's Operation Plan
+]
+
+ChapterThreeDocumentFlags = [
+    [ADDR_FILES_FOUND_KEY_3, 3],  // Director Office Power
+    [ADDR_FILES_FOUND_HINT_1, 5], // Gameplay Manual 2
+    [ADDR_FILES_FOUND_HINT_6, 2], // Transmission Line Change Rules
+    [ADDR_FILES_FOUND_HINT_6, 3], // About Director Office Power
+    [ADDR_FILES_FOUND_HINT_6, 4], // Letter from Yuki
+    [ADDR_FILES_FOUND_HINT_6, 5], // Unfinished Letter
+    [ADDR_FILES_FOUND_HINT_6, 6], // Director's Memo 2
+    [ADDR_FILES_FOUND_HINT_6, 7], // Doctor Shinigami Operation Plan 1
+    [ADDR_FILES_FOUND_HINT_8, 1], // Research Tape Organization
+]
+
+ChapterFourDocumentFlags = [
+    [ADDR_FILES_FOUND_KEY_2, 0],  // Punch Cards
+    [ADDR_FILES_FOUND_KEY_2, 7],  // Ventilation System
+    [ADDR_FILES_FOUND_HINT_1, 6], // Gameplay Manual 3
+    [ADDR_FILES_FOUND_HINT_7, 5], // Power Plant Staff Memo
+    [ADDR_FILES_FOUND_HINT_7, 6], // Ventilation System Manual
+    [ADDR_FILES_FOUND_HINT_8, 0], // Random Number Table
+    [ADDR_FILES_FOUND_HINT_8, 2], // Research Report
+    [ADDR_FILES_FOUND_HINT_8, 3], // Shocker Leader's Orders
+    [ADDR_FILES_FOUND_HINT_8, 4], // TIERRA Transfer Record
+]
+
+ChapterFiveDocumentFlags = [
+    [ADDR_FILES_FOUND_KEY_2, 1],  // Magnetic Lock
+    [ADDR_FILES_FOUND_KEY_2, 2],  // Barcode Key
+    [ADDR_FILES_FOUND_KEY_2, 3],  // Pool Control Device
+    [ADDR_FILES_FOUND_KEY_2, 4],  // Lift
+    [ADDR_FILES_FOUND_KEY_2, 5],  // A-33
+    [ADDR_FILES_FOUND_KEY_2, 6],  // Electromagnetic Shield
+    [ADDR_FILES_FOUND_KEY_3, 0],  // Magnetic Field Generator
+    [ADDR_FILES_FOUND_KEY_3, 1],  // Infrared Sensor
+    [ADDR_FILES_FOUND_HINT_1, 7], // Gameplay Manual 4
+    [ADDR_FILES_FOUND_HINT_2, 0], // Gameplay Manual 5
+    [ADDR_FILES_FOUND_HINT_2, 1], // Gameplay Manual 6
+    [ADDR_FILES_FOUND_HINT_3, 2], // Anti-Intruder Program 1
+    [ADDR_FILES_FOUND_HINT_3, 3], // Work Report
+    [ADDR_FILES_FOUND_HINT_3, 4], // Ambassador Hell Operation Plan
+    [ADDR_FILES_FOUND_HINT_3, 6], // Hieroglyphic Genetic Blueprint
+    [ADDR_FILES_FOUND_HINT_3, 7], // IC Recorder
+    [ADDR_FILES_FOUND_HINT_4, 0], // Director Notes 4
+    [ADDR_FILES_FOUND_HINT_4, 1], // Undersea Base Construction Report
+    [ADDR_FILES_FOUND_HINT_5, 3], // Scientist Memo
+    [ADDR_FILES_FOUND_HINT_5, 7], // Combatant Memo
+    [ADDR_FILES_FOUND_HINT_6, 0], // Director Notes 3
+    [ADDR_FILES_FOUND_HINT_6, 1], // Small Cassette Recorder
+    [ADDR_FILES_FOUND_HINT_7, 0], // Doctor Shinigami Plan 2
+    [ADDR_FILES_FOUND_HINT_7, 1], // Anti-Intruder Program 2
+    [ADDR_FILES_FOUND_HINT_7, 2], // Shocker Scientist Diary
+    [ADDR_FILES_FOUND_HINT_7, 3], // Cassette Recorder
+    [ADDR_FILES_FOUND_HINT_7, 4], // Director Notes 2
+    [ADDR_FILES_FOUND_HINT_8, 5], // Shocker Scientist Roster
+    [ADDR_FILES_FOUND_HINT_8, 6], // Colonel Zol Plan
+    [ADDR_FILES_FOUND_HINT_8, 7], // Director Notes 1
+    [ADDR_FILES_FOUND_HINT_9, 0], // Tape Recorder
+]
+
+// Script pickup flags 2232-2239. Bee Woman is flag 2235 (bit 3).
+ADDR_KAIJIN_FILE_PICKUP_FLAGS_2232_2239 = 0x0041f23b
 
 // FUNCTIONS
 
@@ -186,61 +272,21 @@ function VintageFashionTrigger() =>
     IsClearDataFlagSet() &&
     RiderSelectFlagsChanged()
 
-function ChapterOneHintFilesFound()
+function CountSetFlags(flagList)
 {
-    return
-        bit4(ADDR_FILES_FOUND_KEY_1) +
-        bit5(ADDR_FILES_FOUND_KEY_1) +
-        bit6(ADDR_FILES_FOUND_KEY_1) +
-        bit0(ADDR_FILES_FOUND_KEY_2) +
-        bit1(ADDR_FILES_FOUND_KEY_2) +
-        bit2(ADDR_FILES_FOUND_KEY_2) +
-        bit3(ADDR_FILES_FOUND_KEY_2) +
-        bit4(ADDR_FILES_FOUND_KEY_2) +
-        bit5(ADDR_FILES_FOUND_KEY_2) +
-        bit6(ADDR_FILES_FOUND_KEY_2) +
-        bit7(ADDR_FILES_FOUND_KEY_2) +
-        bit0(ADDR_FILES_FOUND_KEY_3) +
-        bit1(ADDR_FILES_FOUND_KEY_3) +
-        bit2(ADDR_FILES_FOUND_KEY_3) +
-        bit3(ADDR_FILES_FOUND_KEY_3) +
-        bit4(ADDR_FILES_FOUND_HINT_1) +
-        bit5(ADDR_FILES_FOUND_HINT_1) +
-        bit6(ADDR_FILES_FOUND_HINT_1) +
-        bit2(ADDR_FILES_FOUND_HINT_2) +
-        bit3(ADDR_FILES_FOUND_HINT_2) +
-        bit4(ADDR_FILES_FOUND_HINT_2) +
-        bit5(ADDR_FILES_FOUND_HINT_2) +
-        bit6(ADDR_FILES_FOUND_HINT_2) +
-        bit7(ADDR_FILES_FOUND_HINT_2) +
-        bit0(ADDR_FILES_FOUND_HINT_3) +
-        bit1(ADDR_FILES_FOUND_HINT_3) +
-        bit2(ADDR_FILES_FOUND_HINT_3) +
-        bit3(ADDR_FILES_FOUND_HINT_3) +
-        bit4(ADDR_FILES_FOUND_HINT_3) +
-        bit5(ADDR_FILES_FOUND_HINT_3) +
-        bit1(ADDR_FILES_FOUND_HINT_4) +
-        bit2(ADDR_FILES_FOUND_HINT_4) +
-        bit3(ADDR_FILES_FOUND_HINT_4) +
-        bit4(ADDR_FILES_FOUND_HINT_4) +
-        bit6(ADDR_FILES_FOUND_HINT_4) +
-        bit2(ADDR_FILES_FOUND_HINT_5) +
-        bit3(ADDR_FILES_FOUND_HINT_5) +
-        bit4(ADDR_FILES_FOUND_HINT_5) +
-        bit5(ADDR_FILES_FOUND_HINT_5) +
-        bit6(ADDR_FILES_FOUND_HINT_5) +
-        bit3(ADDR_FILES_FOUND_HINT_6) +
-        bit1(ADDR_FILES_FOUND_HINT_7) +
-        bit2(ADDR_FILES_FOUND_HINT_7) +
-        bit5(ADDR_FILES_FOUND_HINT_7) +
-        bit6(ADDR_FILES_FOUND_HINT_7) +
-        bit7(ADDR_FILES_FOUND_HINT_7) +
-        bit0(ADDR_FILES_FOUND_HINT_8) +
-        bit1(ADDR_FILES_FOUND_HINT_8) +
-        bit1(ADDR_FILES_FOUND_HINT_9) +
-        bit2(ADDR_FILES_FOUND_HINT_9)
+    count = 0
+    for flag in flagList
+        count = count + bit(flag[1], flag[0])
+    return count
 }
 
+function CollectionCompleted(count, total) =>
+    prev(count) < total &&
+    measured(count == total)
+
+function IsChapterFive() =>
+    IsCurrentChapter(CHAPTER_FIVE_FIRST_HALF) ||
+    IsCurrentChapter(CHAPTER_FIVE_SECOND_HALF)
 // LOOKUPS
 
 ChapterLookup = {
@@ -443,12 +489,51 @@ EnemyLookup = {
 // ACHIEVEMENTS
 
 achievement(
-    title = "Major in Power Planting", points = 10,
+    title = "Major in Power Planting", points = 5,
     description = "Collect all Files and Keywords found in Chapter 1",
     trigger =
         IsCurrentChapter(CHAPTER_ONE) &&
-        prev(ChapterOneHintFilesFound()) == CHAPTER_ONE_HINT_FILES_TOTAL - 1 &&
-        measured(ChapterOneHintFilesFound() == CHAPTER_ONE_HINT_FILES_TOTAL)
+        CollectionCompleted(CountSetFlags(ChapterOneDocumentFlags), CHAPTER_ONE_DOCUMENTS_TOTAL)
+)
+
+achievement(
+    title = "Written in Black", points = 5,
+    description = "Collect all Files and Keywords found in Chapter 2",
+    trigger =
+        IsCurrentChapter(CHAPTER_TWO) &&
+        CollectionCompleted(CountSetFlags(ChapterTwoDocumentFlags), CHAPTER_TWO_DOCUMENTS_TOTAL)
+)
+
+achievement(
+    title = "V3-Rified Sources", points = 5,
+    description = "Collect all Hint Files found in Chapter 3",
+    trigger =
+        IsCurrentChapter(CHAPTER_THREE) &&
+        CollectionCompleted(CountSetFlags(ChapterThreeDocumentFlags), CHAPTER_THREE_DOCUMENTS_TOTAL)
+)
+
+achievement(
+    title = "The First Edition", points = 5,
+    description = "Collect all Hint Files found in Chapter 4",
+    trigger =
+        IsCurrentChapter(CHAPTER_FOUR) &&
+        CollectionCompleted(CountSetFlags(ChapterFourDocumentFlags), CHAPTER_FOUR_DOCUMENTS_TOTAL)
+)
+
+achievement(
+    title = "Rider’s Digest", points = 10,
+    description = "Collect all Hint Files found in Chapter 5",
+    trigger =
+        IsChapterFive() &&
+        CollectionCompleted(CountSetFlags(ChapterFiveDocumentFlags), CHAPTER_FIVE_DOCUMENTS_TOTAL)
+)
+
+achievement(
+    title = "The Buzz on Bee Woman", points = 1,
+    description = "Collect Bee Woman's file in Chapter 6",
+    trigger =
+        IsCurrentChapter(CHAPTER_SIX) &&
+        CollectionCompleted(bit3(ADDR_KAIJIN_FILE_PICKUP_FLAGS_2232_2239), 1)
 )
 
 achievement(
@@ -541,8 +626,8 @@ achievement(
     trigger =
         prior(IsCurrentScene("EV098_00")) &&
         currentLocation == 123 &&
-        prev(IsCurrentChapter(CHAPTER_SIX)) &&
-        IsCurrentChapter(CHAPTER_SEVEN)
+        prev(IsCurrentChapter(CHAPTER_FIVE_SECOND_HALF)) &&
+        IsCurrentChapter(CHAPTER_SIX)
 )
 
 achievement(
@@ -573,7 +658,7 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        IsCurrentChapter(CHAPTER_SEVEN) &&
+        IsCurrentChapter(CHAPTER_SIX) &&
         currentPlayerCharacter == PLAYER_KAMEN_RIDER_AGITO
 )
 
@@ -587,7 +672,7 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        IsCurrentChapter(CHAPTER_SEVEN) &&
+        IsCurrentChapter(CHAPTER_SIX) &&
         currentPlayerCharacter == PLAYER_KAMEN_RIDER_ICHIGO
 )
 
@@ -600,7 +685,7 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        IsCurrentChapter(CHAPTER_SEVEN) &&
+        IsCurrentChapter(CHAPTER_SIX) &&
         currentPlayerCharacter == PLAYER_KAMEN_RIDER_V3
 )
 
@@ -613,7 +698,7 @@ achievement(
         prev(enemy1ModelId) == ENEMY_EVIL_EYE_COMPLETE_FORM &&
         enemy1ModelId == 0 &&
         currentLocation == 98 &&
-        IsCurrentChapter(CHAPTER_SEVEN) &&
+        IsCurrentChapter(CHAPTER_SIX) &&
         currentPlayerCharacter == PLAYER_KAMEN_RIDER_BLACK
 )
 
