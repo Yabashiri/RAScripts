@@ -15,6 +15,11 @@ CHAPTER_FOUR_DOCUMENTS_TOTAL = 9
 CHAPTER_FIVE_DOCUMENTS_TOTAL = 31
 SETTING_THE_STAGE_TARGET = 10
 MOVE_LEVEL_LV3 = 2
+SHOW_HENSHIN_SCENES_FULL = 0
+HENSHIN_ESCENE_ICHIGO = 1
+HENSHIN_ESCENE_V3 = 2
+HENSHIN_ESCENE_BLACK = 3
+HENSHIN_ESCENE_AGITO = 4
 PLAYER_KAMEN_RIDER_ICHIGO = 0x00
 PLAYER_HONGO_TAKESHI = 0x01
 PLAYER_KAMEN_RIDER_V3 = 0x02
@@ -28,6 +33,7 @@ ENEMY_EVIL_EYE_COMPLETE_FORM = 0x4C
 
 // MEMORY: game state
 
+ADDR_SHOW_HENSHIN_SCENES = 0x003e6464
 ADDR_TITLE_SCREEN_TASK_HANDLE = 0x00400220
 ADDR_SCENE_CHANGE_FLAGS = 0x0041eff2
 ADDR_CURRENT_SCENE_POINTER = 0x0041f080
@@ -46,6 +52,7 @@ ADDR_ENEMY_2_MODEL_ID = 0x004ad6fc
 ADDR_CURRENT_PLAYER_CHARACTER = 0x0044badc
 ADDR_CURRENT_HEALTH = 0x0044bae4
 ADDR_MAX_HEALTH = 0x0044bae8
+ADDR_ESCENE_ID_QUEUE_1 = 0x005a4cb8
 
 titleScreenTaskHandle = word(ADDR_TITLE_SCREEN_TASK_HANDLE)
 currentScenePointer = dword(ADDR_CURRENT_SCENE_POINTER)
@@ -60,6 +67,8 @@ enemy2ModelId = dword(ADDR_ENEMY_2_MODEL_ID)
 currentPlayerCharacter = dword(ADDR_CURRENT_PLAYER_CHARACTER)
 currentHealth = dword(ADDR_CURRENT_HEALTH)
 maxHealth = dword(ADDR_MAX_HEALTH)
+showHenshinScenes = byte(ADDR_SHOW_HENSHIN_SCENES)
+currentESceneId = dword(ADDR_ESCENE_ID_QUEUE_1)
 
 // MEMORY: recovery item inventory
 
@@ -206,6 +215,10 @@ ADDR_KAIJIN_FILE_PICKUP_FLAGS_2232_2239 = 0x0041f23b
 
 function IsCurrentChapter(chapter) => currentChapter == chapter
 
+function DidTransform(humanCharacter, riderCharacter) =>
+    prev(currentPlayerCharacter) == humanCharacter &&
+    currentPlayerCharacter == riderCharacter
+
 // Recovery slots are either empty (0xFFFF) or contain IDs 0x07D1-0x07D4.
 // Bit 3 of the ID's high byte is therefore an empty-slot flag.
 SettingTheStageProgressConditions = []
@@ -230,6 +243,11 @@ function DidChangeLogicalLocation() =>
     prev(bit4(ADDR_CURRENT_LOCATION)) != bit4(ADDR_CURRENT_LOCATION) ||
     prev(bit5(ADDR_CURRENT_LOCATION)) != bit5(ADDR_CURRENT_LOCATION) ||
     prev(bit6(ADDR_CURRENT_LOCATION)) != bit6(ADDR_CURRENT_LOCATION)
+
+function FullHenshinTrigger(henshinSceneId, humanCharacter, riderCharacter)
+    => showHenshinScenes == SHOW_HENSHIN_SCENES_FULL &&
+       currentESceneId == henshinSceneId &&
+       DidTransform(humanCharacter, riderCharacter)
 
 function DidLeaveCurrentScreen() =>
     prev(currentScreen) != currentScreen ||
@@ -554,6 +572,37 @@ EnemyLookup = {
     0x52: "Evil Eye Ultimate Form",
 }
 
+TransformationAchievements = [
+    {
+        "title": "The Warrior's Awakening",
+        "description": "With Show Henshin Scenes set to Full Scenes, transform into Kamen Rider Agito",
+        "human": PLAYER_TSUGAMI_SHOUICHI,
+        "rider": PLAYER_KAMEN_RIDER_AGITO,
+        "henshin_scene": HENSHIN_ESCENE_AGITO,
+    },
+    {
+        "title": "Black! Transformation",
+        "description": "With Show Henshin Scenes set to Full Scenes, transform into Kamen Rider Black",
+        "human": PLAYER_MINAMI_KOTARO,
+        "rider": PLAYER_KAMEN_RIDER_BLACK,
+        "henshin_scene": HENSHIN_ESCENE_BLACK,
+    },
+    {
+        "title": "His Name Is V3",
+        "description": "With Show Henshin Scenes set to Full Scenes, transform into Kamen Rider V3",
+        "human": PLAYER_ICHIMONJI_HAYATO,
+        "rider": PLAYER_KAMEN_RIDER_V3,
+        "henshin_scene": HENSHIN_ESCENE_V3,
+    },
+    {
+        "title": "Takeshi Hongo Can Transform",
+        "description": "With Show Henshin Scenes set to Full Scenes, transform into Kamen Rider Ichigo",
+        "human": PLAYER_HONGO_TAKESHI,
+        "rider": PLAYER_KAMEN_RIDER_ICHIGO,
+        "henshin_scene": HENSHIN_ESCENE_ICHIGO,
+    },
+]
+
 // ACHIEVEMENTS
 
 achievement(
@@ -722,6 +771,20 @@ achievement(
     points = 1,
     trigger = DoorDragonTrigger()
 )
+
+for ach in TransformationAchievements
+{
+    achievement(
+        title = ach["title"],
+        description = ach["description"],
+        points = 1,
+        trigger = FullHenshinTrigger(
+            ach["henshin_scene"],
+            ach["human"],
+            ach["rider"]
+        )
+    )
+}
 
 achievement(
     title = "Now Let Him Cook",

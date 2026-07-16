@@ -1,0 +1,537 @@
+{
+  "format": "ra-code-notes",
+  "version": 1,
+  "gameId": 31667,
+  "serverHash": "sha256:837e5acf7a95f98f71aeb3d7336538683932d8a1b758f283bfbee9a87b2a850c",
+  "pulledAt": "2026-07-16T03:27:52+00:00",
+  "notes": {
+    "0x003e6464": {
+      "author": "Yabashiri",
+      "note": "[8-bit] Show Henshin Scenes\n0x00 | Type A (Full Scenes)\n0x01 | Type B (Skip Event Henshin Scenes)\n0x02 | Type C (Skip All Henshin Scenes)"
+    },
+    "0x003e652c": {
+      "author": "Yabashiri",
+      "note": "[8-bit] Sound Mode (0 = Stereo, 1 = Mono)"
+    },
+    "0x003e6590": {
+      "author": "Yabashiri",
+      "note": "[8-bit] Show Gauge (0 = On, 1 = Off)"
+    },
+    "0x003e65f4": {
+      "author": "Yabashiri",
+      "note": "[8-bit] Show Subtitles (0 = On, 1 = Off)"
+    },
+    "0x003e6658": {
+      "author": "Yabashiri",
+      "note": "[8-bit] Vibration (0 = On, 1 = Off)"
+    },
+    "0x00400220": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Title Screen Task Handle"
+    },
+    "0x00400288": {
+      "author": "Yabashiri",
+      "note": "[32-bit] [Pointer] Event Script Pointer"
+    },
+    "0x0041eff2": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Screen Transition Request Flags\nBit 6 | Screen change requested inside the current location\nBit 7 | Location change requested"
+    },
+    "0x0041f070": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Game Task Handle"
+    },
+    "0x0041f080": {
+      "author": "Yabashiri",
+      "note": "[32-bit] [Pointer] Current Scene Pointer\n+0x6C: [32-bit] [ASCII] Current Scene ID bytes 1-4\n+0x70: [32-bit] [ASCII] Current Scene ID bytes 5-8"
+    },
+    "0x0041f084": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Current Screen Number (0 = Min, 34 = Max)\nChanges relative to the location, e.g. inside Power Plant Entrance you have Front Desk Screen, Main Corridor Screen, etc."
+    },
+    "0x0041f08c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Current Location Number\n\nRider Timeline Variant:\nRange Start + 0 = Ichigo (A)\nRange Start + 1 = V3 (B)\nRange Start + 2 = BLACK (C)\nRange Start + 3 = Agito (D)\n\n0x00 - 0x03 | Power Plant Entrance\n0x04 - 0x07 | Power Plant Chimney\n0x08 - 0x0B | Power Plant Loading Bay\n0x0C - 0x0F | Power Plant Transmission Facility\n0x10 - 0x13 | Power Plant B1F Passage\n0x14 - 0x17 | Power Plant Central Control Room\n0x18 - 0x1B | Power Plant Director's Office\n0x1C - 0x1F | Power Plant Transformer Room\n0x20 - 0x23 | Power Plant Fuel Storage\n0x24 - 0x27 | Power Plant B2F Passage\n0x28 - 0x2B | Power Plant Turbine Room\n0x2C - 0x2F | Power Plant Fuel Pool\n0x30 - 0x33 | Base Underground Passage\n0x34 - 0x37 | Base Underground Passage\n0x38 - 0x3B | Base Old Mine Tunnel\n0x3C - 0x3F | Base Underground Transport Route\n0x40 - 0x43 | Base Passage\n0x44 - 0x47 | Base Gas Laboratory\n0x48 - 0x4B | Base Armory\n0x4C - 0x4F | Power Plant Shaft\n0x50 - 0x53 | Base Main Passage\n0x54 - 0x57 | Special Base Plan/Lab/Dome Rooms\n0x58 - 0x5B | Unknown / Missing Number Area\n0x5C - 0x5F | Base Command Room\n0x60 - 0x63 | ??? Time-Space Control Room\n0x64 - 0x67 | Quarry\n0x68 - 0x6B | Base Poison Gas Plant\n0x6C - 0x6F | Base Lighthouse\n0x70 - 0x73 | Coast\n0x74 - 0x77 | Undersea Base\n0x78 - 0x7B | ??? Cultivation Chamber"
+    },
+    "0x0041f090": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Requested Location Number\nTarget location written before a location transition. See @0x41f08c"
+    },
+    "0x0041f0a0": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Current Chapter Number\n0x01 | Chapter 1\n0x02 | Chapter 2\n0x03 | Chapter 3\n0x04 | Chapter 4\n0x05 | Chapter 5 Part One\n0x06 | Chapter 5 Part Two\n0x07 | Chapter 6"
+    },
+    "0x0041f0a4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Kaijin Finisher Count (0 = Min, 999 = Max)\nIncreases when defeating a kaijin with a Special Move"
+    },
+    "0x0041f0a8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy Defeat Count (0 = Min, 9999 = Max)\nIncreases when the player defeats a trooper"
+    },
+    "0x0041f237": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Kaijin Files Found (0 = No, 1 = Yes)\nBit1 | Garagaranda\nBit2 | Worm Man\nBit3 | Semiminga\nBit4 | Gillizames\nBit5 | Siomaneking\nBit6 | Sea Dragons\nBit7 | Imorigues"
+    },
+    "0x0041f238": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Kaijin Files Found (0 = No, 1 = Yes)\nBit0 | Kamikirikid\nBit1 | Hell Chameleon Transmigrated\nBit2 | Hilchameleon\nBit3 | Ganikoumoru\nBit4 | Sasori Tokagues\nBit5 | Utsubo Games\nBit6 | Washi Kamaguilli\nBit7 | Haetori Bachi"
+    },
+    "0x0041f239": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Kaijin Files Found (0 = No, 1 = Yes)\nBit0 | Isoguin Jaguar\nBit1 | Isoguin Jaguar Transmigrated\nBit2 | Sasori Tokagues Transmigrated\nBit3 | Ika Devil\nBit4 | Goaster\nBit5 | Namekujira\nBit6 | Hilguerrilla\nBit7 | Kamestone"
+    },
+    "0x0041f23a": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Kaijin Files Found (0 = No, 1 = Yes)\nBit0 | Gilgamess\nBit1 | Namazugillar\nBit2 | Zanjioh\nBit3 | Zanjioh Strengthened\nBit4 | Golden Wolf Man\nBit5 | Man Spider\nBit6 | Sarracenian\nBit7 | Sabotegron"
+    },
+    "0x0041f23b": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Kaijin Files Found (0 = No, 1 = Yes)\nBit0 | Dokugander\nBit1 | Armadillong\nBit2 | Eiking\nBit3 | Bee Woman\nBit4 | Bone Combatman\nBit5 | Shocker Scientists\nBit6 | Black Combatman\nBit7 | Reinforced Shocker Combatmen"
+    },
+    "0x0041f23c": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Kaijin Files Found (0 = No, 1 = Yes)\nBit0 | Red Combatman\nBit1 | Reinforced Shocker Combatmen (Red)\nBit2 | Gel Shocker Combatmen\nBit3 | Gel Shocker Scientists\nBit4 | Wolf Combatmen\nBit5 | Colonel Zol\nBit6 | Ambassador Hell\nBit7 | Dr. Shinigami"
+    },
+    "0x0041f23d": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Kaijin Files Found (0 = No, 1 = Yes)\nBit0 | General Black\nBit1 | Evil Eye Complete Form\nBit2 | Evil Eye Ultimate Form"
+    },
+    "0x0041f25c": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Keywords Found (0 = No, 1 = Yes)\nBit4 | Elevator Operation\nBit5 | Gate Controller\nBit6 | Transformer Repair"
+    },
+    "0x0041f25d": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Keywords Found (0 = No, 1 = Yes)\nBit0 | Punch Cards\nBit1 | Magnetic Lock\nBit2 | Barcode Key\nBit3 | Pool Control Device\nBit4 | Lift\nBit5 | A-33\nBit6 | Electromagnetic Shield\nBit7 | Ventilation System"
+    },
+    "0x0041f25e": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Keywords Found (0 = No, 1 = Yes)\nBit0 | Magnetic Field Generator\nBit1 | Infrared Sensor\nBit2 | Barrier Control Device\nBit3 | Director's Office Power"
+    },
+    "0x0041f3d3": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files Found (0 = No, 1 = Yes)\nBit4 | Gameplay Manual 1\nBit5 | Gameplay Manual 2\nBit6 | Gameplay Manual 3\nBit7 | Gameplay Manual 4"
+    },
+    "0x0041f3d4": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files and Keywords Found (0 = No, 1 = Yes)\nBit0 | Gameplay Manual 5\nBit1 | Gameplay Manual 6\nBit2 | Gate Controller\nBit3 | Gate Controller Manual\nBit4 | Power Plant Fuel Pool Device\nBit5 | Pool Control Device Manual\nBit6 | Notice from Security\nBit7 | Magnetic Lock Door"
+    },
+    "0x0041f3d5": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files and Keywords Found (0 = No, 1 = Yes)\nBit0 | Base Armory\nBit1 | Room Access Code Change Order\nBit2 | Anti-Intruder Program 1\nBit3 | Work Report\nBit4 | Ambassador Hell's Operation Plan\nBit5 | Undersea Base Mock-Up\nBit6 | Hieroglyphic Genetic Blueprint\nBit7 | IC Recorder"
+    },
+    "0x0041f3d6": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files and Keywords Found (0 = No, 1 = Yes)\nBit0 | Director's Notes 4\nBit1 | Undersea Base Construction Report\nBit2 | Time-Space Transfer Control Device\nBit3 | ………………………\nBit4 | Storage Record Fragment\nBit5 | Newspaper Clipping\nBit6 | Transformer Repair Report\nBit7 | Director's Memo 1"
+    },
+    "0x0041f3d7": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files and Keywords Found (0 = No, 1 = Yes)\nBit0 | Gene Fusion Experiment Record\nBit1 | General Black's Operation Plan\nBit2 | Director's Computer\nBit3 | Scientist's Memo\nBit4 | Machine Key\nBit5 | Base Main Passage\nBit6 | Switchboard\nBit7 | Combatant's Memo"
+    },
+    "0x0041f3d8": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files Found (0 = No, 1 = Yes)\nBit0 | Director's Notes 3\nBit1 | Small Cassette Recorder\nBit2 | Transmission Line Change Rules\nBit3 | About the Director's Office Power\nBit4 | Letter from Yuki\nBit5 | Unfinished Letter\nBit6 | Director's Memo 2\nBit7 | Doctor Shinigami's Operation Plan 1"
+    },
+    "0x0041f3d9": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files and Keywords Found (0 = No, 1 = Yes)\nBit0 | Doctor Shinigami's Operation Plan 2\nBit1 | Anti-Intruder Program 2\nBit2 | Shocker Scientist's Diary\nBit3 | Cassette Recorder\nBit4 | Director's Notes 2\nBit5 | Power Plant Staff Memo\nBit6 | Ventilation System Manual\nBit7 | Ventilation Device"
+    },
+    "0x0041f3da": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files Found (0 = No, 1 = Yes)\nBit0 | Random Number Table\nBit1 | Research Tape Organization\nBit2 | Research Report\nBit3 | Shocker Leader's Orders\nBit4 | TIERRA Transfer Record\nBit5 | Shocker Scientist Roster\nBit6 | Colonel Zol's Operation Plan\nBit7 | Director's Notes 1"
+    },
+    "0x0041f3db": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Files and Keywords Found (0 = No, 1 = Yes)\nBit0 | Tape Recorder\nBit1 | Turbine Room\nBit2 | Electromagnetic Shield Device"
+    },
+    "0x0041f606": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Script Flags 10000-10007\nBit 5 | Script Flag 10005 - Rider Select active\nBit 6 | Script Flag 10006 - Clear-data flag"
+    },
+    "0x00424776": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Ichigo Recovery Item Slot 1 ID\n0xffff | Empty\n0x07d1 | Life Pack L\n0x07d2 | Rider Energy S\n0x07d3 | Rider Energy L\n0x07d4 | Life Pack S"
+    },
+    "0x0042479a": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Ichigo Recovery Item Slot 2 ID\nSame as @0x00424776"
+    },
+    "0x004247be": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Ichigo Recovery Item Slot 3 ID\nSame as @0x00424776"
+    },
+    "0x004247e2": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Ichigo Recovery Item Slot 4 ID\nSame as @0x00424776"
+    },
+    "0x00424806": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Ichigo Recovery Item Slot 5 ID\nSame as @0x00424776"
+    },
+    "0x0042482a": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Ichigo Recovery Item Slot 6 ID\nSame as @0x00424776"
+    },
+    "0x00424926": {
+      "author": "Yabashiri",
+      "note": "[16-bit] V3 Recovery Item Slot 1 ID\nSame as @0x00424776"
+    },
+    "0x0042494a": {
+      "author": "Yabashiri",
+      "note": "[16-bit] V3 Recovery Item Slot 2 ID\nSame as @0x00424776"
+    },
+    "0x0042496e": {
+      "author": "Yabashiri",
+      "note": "[16-bit] V3 Recovery Item Slot 3 ID\nSame as @0x00424776"
+    },
+    "0x00424992": {
+      "author": "Yabashiri",
+      "note": "[16-bit] V3 Recovery Item Slot 4 ID\nSame as @0x00424776"
+    },
+    "0x004249b6": {
+      "author": "Yabashiri",
+      "note": "[16-bit] V3 Recovery Item Slot 5 ID\nSame as @0x00424776"
+    },
+    "0x004249da": {
+      "author": "Yabashiri",
+      "note": "[16-bit] V3 Recovery Item Slot 6 ID\nSame as @0x00424776"
+    },
+    "0x00424ad6": {
+      "author": "Yabashiri",
+      "note": "[16-bit] BLACK Recovery Item Slot 1 ID\nSame as @0x00424776"
+    },
+    "0x00424afa": {
+      "author": "Yabashiri",
+      "note": "[16-bit] BLACK Recovery Item Slot 2 ID\nSame as @0x00424776"
+    },
+    "0x00424b1e": {
+      "author": "Yabashiri",
+      "note": "[16-bit] BLACK Recovery Item Slot 3 ID\nSame as @0x00424776"
+    },
+    "0x00424b42": {
+      "author": "Yabashiri",
+      "note": "[16-bit] BLACK Recovery Item Slot 4 ID\nSame as @0x00424776"
+    },
+    "0x00424b66": {
+      "author": "Yabashiri",
+      "note": "[16-bit] BLACK Recovery Item Slot 5 ID\nSame as @0x00424776"
+    },
+    "0x00424b8a": {
+      "author": "Yabashiri",
+      "note": "[16-bit] BLACK Recovery Item Slot 6 ID\nSame as @0x00424776"
+    },
+    "0x00424c86": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Agito Recovery Item Slot 1 ID\nSame as @0x00424776"
+    },
+    "0x00424caa": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Agito Recovery Item Slot 2 ID\nSame as @0x00424776"
+    },
+    "0x00424cce": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Agito Recovery Item Slot 3 ID\nSame as @0x00424776"
+    },
+    "0x00424cf2": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Agito Recovery Item Slot 4 ID\nSame as @0x00424776"
+    },
+    "0x00424d16": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Agito Recovery Item Slot 5 ID\nSame as @0x00424776"
+    },
+    "0x00424d3a": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Agito Recovery Item Slot 6 ID\nSame as @0x00424776"
+    },
+    "0x00424d5e": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Key Item Slot 1\n0x03e8 | Lever\n0x03e9 | Plant ID Card LV2\n0x03ea | Plant ID Card LV1\n0x03eb | Elevator Start Key\n0x03ec | Shocker Card\n0x03ed | Shocker Card\n0x03ee | Gas Room Key\n0x03ef | Shocker Card\n0x03f0 | Elevator Start Key\n0x03f1 | Unlock Key / Central Control Room\n0x03f2 | Unlock Key / Substation Room\n0x03f3 | Unlock Key / A6\n0x03f4 | Power Routing Key\n0x03f5 | Bulkhead Key\n0x03f6 | Escape Key\n0x03f7 | Jumper Cable\n0x03f8 | Turbine Room Key\n0x03f9 | Red Punch Card\n0x03fa | Blue Punch Card\n0x03fb | Green Punch Card\n0x03fc | Magnetic Key\n0x03fd | Tape Recorder\n0x03fe | Cassette Recorder\n0x03ff | Small Cassette Recorder\n0x0400 | IC Recorder\n0x0401 | Passcode Blank\n0x0402 | Passcode Failed\n0x0403 | Barcode Key\n0x0404 | IC Chip Card\n0x0405 | Data Stick\n0x0406 | Gold Plate\n0x0407 | Green Plate\n0x0408 | Black Plate\n0x0409 | Shocker Medal\n0x040a | Machine Key\n0x040b | Plant ID Card LV1\n0x040c | Gravity Stop Card\n0x040d | Gold Plate\n0x040e | Shocker Key"
+    },
+    "0x00424d82": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Key Item Slot 2\nSame as @0x424d5e"
+    },
+    "0x00424da6": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Key Item Slot 3\nSame as @0x424d5e"
+    },
+    "0x00424dca": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Key Item Slot 4\nSame as @0x424d5e"
+    },
+    "0x00424dee": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Key Item Slot 5\nSame as @0x424d5e"
+    },
+    "0x00424e14": {
+      "author": "Yabashiri",
+      "note": "[16-bit] Key Item Slot 6\nSame as @0x424d5e"
+    },
+    "0x00428234": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Game Save Counter"
+    },
+    "0x00428248": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Recovery Items Found"
+    },
+    "0x0042824c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Recovery Items Used"
+    },
+    "0x0042c148": {
+      "author": "Yabashiri",
+      "note": "[16-bit] [Bitfield] Play Data\nBits 0-2   | Best Final Game Rank\nBits 3-5   | Best Bike Rank - V3 Route\nBits 6-8   | Best Bike Rank - Ichigo Route\nBit 9      | Character Select Unlocked (0 = No, 1 = Yes)\nBit 10     | Has Clear Data (0 = No, 1 = Yes)\nBits 11-13 | Character Save Metadata\nBits 14-15 | Unknown\n\nGame Rank values:\n0x0 | E\n0x1 | D\n0x2 | C\n0x3 | B\n0x4 | A\n0x5 | S"
+    },
+    "0x0042c149": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Play Data +0x1\nBit 0 | Best Bike Rank - Ichigo Route bit 2\nBit 1 | Character Select Unlocked\nBit 2 | Has Clear Data\nBits 3-5 | Character Save Metadata\nBits 6-7 | Unknown"
+    },
+    "0x0042c19c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] [Bitfield] Museum Entries (0 = Locked, 1 = Unlocked)\nBit0 | Garagaranda\nBit1 | Worm Man\nBit2 | Semiminga\nBit3 | Gillizames\nBit4 | Siomaneking\nBit5 | Sea Dragons\nBit6 | Imorigues\nBit7 | Kamikirikid\nBit8 | Hell Chameleon Transmigrated\nBit9 | Hilchameleon\nBit10 | Ganikoumoru\nBit11 | Sasori Tokagues\nBit12 | Utsubo Games\nBit13 | Washi Kamaguilli\nBit14 | Haetori Bachi\nBit15 | Isoguin Jaguar\nBit16 | Isoguin Jaguar Transmigrated\nBit17 | Sasori Tokagues Transmigrated\nBit18 | Ika Devil\nBit19 | Goaster\nBit20 | Namekujira\nBit21 | Hilguerrilla\nBit22 | Kamestone\nBit23 | Gilgamess\nBit24 | Namazugillar\nBit25 | Zanjioh\nBit26 | Zanjioh Strengthened\nBit27 | Golden Wolf Man\nBit28 | Man Spider\nBit29 | Sarracenian\nBit30 | Sabotegron\nBit31 | Dokugander"
+    },
+    "0x0042c1a0": {
+      "author": "Yabashiri",
+      "note": "[32-bit] [Bitfield] Museum Entries (0 = Locked, 1 = Unlocked)\nBit0 | Armadillong\nBit1 | Eiking\nBit2 | Bee Woman\nBit3 | Bone Combatman\nBit4 | Shocker Scientists\nBit5 | Black Combatman\nBit6 | Reinforced Shocker Combatmen\nBit7 | Red Combatman\nBit8 | Reinforced Shocker Combatmen (Red)\nBit9 | Gel Shocker Combatmen\nBit10 | Gel Shocker Scientists\nBit11 | Wolf Combatmen\nBit12 | Colonel Zol\nBit13 | Ambassador Hell\nBit14 | Dr. Shinigami\nBit15 | General Black\nBit16 | Evil Eye Complete Form\nBit17 | Evil Eye Ultimate Form"
+    },
+    "0x00445770": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Player Character State Flags\nBit 0 | Player character exists in the current scene\nBit 6 | Attack active\nBit 7 | Counter attack active"
+    },
+    "0x004457e8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Current Player Action ID\n0x21-0x33 | Jump states\n0x36 | Start Energy Charge\n0x37 | Special Move\n0x38 | Energy Charge\n0x8F-0x90 | Throw\n0xD6 | Burst Attack\n0xD7 | Start Rampage\n0xD8 | Rampage Dash\n0xD9 | Rampage Punch\n0xDA-0xDB | Return from Rampage"
+    },
+    "0x0044badc": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Current Player Character\n0x00 | Kamen Rider Ichigo\n0x01 | Hongo Takeshi\n0x02 | Kamen Rider V3\n0x03 | Ichimonji Hayato\n0x04 | Kamen Rider Black\n0x05 | Minami Kotaro\n0x06 | Kamen Rider Agito\n0x07 | Tsugami Shouichi"
+    },
+    "0x0044bae4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Current Player Health\n0xfffff7 | Game Over"
+    },
+    "0x0044bae8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Maximum Player Health"
+    },
+    "0x0044e938": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Special Gauge"
+    },
+    "0x0044e968": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Low Power Punch Level (0 = Lv1, 1 = Lv2, 2 = Lv3)"
+    },
+    "0x0044e96c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] High Power Punch Level (0 = Lv1, 1 = Lv2, 2 = Lv3)"
+    },
+    "0x0044e970": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Low Power Kick Level (0 = Lv1, 1 = Lv2, 2 = Lv3)"
+    },
+    "0x0044e974": {
+      "author": "Yabashiri",
+      "note": "[32-bit] High Power Kick Level (0 = Lv1, 1 = Lv2, 2 = Lv3)"
+    },
+    "0x0044e978": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Low Power Punch Move EXP\n0x00 - 0x095 | Lv1\n0x96 - 0x0f9 | Lv2\n0xfa+ | Lv3"
+    },
+    "0x0044e97c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] High Power Punch Move EXP\n0x00 - 0x095 | Lv1\n0x96 - 0x0f9 | Lv2\n0xfa+ | Lv3"
+    },
+    "0x0044e980": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Low Power Kick Move EXP\n0x00 - 0x095 | Lv1\n0x96 - 0x0f9 | Lv2\n0xfa+ | Lv3"
+    },
+    "0x0044e984": {
+      "author": "Yabashiri",
+      "note": "[32-bit] High Power Kick Move EXP\n0x00 - 0x095 | Lv1\n0x96 - 0x0f9 | Lv2\n0xfa+ | Lv3"
+    },
+    "0x0049dea0": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 1 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x0049dea3": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 1 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x0049df18": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 1 Current Action ID\n0x127 | Sasori Tokagues Poison Attack\n0x12B | Semiminga Circle Attack Windup\n0x12D | Semiminga Circle Attack"
+    },
+    "0x004a420c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 1 Model ID\n0x1C | Bone Combatman\n0x1D | Wolf Combatman\n0x1E | Black Combatman\n0x1F | Reinforced Shocker Combatman\n0x20 | Red Combatman\n0x21 | Reinforced Shocker Combatman (Red)\n0x22 | Shocker Scientist\n0x23 | Gel Shocker Combatman\n0x24 | Gel Shocker Scientist\n0x26 | Garagaranda\n0x27 | Worm Man\n0x28 | Semiminga\n0x29 | Gillizames\n0x2A | Siomaneking\n0x2B | Sea Dragons\n0x2E | Imorigues\n0x2F | Kamikirikid\n0x30 | Hell Chameleon Transmigrated\n0x31 | Hilchameleon\n0x32 | Ganikoumoru\n0x33 | Sasori Tokagues\n0x34 | Sasori Tokagues Transmigrated\n0x35 | Utsubo Games\n0x36 | Washi Kamaguilli\n0x37 | Haetori Bachi\n0x38 | Isoguin Jaguar\n0x39 | Isoguin Jaguar Transmigrated\n0x3A | Ika Devil\n0x3B | Goaster\n0x3C | Namekujira\n0x3D | Hilguerrilla\n0x3E | Kamestone\n0x3F | Gillizames\n0x40 | Namazugillar\n0x41 | Zanjioh\n0x42 | Zanjioh Strengthened\n0x43 | Golden Wolf Man\n0x44 | Man Spider\n0x45 | Sarracenian\n0x46 | Sabotegron\n0x47 | Dokugander\n0x48 | Armadillong\n0x49 | Eiking\n0x4A | Bee Woman\n0x4C | Evil Eye Complete Form\n0x52 | Evil Eye Ultimate Form"
+    },
+    "0x004a4214": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 1 Current Health\n0xFFFFFFE8 | Death State"
+    },
+    "0x004a4218": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 1 Maximum Health"
+    },
+    "0x004a7390": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 2 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x004a7393": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 2 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x004ad6fc": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 2 Model ID\nSame as @0x004A420C"
+    },
+    "0x004ad704": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 2 Current Health"
+    },
+    "0x004ad708": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 2 Maximum Health"
+    },
+    "0x004b0880": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 3 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x004b0883": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 3 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x004b6bec": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 3 Model ID\nSame as @0x004A420C"
+    },
+    "0x004b6bf4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 3 Current Health"
+    },
+    "0x004b6bf8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 3 Maximum Health"
+    },
+    "0x004b9d70": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 4 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x004b9d73": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 4 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x004c00dc": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 4 Model ID\nSame as @0x004A420C"
+    },
+    "0x004c00e4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 4 Current Health"
+    },
+    "0x004c00e8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 4 Maximum Health"
+    },
+    "0x004c3260": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 5 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x004c3263": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 5 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x004c95cc": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 5 Model ID\nSame as @0x004A420C"
+    },
+    "0x004c95d4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 5 Current Health"
+    },
+    "0x004c95d8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 5 Maximum Health"
+    },
+    "0x004cc750": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 6 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x004cc753": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 6 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x004d2abc": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 6 Model ID\nSame as @0x004A420C"
+    },
+    "0x004d2ac4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 6 Current Health"
+    },
+    "0x004d2ac8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 6 Maximum Health"
+    },
+    "0x004d5c40": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 7 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x004d5c43": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 7 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x004dbfac": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 7 Model ID\nSame as @0x004A420C"
+    },
+    "0x004dbfb4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 7 Current Health"
+    },
+    "0x004dbfb8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 7 Maximum Health"
+    },
+    "0x004df130": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 8 Character State Flags\nBit 0 | Character slot active"
+    },
+    "0x004df133": {
+      "author": "Yabashiri",
+      "note": "[8-bit] [Bitfield] Enemy 8 Death State Flags\nBit 0 | Dead state"
+    },
+    "0x004e549c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 8 Model ID\nSame as @0x004A420C"
+    },
+    "0x004e54a4": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 8 Current Health"
+    },
+    "0x004e54a8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Enemy 8 Maximum Health"
+    },
+    "0x005a4cb8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Full Henshin Scene\n0x01 | Kamen Rider Ichigo\n0x02 | Kamen Rider V3\n0x03 | Kamen Rider Black\n0x04 | Kamen Rider Agito\n0x05 | Kamen Rider Nigo"
+    },
+    "0x005e91d8": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Item Menu Command Cursor Position\n0 | Use\n1 | Set\n0xffffffff | No command selected / menu closed"
+    },
+    "0x005f5a3c": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Museum Battle Selected Character\n0x00 | Ichigo\n0x01 | V3\n0x02 | Black\n0x03 | Agito\n0x04 | Nigo"
+    },
+    "0x005f5a40": {
+      "author": "Yabashiri",
+      "note": "[32-bit] Museum Battle Selected Opponent\n0x10 | Isoguin Jaguar Transmigrated\n0x11 | Sasori Tokagues"
+    }
+  }
+}
